@@ -115,6 +115,20 @@ const ENCYCLOPEDIA_DATABASE = [
   { id: "PST-016", name: "Oak Lace Bug damage", scientific_name: "Corythucha arcuata", category: "Pest", severity: "Moderate" }
 ];
 
+// --- COMMON SYMPTOMS FOR USER SELECTION ---
+const COMMON_SYMPTOMS = [
+  { id: "sym-1", text: "White powdery patches on leaves", diseaseCode: "FNG-001" },
+  { id: "sym-2", text: "Circular black spots with yellow halos", diseaseCode: "FNG-002" },
+  { id: "sym-3", text: "Brown spots with target-like concentric rings", diseaseCode: "FNG-003" },
+  { id: "sym-4", text: "Greasy, water-soaked dark lesions", diseaseCode: "FNG-004" },
+  { id: "sym-5", text: "Leaves curling upwards and yellowing", diseaseCode: "VRL-002" },
+  { id: "sym-6", text: "Sunken dark leathery spots on fruit", diseaseCode: "NTR-006" },
+  { id: "sym-7", text: "Leaf margins drying, browning or bronzing", diseaseCode: "FNG-015" },
+  { id: "sym-8", text: "Sunken orange-brown bark cankers on stems", diseaseCode: "FNG-016" },
+  { id: "sym-9", text: "Sudden wilting or flagging of branches", diseaseCode: "FNG-017" },
+  { id: "sym-10", text: "Visible pests, webbing or sticky residue", diseaseCode: "PST-001" }
+];
+
 // --- DYNAMIC PATHOLOGY DATA GENERATOR ---
 function getExtendedDiseaseReport(base, plantName) {
   const name = base.name;
@@ -576,6 +590,7 @@ export default function App() {
   const [tagFieldId, setTagFieldId] = useState('');
   const [simulateInvalidSpecimen, setSimulateInvalidSpecimen] = useState(false);
   const [scanError, setScanError] = useState(null);
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   
   // Before/After compare states
   const [beforeImage, setBeforeImage] = useState(null);
@@ -1016,8 +1031,8 @@ export default function App() {
         if (frontCameraImage) allBase64Images.push(frontCameraImage);
         if (rearCameraImage) allBase64Images.push(rearCameraImage);
         uploadedFiles.forEach(img => allBase64Images.push(img));
-
-        const systemPrompt = `You are Angio-Care's expert plant pathologist AI with 30 years of experience in diagnosing diseases of plants, trees, and shrubs worldwide. First, verify if the provided image contains a plant, leaf, tree, stem, or root specimen. If it does NOT contain a plant or agricultural specimen, you MUST respond with a valid JSON object (no markdown, no backticks) with this exact structure: { "error": "invalid_specimen", "message": "The uploaded image is not recognized as a plant specimen. Please upload a clear photo of a leaf, branch, stem, or plant part." }. Otherwise, diagnose the disease affecting the plant. The user says the plant is: ${nameToUse}. Respond ONLY with a valid JSON object (no markdown, no backticks) with this exact structure: { disease_name, disease_code (e.g. FNG-001), category (Fungal|Bacterial|Viral|Nematodal|Abiotic|Pest|Nutritional Deficiency), confidence (0-100), severity (Mild|Moderate|Severe|Critical), affected_parts (array), symptoms_observed (array), cause, disease_description, spread_risk (Low|Medium|High|Very High), if_untreated, treatment_plan: { immediate_actions (array), chemical_treatments (array of: chemical_name, active_ingredient, dosage, application_method, frequency, safety_precautions, approximate_cost), organic_alternatives (array of: remedy, preparation, application), preventive_measures (array) }, recovery_timeline, follow_up_care (array), seasonal_risk, similar_diseases (array), expert_tip }`;
+        const symptomContext = selectedSymptoms.length > 0 ? ` The user also observed these symptoms on the leaf/stem: ${selectedSymptoms.join(', ')}.` : '';
+        const systemPrompt = `You are Angio-Care's expert plant pathologist AI with 30 years of experience in diagnosing diseases of plants, trees, and shrubs worldwide. First, verify if the provided image contains a plant, leaf, tree, stem, or root specimen. If it does NOT contain a plant or agricultural specimen, you MUST respond with a valid JSON object (no markdown, no backticks) with this exact structure: { "error": "invalid_specimen", "message": "The uploaded image is not recognized as a plant specimen. Please upload a clear photo of a leaf, branch, stem, or plant part." }. Otherwise, diagnose the disease affecting the plant. The user says the plant is: ${nameToUse}.${symptomContext} Respond ONLY with a valid JSON object (no markdown, no backticks) with this exact structure: { disease_name, disease_code (e.g. FNG-001), category (Fungal|Bacterial|Viral|Nematodal|Abiotic|Pest|Nutritional Deficiency), confidence (0-100), severity (Mild|Moderate|Severe|Critical), affected_parts (array), symptoms_observed (array), cause, disease_description, spread_risk (Low|Medium|High|Very High), if_untreated, treatment_plan: { immediate_actions (array), chemical_treatments (array of: chemical_name, active_ingredient, dosage, application_method, frequency, safety_precautions, approximate_cost), organic_alternatives (array of: remedy, preparation, application), preventive_measures (array) }, recovery_timeline, follow_up_care (array), seasonal_risk, similar_diseases (array), expert_tip }`;
 
         // Direct Anthropic Messages API payload
         const response = await fetch(proxyUrl || 'https://api.anthropic.com/v1/messages', {
@@ -1077,69 +1092,91 @@ export default function App() {
         let diseaseId = null;
         const lowerPlant = nameToUse.toLowerCase();
 
-        if (lowerPlant.includes("rose")) {
-          const ids = ["FNG-001", "FNG-002", "FNG-005", "PST-001", "VRL-007"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("tomato")) {
-          const ids = ["FNG-003", "FNG-004", "VRL-002", "NTR-006"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("potato")) {
-          const ids = ["FNG-003", "FNG-004", "NMT-002", "BCT-005"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("grape")) {
-          const ids = ["FNG-008", "FNG-001", "FNG-006", "BCT-008"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("apple") || lowerPlant.includes("pear")) {
-          const ids = ["BCT-003", "FNG-012", "BCT-009"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("mango") || lowerPlant.includes("papaya")) {
-          const ids = ["FNG-006", "VRL-003", "PST-003", "FNG-020"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("banana")) {
-          const ids = ["VRL-004", "FNG-009"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("wheat") || lowerPlant.includes("rice") || lowerPlant.includes("corn") || lowerPlant.includes("maize")) {
-          const ids = ["FNG-005", "BCT-001", "NTR-001", "NTR-003"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("orange") || lowerPlant.includes("lemon") || lowerPlant.includes("citrus")) {
-          const ids = ["BCT-006", "VRL-005", "NTR-002", "FNG-019", "VRL-010", "PST-011"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("oak")) {
-          const ids = ["FNG-015", "FNG-022", "PST-016"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("pine")) {
-          const ids = ["FNG-021", "FNG-025", "NMT-003", "PST-012"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("chestnut")) {
-          const ids = ["FNG-016"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("elm")) {
-          const ids = ["FNG-017"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("coffee")) {
-          const ids = ["FNG-018", "BCT-005"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("coconut") || lowerPlant.includes("palm")) {
-          const ids = ["BCT-010", "NMT-004", "PST-013"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("ash")) {
-          const ids = ["BCT-012", "PST-009"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("maple")) {
-          const ids = ["FNG-023"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("olive")) {
-          const ids = ["BCT-007"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("cacao")) {
-          const ids = ["VRL-008"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
-        } else if (lowerPlant.includes("plum") || lowerPlant.includes("cherry")) {
-          const ids = ["VRL-006", "VRL-009", "VRL-011", "FNG-027"];
-          diseaseId = ids[Math.floor(Math.random() * ids.length)];
+        // 1. Check if the user selected any symptoms
+        const activeSymptomObj = COMMON_SYMPTOMS.find(s => selectedSymptoms.includes(s.text));
+        
+        if (activeSymptomObj) {
+          diseaseId = activeSymptomObj.diseaseCode;
         } else {
-          const randomBase = ENCYCLOPEDIA_DATABASE[Math.floor(Math.random() * ENCYCLOPEDIA_DATABASE.length)];
-          diseaseId = randomBase.id;
+          // 2. Search for disease name or scientific name keyword in plant name input text
+          let matchedDisease = null;
+          for (const disease of ENCYCLOPEDIA_DATABASE) {
+            if (lowerPlant.includes(disease.name.toLowerCase()) || 
+                (disease.scientific_name && lowerPlant.includes(disease.scientific_name.toLowerCase()))) {
+              matchedDisease = disease;
+              break;
+            }
+          }
+          
+          if (matchedDisease) {
+            diseaseId = matchedDisease.id;
+          } else {
+            // 3. Fallback to plant family mappings
+            if (lowerPlant.includes("rose")) {
+              const ids = ["FNG-001", "FNG-002", "FNG-005", "PST-001", "VRL-007"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("tomato")) {
+              const ids = ["FNG-003", "FNG-004", "VRL-002", "NTR-006"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("potato")) {
+              const ids = ["FNG-003", "FNG-004", "NMT-002", "BCT-005"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("grape")) {
+              const ids = ["FNG-008", "FNG-001", "FNG-006", "BCT-008"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("apple") || lowerPlant.includes("pear")) {
+              const ids = ["BCT-003", "FNG-012", "BCT-009"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("mango") || lowerPlant.includes("papaya")) {
+              const ids = ["FNG-006", "VRL-003", "PST-003", "FNG-020"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("banana")) {
+              const ids = ["VRL-004", "FNG-009"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("wheat") || lowerPlant.includes("rice") || lowerPlant.includes("corn") || lowerPlant.includes("maize")) {
+              const ids = ["FNG-005", "BCT-001", "NTR-001", "NTR-003"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("orange") || lowerPlant.includes("lemon") || lowerPlant.includes("citrus")) {
+              const ids = ["BCT-006", "VRL-005", "NTR-002", "FNG-019", "VRL-010", "PST-011"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("oak")) {
+              const ids = ["FNG-015", "FNG-022", "PST-016"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("pine")) {
+              const ids = ["FNG-021", "FNG-025", "NMT-003", "PST-012"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("chestnut")) {
+              const ids = ["FNG-016"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("elm")) {
+              const ids = ["FNG-017"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("coffee")) {
+              const ids = ["FNG-018", "BCT-005"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("coconut") || lowerPlant.includes("palm")) {
+              const ids = ["BCT-010", "NMT-004", "PST-013"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("ash")) {
+              const ids = ["BCT-012", "PST-009"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("maple")) {
+              const ids = ["FNG-023"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("olive")) {
+              const ids = ["BCT-007"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("cacao")) {
+              const ids = ["VRL-008"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else if (lowerPlant.includes("plum") || lowerPlant.includes("cherry")) {
+              const ids = ["VRL-006", "VRL-009", "VRL-011", "FNG-027"];
+              diseaseId = ids[Math.floor(Math.random() * ids.length)];
+            } else {
+              const randomBase = ENCYCLOPEDIA_DATABASE[Math.floor(Math.random() * ENCYCLOPEDIA_DATABASE.length)];
+              diseaseId = randomBase.id;
+            }
+          }
         }
 
         const selectedBase = ENCYCLOPEDIA_DATABASE.find(d => d.id === diseaseId);
@@ -1241,6 +1278,7 @@ export default function App() {
     setAfterImage(null);
     setScanError(null);
     setSimulateInvalidSpecimen(false);
+    setSelectedSymptoms([]);
   };
 
   // --- BEFORE / AFTER COMPARATIVE ENGINE ---
@@ -2256,6 +2294,27 @@ export default function App() {
                 <div className="card-glass" style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto', width: '100%' }}>
                   <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center' }}>Initialize Plant Diagnosis</h2>
 
+                  {apiMode === 'mock' && (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      padding: '1.5rem',
+                      borderRadius: '8px',
+                      backgroundColor: 'rgba(217, 119, 6, 0.12)',
+                      border: '1px solid rgba(217, 119, 6, 0.3)',
+                      marginBottom: '1.5rem',
+                      color: '#fbbf24',
+                      fontSize: '0.85rem',
+                      lineHeight: '1.5'
+                    }}>
+                      <AlertTriangle size={20} style={{ flexShrink: 0, color: '#f59e0b' }} />
+                      <div style={{ flexGrow: 1 }}>
+                        <strong>Demo Mode Active:</strong> Running diagnostics with mock engine. For real-world leaf scans and high-precision visual analysis, configure your <span style={{ textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', color: '#f59e0b' }} onClick={() => setActiveTab('settings')}>Anthropic Claude API Key in Settings</span>.
+                      </div>
+                    </div>
+                  )}
+
                   {/* Plant Autocomplete */}
                   <div style={{ marginBottom: '1.5rem', position: 'relative' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
@@ -2315,6 +2374,60 @@ export default function App() {
                           ))}
                         </div>
                       )}
+                    </div>
+                  </div>
+
+                  {/* Visual Symptoms Checklist */}
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>
+                      OBSERVED PLANT SYMPTOMS (OPTIONAL - FOR ACCURATE PATHOLOGY MATCHING)
+                    </label>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                      gap: '0.75rem',
+                      padding: '1rem',
+                      borderRadius: '8px',
+                      backgroundColor: 'var(--surface-light)',
+                      border: '1px solid var(--border-color)',
+                      maxHeight: '220px',
+                      overflowY: 'auto'
+                    }}>
+                      {COMMON_SYMPTOMS.map((sym) => {
+                        const isChecked = selectedSymptoms.includes(sym.text);
+                        return (
+                          <label
+                            key={sym.id}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                              gap: '0.5rem',
+                              fontSize: '0.85rem',
+                              color: isChecked ? 'var(--accent-color)' : 'var(--text-primary)',
+                              cursor: 'pointer',
+                              padding: '0.5rem',
+                              borderRadius: '6px',
+                              transition: 'all 0.2s ease',
+                              backgroundColor: isChecked ? 'rgba(46, 117, 89, 0.15)' : 'transparent',
+                              border: isChecked ? '1px solid rgba(46, 117, 89, 0.3)' : '1px solid transparent'
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              style={{ marginTop: '0.15rem', accentColor: 'var(--accent-color)' }}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setSelectedSymptoms([...selectedSymptoms, sym.text]);
+                                } else {
+                                  setSelectedSymptoms(selectedSymptoms.filter(item => item !== sym.text));
+                                }
+                              }}
+                            />
+                            <span>{sym.text}</span>
+                          </label>
+                        );
+                      })}
                     </div>
                   </div>
 
