@@ -1023,16 +1023,62 @@ export default function App() {
     }
 
     try {
-      let finalReport = null;
-
-      if (apiMode === 'live' && apiKey) {
+      let finalReport = null;      if (apiMode === 'live' && apiKey) {
         // Prepare images base64 payload
         const allBase64Images = [];
         if (frontCameraImage) allBase64Images.push(frontCameraImage);
         if (rearCameraImage) allBase64Images.push(rearCameraImage);
         uploadedFiles.forEach(img => allBase64Images.push(img));
+        
         const symptomContext = selectedSymptoms.length > 0 ? ` The user also observed these symptoms on the leaf/stem: ${selectedSymptoms.join(', ')}.` : '';
-        const systemPrompt = `You are Angio-Care's expert plant pathologist AI with 30 years of experience in diagnosing diseases of plants, trees, and shrubs worldwide. First, verify if the provided image contains a plant, leaf, tree, stem, or root specimen. If it does NOT contain a plant or agricultural specimen, you MUST respond with a valid JSON object (no markdown, no backticks) with this exact structure: { "error": "invalid_specimen", "message": "The uploaded image is not recognized as a plant specimen. Please upload a clear photo of a leaf, branch, stem, or plant part." }. Otherwise, diagnose the disease affecting the plant. The user says the plant is: ${nameToUse}.${symptomContext} Respond ONLY with a valid JSON object (no markdown, no backticks) with this exact structure: { disease_name, disease_code (e.g. FNG-001), category (Fungal|Bacterial|Viral|Nematodal|Abiotic|Pest|Nutritional Deficiency), confidence (0-100), severity (Mild|Moderate|Severe|Critical), affected_parts (array), symptoms_observed (array), cause, disease_description, spread_risk (Low|Medium|High|Very High), if_untreated, treatment_plan: { immediate_actions (array), chemical_treatments (array of: chemical_name, active_ingredient, dosage, application_method, frequency, safety_precautions, approximate_cost), organic_alternatives (array of: remedy, preparation, application), preventive_measures (array) }, recovery_timeline, follow_up_care (array), seasonal_risk, similar_diseases (array), expert_tip }`;
+        const systemPrompt = `You are Angio-Care's expert plant pathologist AI with 30 years of experience in diagnosing diseases of plants, trees, and shrubs worldwide.
+First, check if the image is completely unrelated to botany, agriculture, or plants (e.g. a photo of a human face, a vehicle, a room, or document text). Only if it is completely unrelated, return a JSON object with this structure: { "error": "invalid_specimen", "message": "The uploaded image is not recognized as a plant specimen. Please upload a clear photo of a leaf, branch, stem, or plant part." }.
+If the image shows a leaf, spot, branch, bark, root, fruit, flower, tree trunk, crop canopy, or close-up plant texture (even if blurry, zoomed in, or partially damaged), treat it as a VALID specimen and proceed to diagnose.
+
+The user says the host plant species is: ${nameToUse}.${symptomContext}
+
+Diagnose the disease and respond ONLY with a single JSON object. Do NOT wrap the JSON in markdown code blocks, and do NOT include any conversational text before or after the JSON.
+The JSON must have this exact structure:
+{
+  "disease_name": "Name of the disease",
+  "disease_code": "Code like FNG-001 or VRL-002",
+  "category": "Fungal" | "Bacterial" | "Viral" | "Nematodal" | "Abiotic" | "Pest" | "Nutritional Deficiency",
+  "confidence": 0-100 integer,
+  "severity": "Mild" | "Moderate" | "Severe" | "Critical",
+  "affected_parts": ["leaves", "stems"],
+  "symptoms_observed": ["spotting", "yellowing"],
+  "cause": "Underlying pathogen or factor description",
+  "disease_description": "Detailed explanation of the pathology and symptoms",
+  "spread_risk": "Low" | "Medium" | "High" | "Very High",
+  "if_untreated": "Description of what happens if ignored",
+  "treatment_plan": {
+    "immediate_actions": ["Prune affected branches", "Isolate crop"],
+    "chemical_treatments": [
+      {
+        "chemical_name": "Product Name",
+        "active_ingredient": "Chemical compound name",
+        "dosage": "e.g. 2ml per Liter",
+        "application_method": "Foliar spray",
+        "frequency": "Once every 10 days",
+        "safety_precautions": "Wear mask/gloves",
+        "approximate_cost": "Cost estimate"
+      }
+    ],
+    "organic_alternatives": [
+      {
+        "remedy": "Neem Oil Solution",
+        "preparation": "Mix 5ml neem oil with water",
+        "application": "Spray early morning"
+      }
+    ],
+    "preventive_measures": ["Crop rotation", "Drip irrigation"]
+  },
+  "recovery_timeline": "e.g. 2-3 weeks",
+  "follow_up_care": ["Monitor new growth", "Avoid overhead watering"],
+  "seasonal_risk": "Spring and high humidity",
+  "similar_diseases": ["Powdery Mildew", "Septoria Leaf Spot"],
+  "expert_tip": "Pathologist advice tip"
+}`;
 
         // Direct Anthropic Messages API payload
         const response = await fetch(proxyUrl || 'https://api.anthropic.com/v1/messages', {
@@ -1051,14 +1097,23 @@ export default function App() {
               {
                 role: "user",
                 content: [
-                  ...allBase64Images.map(img => ({
-                    type: "image",
-                    source: {
-                      type: "base64",
-                      media_type: "image/jpeg",
-                      data: img.split(',')[1]
+                  ...allBase64Images.map(img => {
+                    const mimeMatch = img.match(/^data:(image\/[a-zA-Z+.-]+);base64,/);
+                    let mediaType = mimeMatch ? mimeMatch[1] : "image/jpeg";
+                    // Normalize standard mime-types that Anthropic supports
+                    if (mediaType === "image/jpg") mediaType = "image/jpeg";
+                    if (!["image/jpeg", "image/png", "image/gif", "image/webp"].includes(mediaType)) {
+                      mediaType = "image/jpeg"; // default fallback
                     }
-                  })),
+                    return {
+                      type: "image",
+                      source: {
+                        type: "base64",
+                        media_type: mediaType,
+                        data: img.split(',')[1]
+                      }
+                    };
+                  }),
                   {
                     type: "text",
                     text: `Analyze the uploaded images of a diseased ${nameToUse}.`
@@ -1074,8 +1129,29 @@ export default function App() {
         }
 
         const data = await response.json();
-        const contentText = data.content[0].text;
-        finalReport = JSON.parse(contentText);
+        let contentText = data.content[0].text.trim();
+        
+        let parsedReport = null;
+        try {
+          parsedReport = JSON.parse(contentText);
+        } catch (e) {
+          // Fallback to regex block extraction in case Claude outputs Markdown text around the JSON block
+          const jsonRegex = /\{[\s\S]*\}/;
+          const match = contentText.match(jsonRegex);
+          if (match) {
+            try {
+              parsedReport = JSON.parse(match[0]);
+            } catch (e2) {
+              console.error("Failed to parse regex-extracted JSON block:", e2);
+            }
+          }
+        }
+
+        if (!parsedReport) {
+          throw new Error("Could not parse a valid JSON diagnostic report from the AI response.");
+        }
+
+        finalReport = parsedReport;
         
         if (finalReport.error === 'invalid_specimen' || finalReport.error) {
           throw new Error(`invalid_specimen: ${finalReport.message || "Specimen validation failed."}`);
