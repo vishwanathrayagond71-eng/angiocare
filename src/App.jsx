@@ -571,6 +571,7 @@ function getExtendedDiseaseReport(base, plantName) {
   return {
     disease_name: name,
     disease_code: code,
+    scientific_name: scientific,
     category,
     confidence,
     severity,
@@ -882,12 +883,12 @@ export default function App() {
     const saved = localStorage.getItem('ac_fields');
     if (saved) return JSON.parse(saved);
     return [
-      { id: 'f-1', name: "North Vineyard", plantType: "Grape", status: "Healthy", scansCount: 0 },
-      { id: 'f-2', name: "Potato Tunnel 2", plantType: "Potato", status: "Healthy", scansCount: 0 }
+      { id: 'f-1', name: "Jowar Field A", plantType: "Jowar (Sorghum)", status: "Healthy", scansCount: 0 },
+      { id: 'f-2', name: "Wheat Plot 1", plantType: "Wheat", status: "Healthy", scansCount: 0 }
     ];
   });
   const [newFieldName, setNewFieldName] = useState('');
-  const [newFieldPlant, setNewFieldPlant] = useState('Rose');
+  const [newFieldPlant, setNewFieldPlant] = useState('Jowar (Sorghum)');
 
   // Reminders state
   const [reminders, setReminders] = useState(() => {
@@ -980,10 +981,48 @@ export default function App() {
       if (saved) {
         const history = JSON.parse(saved);
         if (Array.isArray(history)) {
-          const validHistory = history.filter(s => s && s.plant_name && s.report && s.report.disease_name);
-          if (validHistory.length !== history.length) {
-            setScanHistory(validHistory);
-            localStorage.setItem('ac_scan_history', JSON.stringify(validHistory));
+          const sanitizedHistory = history.map(s => {
+            if (!s || !s.plant_name || !s.report || !s.report.disease_name) return null;
+            
+            // Ensure treatment_plan exists and is robust
+            const treatment_plan = s.report.treatment_plan || {};
+            const sanitized_plan = {
+              immediate_actions: Array.isArray(treatment_plan.immediate_actions) ? treatment_plan.immediate_actions : [],
+              chemical_treatments: Array.isArray(treatment_plan.chemical_treatments) ? treatment_plan.chemical_treatments : [],
+              organic_alternatives: Array.isArray(treatment_plan.organic_alternatives) ? treatment_plan.organic_alternatives : [],
+              preventive_measures: Array.isArray(treatment_plan.preventive_measures) ? treatment_plan.preventive_measures : []
+            };
+
+            // Ensure other report properties exist
+            const report = {
+              ...s.report,
+              disease_code: s.report.disease_code || s.report.id || "JOW-001",
+              scientific_name: s.report.scientific_name || s.report.scientific || "Species",
+              severity: s.report.severity || "Moderate",
+              category: s.report.category || "Fungal",
+              confidence: typeof s.report.confidence === 'number' ? s.report.confidence : 85,
+              affected_parts: Array.isArray(s.report.affected_parts) ? s.report.affected_parts : ["Leaves"],
+              symptoms_observed: Array.isArray(s.report.symptoms_observed) ? s.report.symptoms_observed : [],
+              cause: s.report.cause || "Pathogenic infection",
+              disease_description: s.report.disease_description || "Plant disease infection",
+              spread_risk: s.report.spread_risk || "Medium",
+              if_untreated: s.report.if_untreated || "Loss of crop yield",
+              recovery_timeline: s.report.recovery_timeline || "14-21 days",
+              expert_tip: s.report.expert_tip || "",
+              similar_diseases: Array.isArray(s.report.similar_diseases) ? s.report.similar_diseases : [],
+              treatment_plan: sanitized_plan
+            };
+
+            return {
+              ...s,
+              report,
+              healthScore: typeof s.healthScore === 'number' ? s.healthScore : 80
+            };
+          }).filter(Boolean);
+
+          if (sanitizedHistory.length !== history.length || JSON.stringify(sanitizedHistory) !== saved) {
+            setScanHistory(sanitizedHistory);
+            localStorage.setItem('ac_scan_history', JSON.stringify(sanitizedHistory));
           }
         }
       }
@@ -1137,14 +1176,14 @@ export default function App() {
     setAuthErrors({});
     let errors = {};
 
-    const emailRegex = /^[a-zA-Z]+[0-9]+@gmail\.com$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(authEmail)) {
-      errors.email = "Email must be in the format (alphabets)numbers@gmail.com (e.g. admin123@gmail.com).";
+      errors.email = "Please enter a valid email address.";
     }
 
-    const passwordRegex = /^[0-9]{4,}$/;
+    const passwordRegex = /^.{4,}$/;
     if (!passwordRegex.test(authPassword)) {
-      errors.password = "Password must be at least 4 digits and contain only numbers.";
+      errors.password = "Password must be at least 4 characters.";
     }
 
     if (authTab === 'register') {
@@ -1735,8 +1774,14 @@ The JSON must have this exact structure:
       if (apiMode === 'live' && apiKey) {
         const chatSystemPrompt = `You are Dr. Angio, a friendly expert plant doctor on the Angio-Care platform. You have deep knowledge of plant diseases, treatments, chemical and organic remedies, agricultural best practices, soil health, and seasonal care. You help farmers, gardeners, and botanists diagnose and treat their plants. Be warm, professional, and practical. Give specific chemical names, dosages, and application methods when asked. Always prioritize plant safety and human health. If urgency is detected, recommend professional agronomist consultation.`;
 
-        // Format history for Claude
-        const anthropicMessages = chatMessages.map(m => ({
+        // Format history for Claude, skipping any leading assistant messages to satisfy Anthropic constraints
+        const activeMessages = chatMessages.filter((m, idx) => {
+          if (m.sender !== 'user' && chatMessages.slice(0, idx).every(prev => prev.sender !== 'user')) {
+            return false;
+          }
+          return true;
+        });
+        const anthropicMessages = activeMessages.map(m => ({
           role: m.sender === 'user' ? 'user' : 'assistant',
           content: m.text
         }));
