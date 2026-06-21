@@ -769,9 +769,17 @@ export default function App() {
   // --- STATE LIST ---
   const [isSplashing, setIsSplashing] = useState(true);
   const [registeredUsers, setRegisteredUsers] = useState(() => {
-    const saved = localStorage.getItem('ac_registered_users');
-    let list = saved ? JSON.parse(saved) : [];
-    if (!list.some(u => u.email.toLowerCase() === 'admin123@gmail.com')) {
+    let list = [];
+    try {
+      const saved = localStorage.getItem('ac_registered_users');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) list = parsed;
+      }
+    } catch (e) {
+      console.error("Init registered users failed", e);
+    }
+    if (!list.some(u => u && u.email && u.email.toLowerCase() === 'admin123@gmail.com')) {
       list.push({
         email: 'admin123@gmail.com',
         password: '1234',
@@ -782,14 +790,26 @@ export default function App() {
         streakDays: 5,
         stats: { totalScans: 12, diseasesDetected: 4, plantsSaved: 10 }
       });
-      localStorage.setItem('ac_registered_users', JSON.stringify(list));
+      try {
+        localStorage.setItem('ac_registered_users', JSON.stringify(list));
+      } catch (e) {
+        console.error(e);
+      }
     }
     return list;
   });
 
   const [currentUser, setCurrentUser] = useState(() => {
-    const saved = localStorage.getItem('ac_current_user');
-    return saved ? JSON.parse(saved) : null;
+    try {
+      const saved = localStorage.getItem('ac_current_user');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.email) return parsed;
+      }
+    } catch (e) {
+      console.error("Init current user failed", e);
+    }
+    return null;
   });
 
   // Pages: 'dashboard' | 'scan' | 'encyclopedia' | 'history' | 'analytics' | 'fields' | 'settings'
@@ -812,8 +832,16 @@ export default function App() {
   const [proxyUrl, setProxyUrl] = useState(() => localStorage.getItem('ac_proxy_url') || '');
   const [apiMode, setApiMode] = useState(() => localStorage.getItem('ac_api_mode') || 'mock');
   const [notifPrefs, setNotifPrefs] = useState(() => {
-    const saved = localStorage.getItem('ac_notif_prefs');
-    return saved ? JSON.parse(saved) : { scanComplete: true, seasonalAlert: true, reminders: true, dailyTip: true };
+    try {
+      const saved = localStorage.getItem('ac_notif_prefs');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') return parsed;
+      }
+    } catch (e) {
+      console.error("Init notif prefs failed", e);
+    }
+    return { scanComplete: true, seasonalAlert: true, reminders: true, dailyTip: true };
   });
 
   // Global Toasts state
@@ -824,8 +852,15 @@ export default function App() {
 
   // Notifications State
   const [notifications, setNotifications] = useState(() => {
-    const saved = localStorage.getItem('ac_notifications');
-    if (saved) return JSON.parse(saved);
+    try {
+      const saved = localStorage.getItem('ac_notifications');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error("Init notifications failed", e);
+    }
     return [
       { id: 'n-1', text: "Welcome to Angio-Care! Set up your API key or start with Mock Mode.", type: 'system', read: false, time: new Date().toLocaleTimeString() },
       { id: 'n-2', text: "Seasonal Alert: Late Blight risk is high in warm, humid regions this month.", type: 'risk', read: false, time: new Date().toLocaleTimeString() }
@@ -866,8 +901,56 @@ export default function App() {
 
   // Scan History
   const [scanHistory, setScanHistory] = useState(() => {
-    const saved = localStorage.getItem('ac_scan_history');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('ac_scan_history');
+      if (saved) {
+        const history = JSON.parse(saved);
+        if (Array.isArray(history)) {
+          return history.map(s => {
+            if (!s || !s.plant_name || !s.report || !s.report.disease_name) return null;
+            
+            // Ensure treatment_plan exists and is robust
+            const treatment_plan = s.report.treatment_plan || {};
+            const sanitized_plan = {
+              immediate_actions: Array.isArray(treatment_plan.immediate_actions) ? treatment_plan.immediate_actions : [],
+              chemical_treatments: Array.isArray(treatment_plan.chemical_treatments) ? treatment_plan.chemical_treatments : [],
+              organic_alternatives: Array.isArray(treatment_plan.organic_alternatives) ? treatment_plan.organic_alternatives : [],
+              preventive_measures: Array.isArray(treatment_plan.preventive_measures) ? treatment_plan.preventive_measures : []
+            };
+
+            // Ensure other report properties exist
+            const report = {
+              ...s.report,
+              disease_code: s.report.disease_code || s.report.id || "JOW-001",
+              scientific_name: s.report.scientific_name || s.report.scientific || "Species",
+              severity: s.report.severity || "Moderate",
+              category: s.report.category || "Fungal",
+              confidence: typeof s.report.confidence === 'number' ? s.report.confidence : 85,
+              affected_parts: Array.isArray(s.report.affected_parts) ? s.report.affected_parts : ["Leaves"],
+              symptoms_observed: Array.isArray(s.report.symptoms_observed) ? s.report.symptoms_observed : [],
+              cause: s.report.cause || "Pathogenic infection",
+              disease_description: s.report.disease_description || "Plant disease infection",
+              spread_risk: s.report.spread_risk || "Medium",
+              if_untreated: s.report.if_untreated || "Loss of crop yield",
+              recovery_timeline: s.report.recovery_timeline || "14-21 days",
+              expert_tip: s.report.expert_tip || "",
+              similar_diseases: Array.isArray(s.report.similar_diseases) ? s.report.similar_diseases : [],
+              treatment_plan: sanitized_plan
+            };
+
+            return {
+              ...s,
+              report,
+              healthScore: typeof s.healthScore === 'number' ? s.healthScore : 80,
+              field_id: s.field_id || ""
+            };
+          }).filter(Boolean);
+        }
+      }
+    } catch (e) {
+      console.error("Init scan history sanitization failed", e);
+    }
+    return [];
   });
   const [historySearch, setHistorySearch] = useState('');
   const [historyTimeFilter, setHistoryTimeFilter] = useState('all'); // 'all' | 'week' | 'month'
@@ -880,8 +963,15 @@ export default function App() {
 
   // Fields (My Fields) state
   const [fields, setFields] = useState(() => {
-    const saved = localStorage.getItem('ac_fields');
-    if (saved) return JSON.parse(saved);
+    try {
+      const saved = localStorage.getItem('ac_fields');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error("Init fields failed", e);
+    }
     return [
       { id: 'f-1', name: "Jowar Field A", plantType: "Jowar (Sorghum)", status: "Healthy", scansCount: 0 },
       { id: 'f-2', name: "Wheat Plot 1", plantType: "Wheat", status: "Healthy", scansCount: 0 }
@@ -892,8 +982,16 @@ export default function App() {
 
   // Reminders state
   const [reminders, setReminders] = useState(() => {
-    const saved = localStorage.getItem('ac_reminders');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('ac_reminders');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error("Init reminders failed", e);
+    }
+    return [];
   });
   const [newReminderDate, setNewReminderDate] = useState('');
   const [newReminderNote, setNewReminderNote] = useState('');
@@ -909,8 +1007,15 @@ export default function App() {
   // Dr. Angio Chatbot
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState(() => {
-    const saved = localStorage.getItem('ac_chat_history');
-    if (saved) return JSON.parse(saved);
+    try {
+      const saved = localStorage.getItem('ac_chat_history');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error("Init chat messages failed", e);
+    }
     return [{ sender: 'doctor', text: "Hello, I am Dr. Angio. How is your garden or farm doing today? Select a question or ask me anything about plant diseases.", time: new Date().toLocaleTimeString() }];
   });
   const [chatInput, setChatInput] = useState('');
