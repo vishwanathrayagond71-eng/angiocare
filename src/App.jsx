@@ -3,7 +3,7 @@ import {
   Sprout, Activity, BookOpen, History, BarChart2, Settings, Bell, LogOut,
   User, Flame, Upload, Camera, X, Check, Copy, AlertTriangle, Info, Calendar,
   Plus, RefreshCw, ChevronDown, MessageSquare, Search, Sun, Moon, Map,
-  UserCheck, Share2, ArrowLeft, ArrowRight, Send, Loader2, Award, HelpCircle
+  UserCheck, Share2, ArrowLeft, ArrowRight, Send, Loader2, Award, HelpCircle, MapPin
 } from 'lucide-react';
 import {
   ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line,
@@ -12,121 +12,218 @@ import {
 
 // --- PLANT LIST ---
 const PLANTS_LIST = [
-  "Rose", "Mango", "Tomato", "Wheat", "Rice", "Potato", "Cotton", "Corn/Maize", "Sugarcane",
-  "Banana", "Apple", "Grape", "Orange", "Lemon", "Coconut", "Tea", "Coffee", "Rubber Tree",
-  "Tulsi", "Neem", "Oak", "Pine", "Eucalyptus", "Bamboo", "Hibiscus", "Sunflower", "Soybean",
-  "Groundnut", "Onion", "Garlic", "Chili", "Brinjal", "Cabbage", "Cauliflower", "Spinach",
-  "Papaya", "Guava", "Pomegranate", "Watermelon", "Cucumber", "Bitter Gourd", "Pumpkin",
-  "Jackfruit", "Mulberry", "Jasmine", "Chrysanthemum", "Cactus", "Aloe Vera", "Fern",
-  "Bougainvillea", "Teak", "Sandalwood", "Mahogany", "Peach", "Pear", "Plum", "Cherry",
-  "Strawberry", "Blueberry", "Pineapple", "Chestnut", "Elm", "Maple", "Sycamore", "Ash",
-  "Hemlock", "Beech"
+  "Jowar (Sorghum)",
+  "Maize",
+  "Bajra (Pearl Millet)",
+  "Wheat",
+  "Cotton",
+  "Sugarcane",
+  "Red Gram (Tur)",
+  "Bengal Gram (Chickpea)",
+  "Green Gram (Moong)",
+  "Black Gram (Urad)",
+  "Groundnut",
+  "Sunflower",
+  "Sesame",
+  "Chilli",
+  "Onion"
 ];
 
 // --- DISEASES LIST (BASE DATABASE) ---
 const ENCYCLOPEDIA_DATABASE = [
-  // Fungal (28)
-  { id: "FNG-001", name: "Powdery Mildew", scientific_name: "Podosphaera pannosa", category: "Fungal", severity: "Mild" },
-  { id: "FNG-002", name: "Black Spot", scientific_name: "Diplocarpon rosae", category: "Fungal", severity: "Moderate" },
-  { id: "FNG-003", name: "Early Blight", scientific_name: "Alternaria solani", category: "Fungal", severity: "Moderate" },
-  { id: "FNG-004", name: "Late Blight", scientific_name: "Phytophthora infestans", category: "Fungal", severity: "Critical" },
-  { id: "FNG-005", name: "Rust", scientific_name: "Puccinia graminis", category: "Fungal", severity: "Severe" },
-  { id: "FNG-006", name: "Anthracnose", scientific_name: "Colletotrichum gloeosporioides", category: "Fungal", severity: "Severe" },
-  { id: "FNG-007", name: "Root Rot", scientific_name: "Pythium ultimum", category: "Fungal", severity: "Critical" },
-  { id: "FNG-008", name: "Downy Mildew", scientific_name: "Plasmopara viticola", category: "Fungal", severity: "Severe" },
-  { id: "FNG-009", name: "Fusarium Wilt", scientific_name: "Fusarium oxysporum", category: "Fungal", severity: "Critical" },
-  { id: "FNG-010", name: "Cercospora Leaf Spot", scientific_name: "Cercospora spp.", category: "Fungal", severity: "Moderate" },
-  { id: "FNG-011", name: "Peach Leaf Curl", scientific_name: "Taphrina deformans", category: "Fungal", severity: "Severe" },
-  { id: "FNG-012", name: "Apple Scab", scientific_name: "Venturia inaequalis", category: "Fungal", severity: "Moderate" },
-  { id: "FNG-013", name: "Gray Mold", scientific_name: "Botrytis cinerea", category: "Fungal", severity: "Severe" },
-  { id: "FNG-014", name: "Sooty Mold", scientific_name: "Capnodium spp.", category: "Fungal", severity: "Mild" },
-  { id: "FNG-015", name: "Oak Wilt", scientific_name: "Bretziella fagacearum", category: "Fungal", severity: "Critical" },
-  { id: "FNG-016", name: "Chestnut Blight", scientific_name: "Cryphonectria parasitica", category: "Fungal", severity: "Critical" },
-  { id: "FNG-017", name: "Dutch Elm Disease", scientific_name: "Ophiostoma novo-ulmi", category: "Fungal", severity: "Critical" },
-  { id: "FNG-018", name: "Coffee Berry Disease", scientific_name: "Colletotrichum kahawae", category: "Fungal", severity: "Severe" },
-  { id: "FNG-019", name: "Citrus Melanose", scientific_name: "Diaporthe citri", category: "Fungal", severity: "Moderate" },
-  { id: "FNG-020", name: "Mango Malformation", scientific_name: "Fusarium mangiferae", category: "Fungal", severity: "Severe" },
-  { id: "FNG-021", name: "Pine Needle Cast", scientific_name: "Lophodermium seditiosum", category: "Fungal", severity: "Moderate" },
-  { id: "FNG-022", name: "Sudden Oak Death", scientific_name: "Phytophthora ramorum", category: "Fungal", severity: "Critical" },
-  { id: "FNG-023", name: "Tar Spot of Maple", scientific_name: "Rhytisma acerinum", category: "Fungal", severity: "Mild" },
-  { id: "FNG-024", name: "Cedar-Apple Rust", scientific_name: "Gymnosporangium juniperi-virginianae", category: "Fungal", severity: "Severe" },
-  { id: "FNG-025", name: "White Pine Blister Rust", scientific_name: "Cronartium ribicola", category: "Fungal", severity: "Severe" },
-  { id: "FNG-026", name: "Anthracnose of Sycamore", scientific_name: "Apiognomonia veneta", category: "Fungal", severity: "Moderate" },
-  { id: "FNG-027", name: "Black Knot of Plum", scientific_name: "Apiosporina morbosa", category: "Fungal", severity: "Severe" },
-  { id: "FNG-028", name: "Phomopsis Blight", scientific_name: "Phomopsis juniperovora", category: "Fungal", severity: "Moderate" },
-  
-  // Bacterial (12)
-  { id: "BCT-001", name: "Bacterial Blight", scientific_name: "Pseudomonas syringae", category: "Bacterial", severity: "Severe" },
-  { id: "BCT-002", name: "Crown Gall", scientific_name: "Agrobacterium tumefaciens", category: "Bacterial", severity: "Moderate" },
-  { id: "BCT-003", name: "Fire Blight", scientific_name: "Erwinia amylovora", category: "Bacterial", severity: "Critical" },
-  { id: "BCT-004", name: "Bacterial Canker", scientific_name: "Clavibacter michiganensis", category: "Bacterial", severity: "Critical" },
-  { id: "BCT-005", name: "Bacterial Wilt", scientific_name: "Ralstonia solanacearum", category: "Bacterial", severity: "Critical" },
-  { id: "BCT-006", name: "Citrus Canker", scientific_name: "Xanthomonas axonopodis", category: "Bacterial", severity: "Severe" },
-  { id: "BCT-007", name: "Olive Knot", scientific_name: "Pseudomonas savastanoi", category: "Bacterial", severity: "Moderate" },
-  { id: "BCT-008", name: "Pierce's Disease", scientific_name: "Xylella fastidiosa", category: "Bacterial", severity: "Critical" },
-  { id: "BCT-009", name: "Pear Decline", scientific_name: "Candidatus Phytoplasma pyri", category: "Bacterial", severity: "Severe" },
-  { id: "BCT-010", name: "Coconut Lethal Yellowing", scientific_name: "Candidatus Phytoplasma palmae", category: "Bacterial", severity: "Critical" },
-  { id: "BCT-011", name: "Bacterial Wetwood / Slime Flux", scientific_name: "Enterobacter cloacae", category: "Bacterial", severity: "Mild" },
-  { id: "BCT-012", name: "Ash Yellows", scientific_name: "Candidatus Phytoplasma fraxini", category: "Bacterial", severity: "Severe" },
+  // Jowar (Sorghum) (10)
+  { id: "JOW-001", name: "Grain Mold", scientific_name: "Fusarium thapsinum", category: "Fungal", severity: "Severe" },
+  { id: "JOW-002", name: "Anthracnose", scientific_name: "Colletotrichum sublineola", category: "Fungal", severity: "Moderate" },
+  { id: "JOW-003", name: "Downy Mildew", scientific_name: "Peronosclerospora sorghi", category: "Fungal", severity: "Severe" },
+  { id: "JOW-004", name: "Rust", scientific_name: "Puccinia purpurea", category: "Fungal", severity: "Mild" },
+  { id: "JOW-005", name: "Smut", scientific_name: "Sporisorium reilianum", category: "Fungal", severity: "Moderate" },
+  { id: "JOW-006", name: "Ergot", scientific_name: "Claviceps sorghi", category: "Fungal", severity: "Severe" },
+  { id: "JOW-007", name: "Charcoal Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Critical" },
+  { id: "JOW-008", name: "Leaf Blight", scientific_name: "Exserohilum turcicum", category: "Fungal", severity: "Moderate" },
+  { id: "JOW-009", name: "Zonate Leaf Spot", scientific_name: "Gloeocercospora sorghi", category: "Fungal", severity: "Mild" },
+  { id: "JOW-010", name: "Sooty Stripe", scientific_name: "Ramulispora sorghi", category: "Fungal", severity: "Mild" },
 
-  // Viral (11)
-  { id: "VRL-001", name: "Mosaic Virus", scientific_name: "Tobacco mosaic virus", category: "Viral", severity: "Severe" },
-  { id: "VRL-002", name: "Yellow Leaf Curl", scientific_name: "Tomato yellow leaf curl virus", category: "Viral", severity: "Critical" },
-  { id: "VRL-003", name: "Ringspot Virus", scientific_name: "Papaya ringspot virus", category: "Viral", severity: "Severe" },
-  { id: "VRL-004", name: "Bunchy Top", scientific_name: "Banana bunchy top virus", category: "Viral", severity: "Critical" },
-  { id: "VRL-005", name: "Citrus Tristeza", scientific_name: "Citrus tristeza virus", category: "Viral", severity: "Critical" },
-  { id: "VRL-006", name: "Plum Pox", scientific_name: "Plum pox virus", category: "Viral", severity: "Critical" },
-  { id: "VRL-007", name: "Rose Rosette Disease", scientific_name: "Rose rosette virus", category: "Viral", severity: "Critical" },
-  { id: "VRL-008", name: "Cacao Swollen Shoot", scientific_name: "Cacao swollen shoot virus", category: "Viral", severity: "Critical" },
-  { id: "VRL-009", name: "Plum Line Pattern", scientific_name: "Plum line pattern virus", category: "Viral", severity: "Moderate" },
-  { id: "VRL-010", name: "Citrus Psorosis", scientific_name: "Citrus psorosis ophiovirus", category: "Viral", severity: "Severe" },
-  { id: "VRL-011", name: "Cherry Leaf Roll", scientific_name: "Cherry leaf roll virus", category: "Viral", severity: "Severe" },
+  // Maize (10)
+  { id: "MAZ-001", name: "Turcicum Leaf Blight", scientific_name: "Exserohilum turcicum", category: "Fungal", severity: "Severe" },
+  { id: "MAZ-002", name: "Maydis Leaf Blight", scientific_name: "Bipolaris maydis", category: "Fungal", severity: "Moderate" },
+  { id: "MAZ-003", name: "Common Rust", scientific_name: "Puccinia sorghi", category: "Fungal", severity: "Mild" },
+  { id: "MAZ-004", name: "Downy Mildew", scientific_name: "Peronosclerospora maydis", category: "Fungal", severity: "Severe" },
+  { id: "MAZ-005", name: "Banded Leaf and Sheath Blight", scientific_name: "Rhizoctonia solani", category: "Fungal", severity: "Severe" },
+  { id: "MAZ-006", name: "Charcoal Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Critical" },
+  { id: "MAZ-007", name: "Stalk Rot", scientific_name: "Fusarium verticillioides", category: "Fungal", severity: "Critical" },
+  { id: "MAZ-008", name: "Ear Rot", scientific_name: "Aspergillus flavus", category: "Fungal", severity: "Severe" },
+  { id: "MAZ-009", name: "Common Smut", scientific_name: "Ustilago maydis", category: "Fungal", severity: "Moderate" },
+  { id: "MAZ-010", name: "Maize Streak Virus", scientific_name: "Maize streak virus", category: "Viral", severity: "Critical" },
 
-  // Nematodal (4)
-  { id: "NMT-001", name: "Root-knot Nematode", scientific_name: "Meloidogyne incognita", category: "Nematodal", severity: "Severe" },
-  { id: "NMT-002", name: "Cyst Nematode", scientific_name: "Heterodera schachtii", category: "Nematodal", severity: "Severe" },
-  { id: "NMT-003", name: "Pine Wilt Disease", scientific_name: "Bursaphelenchus xylophilus", category: "Nematodal", severity: "Critical" },
-  { id: "NMT-004", name: "Red Ring Disease of Coconut", scientific_name: "Bursaphelenchus cocophilus", category: "Nematodal", severity: "Critical" },
+  // Bajra (Pearl Millet) (10)
+  { id: "BAJ-001", name: "Downy Mildew (Green Ear)", scientific_name: "Sclerospora graminicola", category: "Fungal", severity: "Critical" },
+  { id: "BAJ-002", name: "Ergot", scientific_name: "Claviceps fusiformis", category: "Fungal", severity: "Severe" },
+  { id: "BAJ-003", name: "Smut", scientific_name: "Moesziomyces penicillariae", category: "Fungal", severity: "Moderate" },
+  { id: "BAJ-004", name: "Rust", scientific_name: "Puccinia substriata", category: "Fungal", severity: "Mild" },
+  { id: "BAJ-005", name: "Blast", scientific_name: "Pyricularia grisea", category: "Fungal", severity: "Severe" },
+  { id: "BAJ-006", name: "Leaf Spot", scientific_name: "Curvularia penniseti", category: "Fungal", severity: "Mild" },
+  { id: "BAJ-007", name: "Leaf Blight", scientific_name: "Drechslera dematioidea", category: "Fungal", severity: "Moderate" },
+  { id: "BAJ-008", name: "Grain Mold", scientific_name: "Curvularia lunata", category: "Fungal", severity: "Moderate" },
+  { id: "BAJ-009", name: "Zonate Leaf Spot", scientific_name: "Dactuliophora elongata", category: "Fungal", severity: "Mild" },
+  { id: "BAJ-010", name: "Sooty Stripe", scientific_name: "Ramulispora spp.", category: "Fungal", severity: "Mild" },
 
-  // Nutritional / Abiotic (6)
-  { id: "NTR-001", name: "Nitrogen Deficiency", scientific_name: "Abiotic (N-deficiency)", category: "Nutritional Deficiency", severity: "Mild" },
-  { id: "NTR-002", name: "Iron Chlorosis", scientific_name: "Abiotic (Fe-deficiency)", category: "Nutritional Deficiency", severity: "Moderate" },
-  { id: "NTR-003", name: "Phosphorus Deficiency", scientific_name: "Abiotic (P-deficiency)", category: "Nutritional Deficiency", severity: "Moderate" },
-  { id: "NTR-004", name: "Magnesium Deficiency", scientific_name: "Abiotic (Mg-deficiency)", category: "Nutritional Deficiency", severity: "Mild" },
-  { id: "NTR-005", name: "Potassium Deficiency", scientific_name: "Abiotic (K-deficiency)", category: "Nutritional Deficiency", severity: "Moderate" },
-  { id: "NTR-006", name: "Calcium Deficiency / Blossom End Rot", scientific_name: "Abiotic (Ca-deficiency)", category: "Nutritional Deficiency", severity: "Moderate" },
+  // Wheat (10)
+  { id: "WHT-001", name: "Stem Rust", scientific_name: "Puccinia graminis f. sp. tritici", category: "Fungal", severity: "Critical" },
+  { id: "WHT-002", name: "Leaf Rust", scientific_name: "Puccinia triticina", category: "Fungal", severity: "Severe" },
+  { id: "WHT-003", name: "Stripe Rust", scientific_name: "Puccinia striiformis", category: "Fungal", severity: "Critical" },
+  { id: "WHT-004", name: "Loose Smut", scientific_name: "Ustilago nuda var. tritici", category: "Fungal", severity: "Severe" },
+  { id: "WHT-005", name: "Karnal Bunt", scientific_name: "Tilletia indica", category: "Fungal", severity: "Severe" },
+  { id: "WHT-006", name: "Powdery Mildew", scientific_name: "Blumeria graminis f. sp. tritici", category: "Fungal", severity: "Moderate" },
+  { id: "WHT-007", name: "Flag Smut", scientific_name: "Urocystis agropyri", category: "Fungal", severity: "Moderate" },
+  { id: "WHT-008", name: "Spot Blotch", scientific_name: "Bipolaris sorokiniana", category: "Fungal", severity: "Severe" },
+  { id: "WHT-009", name: "Fusarium Head Blight", scientific_name: "Fusarium graminearum", category: "Fungal", severity: "Critical" },
+  { id: "WHT-010", name: "Root Rot", scientific_name: "Bipolaris spp.", category: "Fungal", severity: "Moderate" },
 
-  // Pests (16)
-  { id: "PST-001", name: "Aphid Infestation", scientific_name: "Aphis gossypii", category: "Pest", severity: "Moderate" },
-  { id: "PST-002", name: "Whitefly Infestation", scientific_name: "Bemisia tabaci", category: "Pest", severity: "Moderate" },
-  { id: "PST-003", name: "Mealybug Infestation", scientific_name: "Pseudococcus longispinus", category: "Pest", severity: "Severe" },
-  { id: "PST-004", name: "Spider Mite Infestation", scientific_name: "Tetranychus urticae", category: "Pest", severity: "Severe" },
-  { id: "PST-005", name: "Thrips Infestation", scientific_name: "Frankliniella occidentalis", category: "Pest", severity: "Moderate" },
-  { id: "PST-006", name: "Scale Insect Infestation", scientific_name: "Coccoidea spp.", category: "Pest", severity: "Moderate" },
-  { id: "PST-007", name: "Leaf Miner damage", scientific_name: "Liriomyza spp.", category: "Pest", severity: "Mild" },
-  { id: "PST-008", name: "Japanese Beetle damage", scientific_name: "Popillia japonica", category: "Pest", severity: "Severe" },
-  { id: "PST-009", name: "Emerald Ash Borer damage", scientific_name: "Agrilus planipennis", category: "Pest", severity: "Critical" },
-  { id: "PST-010", name: "Gypsy Moth defoliation", scientific_name: "Lymantria dispar", category: "Pest", severity: "Severe" },
-  { id: "PST-011", name: "Citrus Psyllid infestation", scientific_name: "Diaphorina citri", category: "Pest", severity: "Severe" },
-  { id: "PST-012", name: "Bark Beetle infestation", scientific_name: "Dendroctonus spp.", category: "Pest", severity: "Critical" },
-  { id: "PST-013", name: "Red Palm Weevil damage", scientific_name: "Rhynchophorus ferrugineus", category: "Pest", severity: "Critical" },
-  { id: "PST-014", name: "Spruce Budworm defoliation", scientific_name: "Choristoneura fumiferana", category: "Pest", severity: "Severe" },
-  { id: "PST-015", name: "Hemlock Woolly Adelgid infestation", scientific_name: "Adelges tsugae", category: "Pest", severity: "Critical" },
-  { id: "PST-016", name: "Oak Lace Bug damage", scientific_name: "Corythucha arcuata", category: "Pest", severity: "Moderate" }
+  // Cotton (10)
+  { id: "COT-001", name: "Bacterial Blight", scientific_name: "Xanthomonas citri pv. malvacearum", category: "Bacterial", severity: "Severe" },
+  { id: "COT-002", name: "Fusarium Wilt", scientific_name: "Fusarium oxysporum f. sp. vasinfectum", category: "Fungal", severity: "Critical" },
+  { id: "COT-003", name: "Verticillium Wilt", scientific_name: "Verticillium dahliae", category: "Fungal", severity: "Critical" },
+  { id: "COT-004", name: "Alternaria Leaf Spot", scientific_name: "Alternaria macrospora", category: "Fungal", severity: "Moderate" },
+  { id: "COT-005", name: "Anthracnose", scientific_name: "Colletotrichum gossypii", category: "Fungal", severity: "Moderate" },
+  { id: "COT-006", name: "Grey Mildew", scientific_name: "Ramularia areola", category: "Fungal", severity: "Mild" },
+  { id: "COT-007", name: "Boll Rot", scientific_name: "Phytophthora nicotianae", category: "Fungal", severity: "Severe" },
+  { id: "COT-008", name: "Root Rot", scientific_name: "Rhizoctonia bataticola", category: "Fungal", severity: "Critical" },
+  { id: "COT-009", name: "Leaf Curl Virus", scientific_name: "Cotton leaf curl virus", category: "Viral", severity: "Critical" },
+  { id: "COT-010", name: "Tobacco Streak Virus", scientific_name: "Tobacco streak virus", category: "Viral", severity: "Severe" },
+
+  // Sugarcane (10)
+  { id: "SUG-001", name: "Red Rot", scientific_name: "Colletotrichum falcatum", category: "Fungal", severity: "Critical" },
+  { id: "SUG-002", name: "Smut", scientific_name: "Sporisorium scitamineum", category: "Fungal", severity: "Severe" },
+  { id: "SUG-003", name: "Wilt", scientific_name: "Fusarium sacchari", category: "Fungal", severity: "Critical" },
+  { id: "SUG-004", name: "Pokkah Boeng", scientific_name: "Fusarium moniliforme", category: "Fungal", severity: "Moderate" },
+  { id: "SUG-005", name: "Grassy Shoot Disease", scientific_name: "Candidatus Phytoplasma sacchari", category: "Bacterial", severity: "Severe" },
+  { id: "SUG-006", name: "Ratoon Stunting Disease", scientific_name: "Leifsonia xyli subsp. xyli", category: "Bacterial", severity: "Moderate" },
+  { id: "SUG-007", name: "Mosaic Disease", scientific_name: "Sugarcane mosaic virus", category: "Viral", severity: "Severe" },
+  { id: "SUG-008", name: "Eye Spot", scientific_name: "Bipolaris sacchari", category: "Fungal", severity: "Mild" },
+  { id: "SUG-009", name: "Rust", scientific_name: "Puccinia melanocephala", category: "Fungal", severity: "Moderate" },
+  { id: "SUG-010", name: "Pineapple Disease", scientific_name: "Ceratocystis paradoxa", category: "Fungal", severity: "Severe" },
+
+  // Red Gram (Tur) (10)
+  { id: "RED-001", name: "Fusarium Wilt", scientific_name: "Fusarium udum", category: "Fungal", severity: "Critical" },
+  { id: "RED-002", name: "Sterility Mosaic Disease", scientific_name: "Pigeonpea sterility mosaic virus", category: "Viral", severity: "Critical" },
+  { id: "RED-003", name: "Phytophthora Blight", scientific_name: "Phytophthora cajani", category: "Fungal", severity: "Critical" },
+  { id: "RED-004", name: "Dry Root Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Severe" },
+  { id: "RED-005", name: "Alternaria Blight", scientific_name: "Alternaria alternata", category: "Fungal", severity: "Moderate" },
+  { id: "RED-006", name: "Cercospora Leaf Spot", scientific_name: "Cercospora indica", category: "Fungal", severity: "Mild" },
+  { id: "RED-007", name: "Powdery Mildew", scientific_name: "Oidiopsis taurica", category: "Fungal", severity: "Moderate" },
+  { id: "RED-008", name: "Anthracnose", scientific_name: "Colletotrichum cajani", category: "Fungal", severity: "Moderate" },
+  { id: "RED-009", name: "Rust", scientific_name: "Uromyces cajani", category: "Fungal", severity: "Mild" },
+  { id: "RED-010", name: "Bacterial Leaf Spot", scientific_name: "Xanthomonas cajani", category: "Bacterial", severity: "Moderate" },
+
+  // Bengal Gram (Chickpea) (10)
+  { id: "BEN-001", name: "Fusarium Wilt", scientific_name: "Fusarium oxysporum f. sp. ciceris", category: "Fungal", severity: "Critical" },
+  { id: "BEN-002", name: "Ascochyta Blight", scientific_name: "Ascochyta rabiei", category: "Fungal", severity: "Critical" },
+  { id: "BEN-003", name: "Dry Root Rot", scientific_name: "Rhizoctonia bataticola", category: "Fungal", severity: "Severe" },
+  { id: "BEN-004", name: "Collar Rot", scientific_name: "Sclerotium rolfsii", category: "Fungal", severity: "Severe" },
+  { id: "BEN-005", name: "Botrytis Grey Mold", scientific_name: "Botrytis cinerea", category: "Fungal", severity: "Severe" },
+  { id: "BEN-006", name: "Rust", scientific_name: "Uromyces ciceris-arietini", category: "Fungal", severity: "Mild" },
+  { id: "BEN-007", name: "Powdery Mildew", scientific_name: "Oidiopsis taurica", category: "Fungal", severity: "Moderate" },
+  { id: "BEN-008", name: "Alternaria Blight", scientific_name: "Alternaria alternata", category: "Fungal", severity: "Moderate" },
+  { id: "BEN-009", name: "Mosaic Disease", scientific_name: "Alfalfa mosaic virus", category: "Viral", severity: "Moderate" },
+  { id: "BEN-010", name: "Black Root Rot", scientific_name: "Fusarium solani", category: "Fungal", severity: "Severe" },
+
+  // Green Gram (Moong) (10)
+  { id: "GRN-001", name: "Yellow Mosaic Virus", scientific_name: "Mungbean yellow mosaic virus", category: "Viral", severity: "Critical" },
+  { id: "GRN-002", name: "Cercospora Leaf Spot", scientific_name: "Cercospora canescens", category: "Fungal", severity: "Moderate" },
+  { id: "GRN-003", name: "Powdery Mildew", scientific_name: "Erysiphe polygoni", category: "Fungal", severity: "Moderate" },
+  { id: "GRN-004", name: "Anthracnose", scientific_name: "Colletotrichum lindemuthianum", category: "Fungal", severity: "Moderate" },
+  { id: "GRN-005", name: "Dry Root Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Severe" },
+  { id: "GRN-006", name: "Web Blight", scientific_name: "Rhizoctonia solani", category: "Fungal", severity: "Severe" },
+  { id: "GRN-007", name: "Leaf Crinkle Disease", scientific_name: "Mungbean leaf crinkle virus", category: "Viral", severity: "Moderate" },
+  { id: "GRN-008", name: "Charcoal Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Severe" },
+  { id: "GRN-009", name: "Bacterial Leaf Spot", scientific_name: "Xanthomonas phaseoli", category: "Bacterial", severity: "Moderate" },
+  { id: "GRN-010", name: "Alternaria Leaf Spot", scientific_name: "Alternaria alternata", category: "Fungal", severity: "Mild" },
+
+  // Black Gram (Urad) (10)
+  { id: "BLK-001", name: "Yellow Mosaic Virus", scientific_name: "Mungbean yellow mosaic virus", category: "Viral", severity: "Critical" },
+  { id: "BLK-002", name: "Powdery Mildew", scientific_name: "Erysiphe polygoni", category: "Fungal", severity: "Moderate" },
+  { id: "BLK-003", name: "Cercospora Leaf Spot", scientific_name: "Cercospora canescens", category: "Fungal", severity: "Moderate" },
+  { id: "BLK-004", name: "Anthracnose", scientific_name: "Colletotrichum lindemuthianum", category: "Fungal", severity: "Moderate" },
+  { id: "BLK-005", name: "Leaf Crinkle Disease", scientific_name: "Uradbean leaf crinkle virus", category: "Viral", severity: "Severe" },
+  { id: "BLK-006", name: "Dry Root Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Severe" },
+  { id: "BLK-007", name: "Charcoal Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Severe" },
+  { id: "BLK-008", name: "Web Blight", scientific_name: "Rhizoctonia solani", category: "Fungal", severity: "Severe" },
+  { id: "BLK-009", name: "Bacterial Leaf Spot", scientific_name: "Xanthomonas phaseoli", category: "Bacterial", severity: "Moderate" },
+  { id: "BLK-010", name: "Rust", scientific_name: "Uromyces phaseoli", category: "Fungal", severity: "Mild" },
+
+  // Groundnut (10)
+  { id: "GND-001", name: "Tikka Leaf Spot (Early)", scientific_name: "Cercospora arachidicola", category: "Fungal", severity: "Severe" },
+  { id: "GND-002", name: "Tikka Leaf Spot (Late)", scientific_name: "Phaeoisariopsis personata", category: "Fungal", severity: "Severe" },
+  { id: "GND-003", name: "Rust", scientific_name: "Puccinia arachidis", category: "Fungal", severity: "Moderate" },
+  { id: "GND-004", name: "Collar Rot", scientific_name: "Aspergillus niger", category: "Fungal", severity: "Severe" },
+  { id: "GND-005", name: "Stem Rot", scientific_name: "Sclerotium rolfsii", category: "Fungal", severity: "Critical" },
+  { id: "GND-006", name: "Bud Necrosis Disease", scientific_name: "Groundnut bud necrosis virus", category: "Viral", severity: "Critical" },
+  { id: "GND-007", name: "Peanut Stem Necrosis Disease", scientific_name: "Tobacco streak virus", category: "Viral", severity: "Severe" },
+  { id: "GND-008", name: "Peanut Mosaic Virus", scientific_name: "Peanut mosaic virus", category: "Viral", severity: "Moderate" },
+  { id: "GND-009", name: "Aspergillus Crown Rot", scientific_name: "Aspergillus pulverulentus", category: "Fungal", severity: "Moderate" },
+  { id: "GND-010", name: "Charcoal Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Severe" },
+
+  // Sunflower (10)
+  { id: "SUN-001", name: "Alternaria Blight", scientific_name: "Alternaria helianthi", category: "Fungal", severity: "Severe" },
+  { id: "SUN-002", name: "Downy Mildew", scientific_name: "Plasmopara halstedii", category: "Fungal", severity: "Severe" },
+  { id: "SUN-003", name: "Rust", scientific_name: "Puccinia helianthi", category: "Fungal", severity: "Moderate" },
+  { id: "SUN-004", name: "Powdery Mildew", scientific_name: "Erysiphe cichoracearum", category: "Fungal", severity: "Moderate" },
+  { id: "SUN-005", name: "Charcoal Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Critical" },
+  { id: "SUN-006", name: "Head Rot", scientific_name: "Rhizopus arrhizus", category: "Fungal", severity: "Severe" },
+  { id: "SUN-007", name: "Stem Rot", scientific_name: "Sclerotinia sclerotiorum", category: "Fungal", severity: "Critical" },
+  { id: "SUN-008", name: "Leaf Spot", scientific_name: "Septoria helianthi", category: "Fungal", severity: "Mild" },
+  { id: "SUN-009", name: "Necrosis Disease", scientific_name: "Tobacco streak virus", category: "Viral", severity: "Severe" },
+  { id: "SUN-010", name: "Verticillium Wilt", scientific_name: "Verticillium dahliae", category: "Fungal", severity: "Critical" },
+
+  // Sesame (10)
+  { id: "SES-001", name: "Phyllody", scientific_name: "Candidatus Phytoplasma", category: "Bacterial", severity: "Critical" },
+  { id: "SES-002", name: "Alternaria Leaf Spot", scientific_name: "Alternaria sesami", category: "Fungal", severity: "Moderate" },
+  { id: "SES-003", name: "Powdery Mildew", scientific_name: "Erysiphe cichoracearum", category: "Fungal", severity: "Moderate" },
+  { id: "SES-004", name: "Cercospora Leaf Spot", scientific_name: "Cercospora sesami", category: "Fungal", severity: "Mild" },
+  { id: "SES-005", name: "Bacterial Blight", scientific_name: "Xanthomonas campestris pv. sesami", category: "Bacterial", severity: "Severe" },
+  { id: "SES-006", name: "Root Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Severe" },
+  { id: "SES-007", name: "Stem Rot", scientific_name: "Phytophthora parasitica var. sesami", category: "Fungal", severity: "Critical" },
+  { id: "SES-008", name: "Charcoal Rot", scientific_name: "Macrophomina phaseolina", category: "Fungal", severity: "Severe" },
+  { id: "SES-009", name: "Wilt", scientific_name: "Fusarium oxysporum f. sp. sesami", category: "Fungal", severity: "Critical" },
+  { id: "SES-010", name: "Leaf Curl Disease", scientific_name: "Sesame leaf curl virus", category: "Viral", severity: "Severe" },
+
+  // Chilli (10)
+  { id: "CHL-001", name: "Anthracnose (Fruit Rot)", scientific_name: "Colletotrichum capsici", category: "Fungal", severity: "Severe" },
+  { id: "CHL-002", name: "Powdery Mildew", scientific_name: "Leveillula taurica", category: "Fungal", severity: "Moderate" },
+  { id: "CHL-003", name: "Damping Off", scientific_name: "Pythium aphanidermatum", category: "Fungal", severity: "Severe" },
+  { id: "CHL-004", name: "Fusarium Wilt", scientific_name: "Fusarium oxysporum", category: "Fungal", severity: "Critical" },
+  { id: "CHL-005", name: "Bacterial Wilt", scientific_name: "Ralstonia solanacearum", category: "Bacterial", severity: "Critical" },
+  { id: "CHL-006", name: "Cercospora Leaf Spot", scientific_name: "Cercospora capsici", category: "Fungal", severity: "Mild" },
+  { id: "CHL-007", name: "Leaf Curl Virus", scientific_name: "Chilli leaf curl virus", category: "Viral", severity: "Critical" },
+  { id: "CHL-008", name: "Mosaic Virus", scientific_name: "Cucumber mosaic virus", category: "Viral", severity: "Severe" },
+  { id: "CHL-009", name: "Dieback", scientific_name: "Colletotrichum capsici", category: "Fungal", severity: "Severe" },
+  { id: "CHL-010", name: "Phytophthora Blight", scientific_name: "Phytophthora capsici", category: "Fungal", severity: "Critical" },
+
+  // Onion (10)
+  { id: "ONN-001", name: "Purple Blotch", scientific_name: "Alternaria porri", category: "Fungal", severity: "Severe" },
+  { id: "ONN-002", name: "Stemphylium Blight", scientific_name: "Stemphylium vesicarium", category: "Fungal", severity: "Moderate" },
+  { id: "ONN-003", name: "Downy Mildew", scientific_name: "Peronospora destructor", category: "Fungal", severity: "Severe" },
+  { id: "ONN-004", name: "Basal Rot", scientific_name: "Fusarium oxysporum f. sp. cepae", category: "Fungal", severity: "Critical" },
+  { id: "ONN-005", name: "Neck Rot", scientific_name: "Botrytis allii", category: "Fungal", severity: "Severe" },
+  { id: "ONN-006", name: "Smut", scientific_name: "Urocystis cepulae", category: "Fungal", severity: "Moderate" },
+  { id: "ONN-007", name: "White Rot", scientific_name: "Sclerotium cepivorum", category: "Fungal", severity: "Critical" },
+  { id: "ONN-008", name: "Pink Root Rot", scientific_name: "Phoma terrestris", category: "Fungal", severity: "Moderate" },
+  { id: "ONN-009", name: "Onion Blast", scientific_name: "Botrytis squamosa", category: "Fungal", severity: "Moderate" },
+  { id: "ONN-010", name: "Bacterial Soft Rot", scientific_name: "Pectobacterium carotovorum", category: "Bacterial", severity: "Critical" }
 ];
 
 // --- COMMON SYMPTOMS FOR USER SELECTION ---
 const COMMON_SYMPTOMS = [
-  { id: "sym-1", text: "White powdery patches on leaves", diseaseCode: "FNG-001" },
-  { id: "sym-2", text: "Circular black spots with yellow halos", diseaseCode: "FNG-002" },
-  { id: "sym-3", text: "Brown spots with target-like concentric rings", diseaseCode: "FNG-003" },
-  { id: "sym-4", text: "Greasy, water-soaked dark lesions", diseaseCode: "FNG-004" },
-  { id: "sym-5", text: "Leaves curling upwards and yellowing", diseaseCode: "VRL-002" },
-  { id: "sym-6", text: "Sunken dark leathery spots on fruit", diseaseCode: "NTR-006" },
-  { id: "sym-7", text: "Leaf margins drying, browning or bronzing", diseaseCode: "FNG-015" },
-  { id: "sym-8", text: "Sunken orange-brown bark cankers on stems", diseaseCode: "FNG-016" },
-  { id: "sym-9", text: "Sudden wilting or flagging of branches", diseaseCode: "FNG-017" },
-  { id: "sym-10", text: "Visible pests, webbing or sticky residue", diseaseCode: "PST-001" }
+  { id: "sym-1", text: "White powdery patches on leaves", diseaseCode: "WHT-006" },
+  { id: "sym-2", text: "Circular spots with yellow halos", diseaseCode: "GND-001" },
+  { id: "sym-3", text: "Brown spots with concentric rings", diseaseCode: "ONN-001" },
+  { id: "sym-4", text: "Greasy, water-soaked dark lesions", diseaseCode: "COT-001" },
+  { id: "sym-5", text: "Leaves curling and yellowing", diseaseCode: "CHL-007" },
+  { id: "sym-6", text: "Sunken dark spots on pods/fruit", diseaseCode: "CHL-001" },
+  { id: "sym-7", text: "Orange-brown rust pustules on leaves", diseaseCode: "WHT-001" },
+  { id: "sym-8", text: "Loose black powder on grain heads", diseaseCode: "WHT-004" },
+  { id: "sym-9", text: "Sudden wilting or drying of plant", diseaseCode: "COT-002" },
+  { id: "sym-10", text: "Water-soaked red tissue in stems", diseaseCode: "SUG-001" }
 ];
 
 // --- DYNAMIC PATHOLOGY DATA GENERATOR ---
@@ -497,6 +594,165 @@ function getExtendedDiseaseReport(base, plantName) {
   };
 }
 
+// --- REGIONAL SOIL & CROP MAPPING DATABASE ---
+const SOIL_REGION_DATABASE = {
+  "Maharashtra": {
+    soilType: "Deep Black Clayey Soil (Regur)",
+    properties: "High clay content, excellent moisture retention, rich in iron, calcium, lime, and potash. Low in nitrogen and phosphorus.",
+    typicalCrops: ["Cotton", "Sugarcane", "Jowar (Sorghum)", "Bengal Gram (Chickpea)", "Groundnut", "Sesame", "Chilli"],
+    suitability: {
+      "Kharif (Monsoon)": [
+        { crop: "Cotton", score: 95, reason: "Black soil retains moisture perfectly for cotton taproots during rainfall breaks." },
+        { crop: "Jowar (Sorghum)", score: 90, reason: "Highly drought resistant, thrives in clayey moisture-holding soil." },
+        { crop: "Groundnut", score: 85, reason: "Excellent in well-drained sandy-loam black soils." },
+        { crop: "Sesame", score: 80, reason: "Requires moderate warmth and loamy clay beds." }
+      ],
+      "Rabi (Winter)": [
+        { crop: "Bengal Gram (Chickpea)", score: 95, reason: "Residual moisture in clayey black soil supports winter chickpea growth without heavy irrigation." },
+        { crop: "Wheat", score: 85, reason: "Good winter crop if supplementary irrigation is provided." }
+      ],
+      "Zaid (Summer)": [
+        { crop: "Green Gram (Moong)", score: 75, reason: "Short duration crop that replenishes nitrogen before the Kharif season." }
+      ]
+    }
+  },
+  "Punjab": {
+    soilType: "Fertile Alluvial Clay-Loam Soil",
+    properties: "Rich in humus, phosphoric acid, and potash. Highly porous and fertile structure with balanced sand-silt-clay ratios.",
+    typicalCrops: ["Wheat", "Maize", "Sugarcane", "Green Gram (Moong)", "Onion", "Bengal Gram (Chickpea)", "Black Gram (Urad)"],
+    suitability: {
+      "Kharif (Monsoon)": [
+        { crop: "Maize", score: 92, reason: "Alluvial soil provides outstanding aeration and root penetration for high-yield maize." },
+        { crop: "Sugarcane", score: 90, reason: "Thrives with heavy watering in highly organic alluvial soils." },
+        { crop: "Cotton", score: 80, reason: "Suitable in well-drained loamy alluvial tracts." }
+      ],
+      "Rabi (Winter)": [
+        { crop: "Wheat", score: 98, reason: "The premier alluvial wheat-growing region of India. Balanced clay-silt retains fertilizer efficiently." },
+        { crop: "Onion", score: 88, reason: "Grows large bulb structures in loamy loose soils." },
+        { crop: "Bengal Gram (Chickpea)", score: 85, reason: "Suitable for nitrogen fixation in agricultural crop rotations." }
+      ],
+      "Zaid (Summer)": [
+        { crop: "Green Gram (Moong)", score: 80, reason: "Thrives in summer sun, quick 60-day crop return." }
+      ]
+    }
+  },
+  "Rajasthan": {
+    soilType: "Sandy Arid/Desert Soil",
+    properties: "Highly porous and permeable, low moisture retention, low organic matter, saline-alkaline pH. Requires drip/sparse watering.",
+    typicalCrops: ["Bajra (Pearl Millet)", "Sesame", "Groundnut", "Chilli", "Jowar (Sorghum)"],
+    suitability: {
+      "Kharif (Monsoon)": [
+        { crop: "Bajra (Pearl Millet)", score: 98, reason: "Extremely drought-tolerant. Porous sandy soil prevents waterlogging which millets hate." },
+        { crop: "Sesame", score: 90, reason: "Thrives in sandy loams with minimal water and high solar intensity." },
+        { crop: "Jowar (Sorghum)", score: 85, reason: "Deep roots search for water in deep sandy profiles." }
+      ],
+      "Rabi (Winter)": [
+        { crop: "Sunflower", score: 75, reason: "Can be grown with micro-irrigation systems." },
+        { crop: "Bengal Gram (Chickpea)", score: 70, reason: "Low-water winter crop suitable for semi-arid zones." }
+      ],
+      "Zaid (Summer)": [
+        { crop: "Sesame", score: 65, reason: "Only viable under controlled drip systems." }
+      ]
+    }
+  },
+  "Gujarat": {
+    soilType: "Sandy Loam & Black Cotton Soil",
+    properties: "Mix of alluvial sandy loams in the north and rich black clayey soils in Saurashtra. High potash and carbonate levels.",
+    typicalCrops: ["Cotton", "Groundnut", "Sesame", "Bajra (Pearl Millet)", "Jowar (Sorghum)", "Onion", "Chilli"],
+    suitability: {
+      "Kharif (Monsoon)": [
+        { crop: "Cotton", score: 96, reason: "Renowned region for cotton. Saurashtra black soil retains monsoon rain for optimal growth." },
+        { crop: "Groundnut", score: 94, reason: "North Gujarat sandy loams are perfect for pod development and easy harvesting." },
+        { crop: "Bajra (Pearl Millet)", score: 88, reason: "Thrives in dry, well-aerated coastal sandy loams." }
+      ],
+      "Rabi (Winter)": [
+        { crop: "Onion", score: 90, reason: "High yield in well-drained sandy-clay soils of Saurashtra." },
+        { crop: "Wheat", score: 80, reason: "Grows well under light irrigation in black-clay tracts." }
+      ],
+      "Zaid (Summer)": [
+        { crop: "Sesame", score: 75, reason: "Thrives in summer heat with moderate coastal humidity." }
+      ]
+    }
+  },
+  "Andhra Pradesh": {
+    soilType: "Red Sandy-Loam & Coastal Alluvial Soil",
+    properties: "Well-aerated red soil rich in iron and potash but low in nitrogen and humus. Light loamy structure suitable for root growth.",
+    typicalCrops: ["Chilli", "Groundnut", "Cotton", "Sugarcane", "Red Gram (Tur)", "Sesame", "Maize"],
+    suitability: {
+      "Kharif (Monsoon)": [
+        { crop: "Chilli", score: 95, reason: "Guntur region red soils are famous for producing high-quality hot chillies. Requires dry spells." },
+        { crop: "Groundnut", score: 90, reason: "Red sandy loam provides easy root penetration and pod swelling." },
+        { crop: "Red Gram (Tur)", score: 88, reason: "Hardy legume that thrives in low-nitrogen red soils." }
+      ],
+      "Rabi (Winter)": [
+        { crop: "Maize", score: 88, reason: "Grows well in river valley alluvial soils during dry winter months." },
+        { crop: "Bengal Gram (Chickpea)", score: 80, reason: "Good winter cover crop in mixed soils." }
+      ],
+      "Zaid (Summer)": [
+        { crop: "Black Gram (Urad)", score: 75, reason: "Short summer crop after rice harvests." }
+      ]
+    }
+  },
+  "Uttar Pradesh": {
+    soilType: "Deep Alluvial Silt Soil",
+    properties: "Extremely deep fertile layers deposited by Gangetic river systems. Rich in lime and organic potash. Dense agricultural profile.",
+    typicalCrops: ["Sugarcane", "Wheat", "Maize", "Bengal Gram (Chickpea)", "Red Gram (Tur)", "Green Gram (Moong)", "Onion"],
+    suitability: {
+      "Kharif (Monsoon)": [
+        { crop: "Sugarcane", score: 96, reason: "Premier Sugarcane belt. The deep alluvial clay holds the massive water quantity required." },
+        { crop: "Maize", score: 90, reason: "High vegetative growth in nutrient-dense alluvial planes." },
+        { crop: "Red Gram (Tur)", score: 85, reason: "Sown in early monsoon, grows slowly into a tall woody legume." }
+      ],
+      "Rabi (Winter)": [
+        { crop: "Wheat", score: 97, reason: "Massive production yields. Winter dew and Gangetic silt promote dense grains." },
+        { crop: "Onion", score: 90, reason: "Highly fertile alluvial beds support massive bulb sizing." },
+        { crop: "Bengal Gram (Chickpea)", score: 88, reason: "Sown in dry sandy alluvial fields." }
+      ],
+      "Zaid (Summer)": [
+        { crop: "Green Gram (Moong)", score: 85, reason: "Very common summer crop in rotation with wheat." }
+      ]
+    }
+  },
+  "Karnataka": {
+    soilType: "Red Clay-Loam & Black Cotton Soil Mix",
+    properties: "Slightly acidic to neutral red soils in the south, deep black clays in the north. Moderately rich in phosphorus and potassium.",
+    typicalCrops: ["Jowar (Sorghum)", "Maize", "Cotton", "Sugarcane", "Groundnut", "Sunflower", "Chilli", "Red Gram (Tur)"],
+    suitability: {
+      "Kharif (Monsoon)": [
+        { crop: "Maize", score: 92, reason: "Red loams of southern Karnataka support excellent maize yields." },
+        { crop: "Jowar (Sorghum)", score: 90, reason: "North Karnataka black soils are ideal for Kharif sorghum." },
+        { crop: "Sunflower", score: 88, reason: "Thrives in red clayey loams with moderate rainfall." }
+      ],
+      "Rabi (Winter)": [
+        { crop: "Bengal Gram (Chickpea)", score: 90, reason: "Thrives in Northern Karnataka black soils during dry winters." },
+        { crop: "Chilli", score: 85, reason: "Byadagi chilli grows uniquely in red soils under cool dry winters." }
+      ],
+      "Zaid (Summer)": [
+        { crop: "Groundnut", score: 75, reason: "Grown with canal irrigation." }
+      ]
+    }
+  },
+  "West Bengal": {
+    soilType: "Heavy Alluvial Clay & Laterite Acidic Soil",
+    properties: "Heavy deltaic alluvial clays in the south/east, acidic laterites in the west. Heavy moisture and organic carbon contents.",
+    typicalCrops: ["Maize", "Sugarcane", "Onion", "Green Gram (Moong)", "Black Gram (Urad)", "Wheat"],
+    suitability: {
+      "Kharif (Monsoon)": [
+        { crop: "Sugarcane", score: 88, reason: "Grows well in deltaic alluvial margins." },
+        { crop: "Maize", score: 85, reason: "Thrives in well-drained silty loams." }
+      ],
+      "Rabi (Winter)": [
+        { crop: "Onion", score: 92, reason: "Outstanding performance in alluvial silts of river beds." },
+        { crop: "Wheat", score: 80, reason: "Grown under light irrigation in northern alluvial planes." }
+      ],
+      "Zaid (Summer)": [
+        { crop: "Black Gram (Urad)", score: 82, reason: "Very popular pulse grown in moist post-harvest paddy fields." },
+        { crop: "Green Gram (Moong)", score: 80, reason: "Grows quickly in warm summer silt." }
+      ]
+    }
+  }
+};
+
 // --- DAILY AGRIO TIPS ---
 const TIPS_OF_THE_DAY = [
   "Deep watering once a week is far better than light daily watering. It encourages roots to grow deep, making plants drought-resilient.",
@@ -589,8 +845,12 @@ export default function App() {
   const [activeReport, setActiveReport] = useState(null);
   const [tagFieldId, setTagFieldId] = useState('');
   const [simulateInvalidSpecimen, setSimulateInvalidSpecimen] = useState(false);
-  const [scanError, setScanError] = useState(null);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+  
+  // Crop Advisor states
+  const [advisorState, setAdvisorState] = useState('Maharashtra');
+  const [isLocating, setIsLocating] = useState(false);
+  const [advisorLocation, setAdvisorLocation] = useState(null); // { lat, lng }
   
   // Before/After compare states
   const [beforeImage, setBeforeImage] = useState(null);
@@ -776,6 +1036,77 @@ export default function App() {
       window.removeEventListener('offline', handleOffline);
     };
   }, []);
+
+  // --- LOCATION ADVISOR FETCHERS ---
+  const fetchIPLocationFallback = async () => {
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      if (res.ok) {
+        const ipData = await res.json();
+        const region = ipData.region || ipData.region_name || "";
+        const matchedState = Object.keys(SOIL_REGION_DATABASE).find(s => 
+          region.toLowerCase().includes(s.toLowerCase()) || s.toLowerCase().includes(region.toLowerCase())
+        );
+        if (matchedState) {
+          setAdvisorState(matchedState);
+          if (ipData.latitude && ipData.longitude) {
+            setAdvisorLocation({ lat: ipData.latitude, lng: ipData.longitude });
+          }
+          triggerToast(`Location resolved to ${matchedState} (via IP)!`, "success");
+          return;
+        }
+      }
+    } catch (e) {
+      console.error("IP fallback failed:", e);
+    }
+    triggerToast("Auto-location failed. Please select your region manually.", "info");
+  };
+
+  const handleFetchLocation = () => {
+    if (!navigator.geolocation) {
+      triggerToast("Geolocation is not supported by your browser.", "error");
+      return;
+    }
+    setIsLocating(true);
+    triggerToast("Retrieving GPS coordinates...", "info");
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        setAdvisorLocation({ lat: latitude, lng: longitude });
+        
+        try {
+          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+          if (response.ok) {
+            const data = await response.json();
+            const address = data.address || {};
+            const state = address.state || address.region || "";
+            const matchedState = Object.keys(SOIL_REGION_DATABASE).find(s => 
+              state.toLowerCase().includes(s.toLowerCase()) || s.toLowerCase().includes(state.toLowerCase())
+            );
+            if (matchedState) {
+              setAdvisorState(matchedState);
+              triggerToast(`Location resolved to ${matchedState}!`, "success");
+            } else {
+              await fetchIPLocationFallback();
+            }
+          } else {
+            await fetchIPLocationFallback();
+          }
+        } catch (err) {
+          await fetchIPLocationFallback();
+        } finally {
+          setIsLocating(false);
+        }
+      },
+      async (error) => {
+        console.error("Geolocation error:", error);
+        triggerToast("GPS access denied. Trying IP-based location...", "warning");
+        await fetchIPLocationFallback();
+        setIsLocating(false);
+      },
+      { timeout: 8000 }
+    );
+  };
 
   // --- TOAST TRIGGER ---
   const triggerToast = (message, type = 'success') => {
@@ -1168,11 +1499,45 @@ The JSON must have this exact structure:
         let diseaseId = null;
         const lowerPlant = nameToUse.toLowerCase();
 
+        // Resolve Crop prefix based on input plant name
+        let prefix = "JOW";
+        if (lowerPlant.includes("jowar") || lowerPlant.includes("sorghum")) prefix = "JOW";
+        else if (lowerPlant.includes("maize") || lowerPlant.includes("corn")) prefix = "MAZ";
+        else if (lowerPlant.includes("bajra") || lowerPlant.includes("millet")) prefix = "BAJ";
+        else if (lowerPlant.includes("wheat")) prefix = "WHT";
+        else if (lowerPlant.includes("cotton")) prefix = "COT";
+        else if (lowerPlant.includes("sugarcane")) prefix = "SUG";
+        else if (lowerPlant.includes("red gram") || lowerPlant.includes("tur")) prefix = "RED";
+        else if (lowerPlant.includes("bengal gram") || lowerPlant.includes("chickpea")) prefix = "BEN";
+        else if (lowerPlant.includes("green gram") || lowerPlant.includes("moong")) prefix = "GRN";
+        else if (lowerPlant.includes("black gram") || lowerPlant.includes("urad")) prefix = "BLK";
+        else if (lowerPlant.includes("groundnut") || lowerPlant.includes("peanut")) prefix = "GND";
+        else if (lowerPlant.includes("sunflower")) prefix = "SUN";
+        else if (lowerPlant.includes("sesame")) prefix = "SES";
+        else if (lowerPlant.includes("chilli") || lowerPlant.includes("chili")) prefix = "CHL";
+        else if (lowerPlant.includes("onion")) prefix = "ONN";
+        else {
+          // Fallback: pick a random crop prefix
+          const prefixes = ["JOW", "MAZ", "BAJ", "WHT", "COT", "SUG", "RED", "BEN", "GRN", "BLK", "GND", "SUN", "SES", "CHL", "ONN"];
+          prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+        }
+
         // 1. Check if the user selected any symptoms
         const activeSymptomObj = COMMON_SYMPTOMS.find(s => selectedSymptoms.includes(s.text));
         
         if (activeSymptomObj) {
-          diseaseId = activeSymptomObj.diseaseCode;
+          const baseDisease = ENCYCLOPEDIA_DATABASE.find(d => d.id === activeSymptomObj.diseaseCode);
+          if (baseDisease) {
+            const cropDiseases = ENCYCLOPEDIA_DATABASE.filter(d => d.id.startsWith(prefix));
+            const matchedInCrop = cropDiseases.find(d => d.name.toLowerCase().includes(baseDisease.name.toLowerCase().split(' ')[0]));
+            if (matchedInCrop) {
+              diseaseId = matchedInCrop.id;
+            } else {
+              diseaseId = baseDisease.id;
+            }
+          } else {
+            diseaseId = activeSymptomObj.diseaseCode;
+          }
         } else {
           // 2. Search for disease name or scientific name keyword in plant name input text
           let matchedDisease = null;
@@ -1187,71 +1552,10 @@ The JSON must have this exact structure:
           if (matchedDisease) {
             diseaseId = matchedDisease.id;
           } else {
-            // 3. Fallback to plant family mappings
-            if (lowerPlant.includes("rose")) {
-              const ids = ["FNG-001", "FNG-002", "FNG-005", "PST-001", "VRL-007"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("tomato")) {
-              const ids = ["FNG-003", "FNG-004", "VRL-002", "NTR-006"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("potato")) {
-              const ids = ["FNG-003", "FNG-004", "NMT-002", "BCT-005"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("grape")) {
-              const ids = ["FNG-008", "FNG-001", "FNG-006", "BCT-008"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("apple") || lowerPlant.includes("pear")) {
-              const ids = ["BCT-003", "FNG-012", "BCT-009"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("mango") || lowerPlant.includes("papaya")) {
-              const ids = ["FNG-006", "VRL-003", "PST-003", "FNG-020"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("banana")) {
-              const ids = ["VRL-004", "FNG-009"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("wheat") || lowerPlant.includes("rice") || lowerPlant.includes("corn") || lowerPlant.includes("maize")) {
-              const ids = ["FNG-005", "BCT-001", "NTR-001", "NTR-003"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("orange") || lowerPlant.includes("lemon") || lowerPlant.includes("citrus")) {
-              const ids = ["BCT-006", "VRL-005", "NTR-002", "FNG-019", "VRL-010", "PST-011"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("oak")) {
-              const ids = ["FNG-015", "FNG-022", "PST-016"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("pine")) {
-              const ids = ["FNG-021", "FNG-025", "NMT-003", "PST-012"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("chestnut")) {
-              const ids = ["FNG-016"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("elm")) {
-              const ids = ["FNG-017"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("coffee")) {
-              const ids = ["FNG-018", "BCT-005"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("coconut") || lowerPlant.includes("palm")) {
-              const ids = ["BCT-010", "NMT-004", "PST-013"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("ash")) {
-              const ids = ["BCT-012", "PST-009"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("maple")) {
-              const ids = ["FNG-023"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("olive")) {
-              const ids = ["BCT-007"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("cacao")) {
-              const ids = ["VRL-008"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else if (lowerPlant.includes("plum") || lowerPlant.includes("cherry")) {
-              const ids = ["VRL-006", "VRL-009", "VRL-011", "FNG-027"];
-              diseaseId = ids[Math.floor(Math.random() * ids.length)];
-            } else {
-              const randomBase = ENCYCLOPEDIA_DATABASE[Math.floor(Math.random() * ENCYCLOPEDIA_DATABASE.length)];
-              diseaseId = randomBase.id;
-            }
+            // 3. Pick a random disease from the resolved crop prefix
+            const availableDiseases = ENCYCLOPEDIA_DATABASE.filter(d => d.id.startsWith(prefix));
+            const randomDisease = availableDiseases[Math.floor(Math.random() * availableDiseases.length)];
+            diseaseId = randomDisease ? randomDisease.id : "JOW-001";
           }
         }
 
@@ -2020,6 +2324,20 @@ The JSON must have this exact structure:
             >
               <Map size={20} />
               {!sidebarCollapsed && <span>My Fields</span>}
+            </button>
+
+            <button
+              onClick={() => setActiveTab('crop-advisor')}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem', border: 'none', background: 'none', cursor: 'pointer',
+                borderRadius: '8px', color: activeTab === 'crop-advisor' ? 'var(--accent-color)' : 'var(--text-muted)',
+                backgroundColor: activeTab === 'crop-advisor' ? 'rgba(82,232,150,0.05)' : 'transparent',
+                fontWeight: activeTab === 'crop-advisor' ? '600' : '400',
+                justifyContent: sidebarCollapsed ? 'center' : 'flex-start'
+              }}
+            >
+              <MapPin size={20} />
+              {!sidebarCollapsed && <span>Crop Advisor</span>}
             </button>
 
             <button
@@ -3370,6 +3688,204 @@ The JSON must have this exact structure:
                   Erase Account & Database
                 </button>
               </div>
+
+            </div>
+          )}
+
+          {/* 8. CROP ADVISOR VIEW */}
+          {activeTab === 'crop-advisor' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              
+              {/* Header Title card */}
+              <div className="card-glass" style={{ padding: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+                <div>
+                  <h2 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>🌾 Geo-Agricultural Crop & Soil Advisor</h2>
+                  <p style={{ color: 'var(--text-muted)' }}>Leverage live location tracking to identify local soil profiles, typical regional crops, and optimal planting suitability scores.</p>
+                </div>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                  <button
+                    onClick={handleFetchLocation}
+                    disabled={isLocating}
+                    className="btn-primary"
+                    style={{ padding: '0.75rem 1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                  >
+                    {isLocating ? (
+                      <>
+                        <Loader2 className="animate-spin" size={18} />
+                        Locating Farm...
+                      </>
+                    ) : (
+                      <>
+                        <MapPin size={18} />
+                        Auto-Detect Location
+                      </>
+                    )}
+                  </button>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                    <label style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>SIMULATE REGION</label>
+                    <select
+                      value={advisorState}
+                      onChange={(e) => {
+                        setAdvisorState(e.target.value);
+                        setAdvisorLocation(null);
+                        triggerToast(`Simulating location: ${e.target.value}`, "info");
+                      }}
+                      style={{ padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                    >
+                      {Object.keys(SOIL_REGION_DATABASE).map(state => (
+                        <option key={state} value={state}>{state}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Coordinates display if available */}
+              {advisorLocation && (
+                <div className="card-glass" style={{ padding: '1rem 1.5rem', display: 'flex', gap: '2rem', flexWrap: 'wrap', borderLeft: '4px solid var(--accent-color)', backgroundColor: 'rgba(82,232,150,0.02)' }}>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>GPS LATITUDE</span>
+                    <p style={{ fontSize: '1.1rem', fontWeight: 'bold', fontFamily: 'var(--font-mono)', color: 'var(--accent-color)' }}>{advisorLocation.lat.toFixed(6)}</p>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>GPS LONGITUDE</span>
+                    <p style={{ fontSize: '1.1rem', fontWeight: 'bold', fontFamily: 'var(--font-mono)', color: 'var(--accent-color)' }}>{advisorLocation.lng.toFixed(6)}</p>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>ACCURACY STATUS</span>
+                    <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>Satellite Resolved ✅</p>
+                  </div>
+                  <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+                    <span className="badge" style={{ backgroundColor: 'rgba(82,232,150,0.15)', color: 'var(--accent-color)', padding: '0.4rem 0.8rem', borderRadius: '20px' }}>
+                      📍 Live Local Farm Grid
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Dynamic Soil & Crops section */}
+              {(() => {
+                const info = SOIL_REGION_DATABASE[advisorState] || SOIL_REGION_DATABASE["Maharashtra"];
+                return (
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'start' }}>
+                    
+                    {/* Left Column: Soil & Local Crops */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                      
+                      {/* Soil Profile Card */}
+                      <div className="card-glass" style={{ padding: '2rem' }}>
+                        <h3 style={{ fontSize: '1.3rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-color)' }}>
+                          <span>🪨</span> Local Soil Profile: {advisorState}
+                        </h3>
+                        
+                        <div style={{ marginBottom: '1.5rem' }}>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>SOIL TYPE CLASSIFICATION</span>
+                          <p style={{ fontSize: '1.4rem', fontWeight: 'bold', margin: '0.25rem 0 0.5rem 0' }}>{info.soilType}</p>
+                          <div style={{ height: '3px', backgroundColor: 'var(--border-color)', borderRadius: '2px', position: 'relative', overflow: 'hidden' }}>
+                            <div style={{ width: '70%', height: '100%', backgroundColor: 'var(--accent-color)' }}></div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>PHYSICAL & CHEMICAL PROPERTIES</span>
+                          <p style={{ fontSize: '0.95rem', color: 'var(--text-primary)', lineHeight: '1.6', marginTop: '0.25rem' }}>{info.properties}</p>
+                        </div>
+                      </div>
+
+                      {/* Typical Regional Crops Card */}
+                      <div className="card-glass" style={{ padding: '2rem' }}>
+                        <h3 style={{ fontSize: '1.3rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <span>🚜</span> Primary Crops Grown in {advisorState}
+                        </h3>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>These agricultural crops represent the current dominant agricultural footprint in this geographic soil zone:</p>
+                        
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+                          {info.typicalCrops.map(crop => (
+                            <div
+                              key={crop}
+                              style={{
+                                padding: '0.6rem 1.2rem',
+                                borderRadius: '30px',
+                                backgroundColor: 'var(--surface-light)',
+                                border: '1px solid var(--border-color)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                fontSize: '0.9rem',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s ease'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--accent-color)';
+                                e.currentTarget.style.backgroundColor = 'rgba(82,232,150,0.03)';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--border-color)';
+                                e.currentTarget.style.backgroundColor = 'var(--surface-light)';
+                              }}
+                              onClick={() => {
+                                setPlantName(crop.split(' ')[0]);
+                                setActiveTab('scan');
+                                triggerToast(`Selected ${crop} for diagnostic analysis.`, "info");
+                              }}
+                            >
+                              <span style={{ fontSize: '1rem' }}>🌾</span>
+                              <strong>{crop}</strong>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                    </div>
+
+                    {/* Right Column: Seasonal Suitability Advisor */}
+                    <div className="card-glass" style={{ padding: '2rem' }}>
+                      <h3 style={{ fontSize: '1.3rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-color)' }}>
+                        <span>📊</span> Seasonal Planting Suitability
+                      </h3>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Detailed suitability compatibility ratings calculated dynamically based on regional soil chemistry and seasonal heat index profiles.</p>
+                      
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                        {Object.entries(info.suitability).map(([season, list]) => (
+                          <div key={season} style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '1.5rem' }}>
+                            <h4 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--text-primary)', fontFamily: 'var(--font-display)', borderLeft: '3px solid var(--accent-color)', paddingLeft: '0.5rem' }}>
+                              {season} Planting Cycle
+                            </h4>
+                            
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                              {list.map(item => {
+                                const scoreColor = item.score >= 90 ? 'var(--accent-color)' : item.score >= 80 ? 'var(--warning-color)' : '#f59e0b';
+                                return (
+                                  <div key={item.crop} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', backgroundColor: 'rgba(255,255,255,0.01)', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.02)' }}>
+                                    
+                                    {/* Score gauge */}
+                                    <div style={{
+                                      width: '45px', height: '45px', borderRadius: '50%', border: `3px solid ${scoreColor}`,
+                                      display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                                      fontFamily: 'var(--font-mono)', fontWeight: 'bold', fontSize: '0.85rem', color: scoreColor
+                                    }}>
+                                      {item.score}%
+                                    </div>
+
+                                    {/* Crop suitability text */}
+                                    <div>
+                                      <h5 style={{ fontSize: '0.95rem', fontWeight: 'bold', margin: '0 0 0.25rem 0' }}>{item.crop}</h5>
+                                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0, lineHeight: '1.4' }}>{item.reason}</p>
+                                    </div>
+
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                  </div>
+                );
+              })()}
 
             </div>
           )}
