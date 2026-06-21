@@ -2404,7 +2404,11 @@ The JSON must have this exact structure:
 
             <button
               id="tour-scan"
-              onClick={() => setActiveTab('scan')}
+              onClick={() => {
+                setActiveTab('scan');
+                setActiveReport(null);
+                setScanError(null);
+              }}
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem', border: 'none', background: 'none', cursor: 'pointer',
                 borderRadius: '8px', color: activeTab === 'scan' ? 'var(--accent-color)' : 'var(--text-muted)',
@@ -2678,7 +2682,11 @@ The JSON must have this exact structure:
                       Run immediate analysis on infected plant leaves, crop stems, or roots. Upload images or run live macro capture.
                     </p>
                   </div>
-                  <button onClick={() => setActiveTab('scan')} className="btn-primary" style={{ alignSelf: 'flex-start' }}>
+                  <button onClick={() => {
+                    setActiveTab('scan');
+                    setActiveReport(null);
+                    setScanError(null);
+                  }} className="btn-primary" style={{ alignSelf: 'flex-start' }}>
                     Initialize New Scan <ArrowRight size={16} />
                   </button>
                 </div>
@@ -3976,6 +3984,8 @@ The JSON must have this exact structure:
                               }}
                               onClick={() => {
                                 setPlantName(crop.split(' ')[0]);
+                                setActiveReport(null);
+                                setScanError(null);
                                 setActiveTab('scan');
                                 triggerToast(`Selected ${crop} for diagnostic analysis.`, "info");
                               }}
