@@ -312,4 +312,50 @@ h1, h2, h3, h4, h5, h6 {
   .app-grid {
     grid-template-columns: 1fr;
   }
+  .sidebar-nav {
+    display: none !important;
+  }
+  .main-content {
+    padding-bottom: 80px !important;
+  }
+  .mobile-only-logo {
+    display: inline-flex !important;
+  }
+  .app-header {
+    padding: 0 1rem !important;
+  }
+}
+
+.dashboard-grid-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background-color: var(--surface-color);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border-color);
+    z-index: 999;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);
+  }
 }

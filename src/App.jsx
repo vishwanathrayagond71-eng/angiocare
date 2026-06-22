@@ -3938,7 +3938,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
       </div>
 
       {/* Sidebar Navigation */}
-      <aside style={{
+      <aside className="sidebar-nav" style={{
         backgroundColor: 'var(--surface-color)',
         borderRight: '1px solid var(--border-color)',
         display: 'flex',
@@ -4103,13 +4103,12 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
       </aside>
 
       {/* Main Content Area */}
-      <main style={{ display: 'flex', flexDirection: 'column', flex: 1, height: '100vh', overflowY: 'auto' }}>
+      <main className="main-content" style={{ display: 'flex', flexDirection: 'column', flex: 1, height: '100vh', overflowY: 'auto' }}>
         {/* Top Navbar */}
-        <header style={{
+        <header className="app-header" style={{
           height: '64px',
           backgroundColor: 'var(--surface-color)',
           borderBottom: '1px solid var(--border-color)',
-          padding: '0 2rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -4117,7 +4116,10 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
           top: 0,
           zIndex: 50
         }}>
-          <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div className="mobile-only-logo" style={{ display: 'none', alignItems: 'center' }}>
+              <Sprout color="var(--accent-color)" size={24} />
+            </div>
             <h1 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)' }}>
               {t(activeTab + '_panel')}
             </h1>
@@ -4372,7 +4374,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
               </div>
 
               {/* Recent History Preview & Field Tracker preview */}
-              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1.5rem', flexWrap: 'wrap' }}>
+              <div className="dashboard-grid-layout" style={{ gap: '1.5rem' }}>
                 
                 {/* Recent Scan History */}
                 <div className="card-glass" style={{ padding: '2rem' }}>
@@ -5320,7 +5322,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                   <p>{language === 'kn' ? 'ಗ್ರಾಫಿಕಲ್ ವಿಶ್ಲೇಷಣೆಯನ್ನು ಪಡೆಯಲು ಬೆಳೆ ಸ್ಕ್ಯಾನ್ ಪೂರ್ಣಗೊಳಿಸಿ.' : 'Complete crop scans to populate graphical analytics.'}</p>
                 </div>
               ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
                   
                   {/* Category Breakdown (Pie) */}
                   <div className="card-glass" style={{ padding: '2rem', minHeight: '340px' }}>
@@ -6539,6 +6541,79 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
 
       {/* Render Onboarding Tour overlay */}
       {renderOnboardingTour()}
+
+      {/* Mobile Bottom Navigation Bar */}
+      <div className="mobile-bottom-nav">
+        <button
+          onClick={() => setActiveTab('dashboard')}
+          style={{
+            border: 'none', background: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px',
+            color: activeTab === 'dashboard' ? 'var(--accent-color)' : 'var(--text-muted)', fontSize: '0.7rem', flex: 1
+          }}
+        >
+          <Activity size={20} />
+          <span>{language === 'kn' ? 'ಮುಖಪುಟ' : 'Home'}</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveTab('scan');
+            setActiveReport(null);
+            setScanError(null);
+          }}
+          style={{
+            border: 'none', background: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px',
+            color: activeTab === 'scan' ? 'var(--accent-color)' : 'var(--text-muted)', fontSize: '0.7rem', flex: 1
+          }}
+        >
+          <Camera size={20} />
+          <span>{language === 'kn' ? 'ಸ್ಕ್ಯಾನ್' : 'Scan'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('encyclopedia')}
+          style={{
+            border: 'none', background: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px',
+            color: activeTab === 'encyclopedia' ? 'var(--accent-color)' : 'var(--text-muted)', fontSize: '0.7rem', flex: 1
+          }}
+        >
+          <BookOpen size={20} />
+          <span>{language === 'kn' ? 'ಜ್ಞಾನಕೋಶ' : 'Wiki'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('history')}
+          style={{
+            border: 'none', background: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px',
+            color: activeTab === 'history' ? 'var(--accent-color)' : 'var(--text-muted)', fontSize: '0.7rem', flex: 1
+          }}
+        >
+          <History size={20} />
+          <span>{language === 'kn' ? 'ಇತಿಹಾಸ' : 'History'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('fields')}
+          style={{
+            border: 'none', background: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px',
+            color: activeTab === 'fields' ? 'var(--accent-color)' : 'var(--text-muted)', fontSize: '0.7rem', flex: 1
+          }}
+        >
+          <Map size={20} />
+          <span>{language === 'kn' ? 'ಜಮೀನು' : 'Fields'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('settings')}
+          style={{
+            border: 'none', background: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px',
+            color: activeTab === 'settings' ? 'var(--accent-color)' : 'var(--text-muted)', fontSize: '0.7rem', flex: 1
+          }}
+        >
+          <Settings size={20} />
+          <span>{language === 'kn' ? 'ಸಂಯೋಜನೆ' : 'Settings'}</span>
+        </button>
+      </div>
 
     </div>
   );
