@@ -227,36 +227,102 @@ const COMMON_SYMPTOMS = [
 ];
 
 // --- DYNAMIC DISEASE IMAGES GENERATOR ---
-const getDiseaseImages = (diseaseId) => {
-  const pool = [
-    "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1533038590840-1cde6e6e4055?auto=format&fit=crop&w=600&q=80",
+// --- DYNAMIC DISEASE IMAGES GENERATOR ---
+const CROP_IMAGES = {
+  JOW: [
+    "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1570569695181-40bca161e2b7?auto=format&fit=crop&w=600&q=80"
+  ],
+  MAZ: [
     "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80",
     "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1563201378-3665689a9f24?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1551893086-c0d5c3dc4bf9?auto=format&fit=crop&w=600&q=80"
+  ],
+  BAJ: [
+    "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=600&q=80"
+  ],
+  WHT: [
+    "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80",
     "https://images.unsplash.com/photo-1507598641400-ec3536ba81bc?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1587334206586-4f707f1bd062?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1587334206586-4f707f1bd062?auto=format&fit=crop&w=600&q=80"
+  ],
+  COT: [
     "https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&fit=crop&w=600&q=80"
-  ];
-  
-  let hash = 0;
-  const idStr = String(diseaseId || "");
-  for (let i = 0; i < idStr.length; i++) {
-    hash += idStr.charCodeAt(i);
+    "https://images.unsplash.com/photo-1563201378-3665689a9f24?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=600&q=80"
+  ],
+  SUG: [
+    "https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1590779037690-e592f69460a3?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1533038590840-1cde6e6e4055?auto=format&fit=crop&w=600&q=80"
+  ],
+  RED: [
+    "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=600&q=80"
+  ],
+  BEN: [
+    "https://images.unsplash.com/photo-1608686207856-001b95cf60ca?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1584489370845-e6a9ee83fe10?auto=format&fit=crop&w=600&q=80"
+  ],
+  GRN: [
+    "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1533038590840-1cde6e6e4055?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1563201378-3665689a9f24?auto=format&fit=crop&w=600&q=80"
+  ],
+  BLK: [
+    "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1507598641400-ec3536ba81bc?auto=format&fit=crop&w=600&q=80"
+  ],
+  GND: [
+    "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1584489370845-e6a9ee83fe10?auto=format&fit=crop&w=600&q=80"
+  ],
+  SUN: [
+    "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1507598641400-ec3536ba81bc?auto=format&fit=crop&w=600&q=80"
+  ],
+  SES: [
+    "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1590779037690-e592f69460a3?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=600&q=80"
+  ],
+  CHL: [
+    "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1563201378-3665689a9f24?auto=format&fit=crop&w=600&q=80"
+  ],
+  ONN: [
+    "https://images.unsplash.com/photo-1508747703725-719ae25db3e4?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1587334206586-4f707f1bd062?auto=format&fit=crop&w=600&q=80"
+  ]
+};
+
+const getDiseaseImages = (diseaseId) => {
+  const idStr = String(diseaseId || "").toUpperCase();
+  let cropCode = "WHT";
+  const prefixes = ["JOW", "MAZ", "BAJ", "WHT", "COT", "SUG", "RED", "BEN", "GRN", "BLK", "GND", "SUN", "SES", "CHL", "ONN"];
+  for (const prefix of prefixes) {
+    if (idStr.includes(prefix)) {
+      cropCode = prefix;
+      break;
+    }
   }
-  const idx1 = hash % pool.length;
-  const idx2 = (hash + 3) % pool.length;
-  const idx3 = (hash + 7) % pool.length;
-  
-  return [
-    pool[idx1],
-    pool[idx2 === idx1 ? (idx2 + 1) % pool.length : idx2],
-    pool[idx3 === idx1 || idx3 === idx2 ? (idx3 + 2) % pool.length : idx3]
+
+  const pool = CROP_IMAGES[cropCode] || [
+    "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1533038590840-1cde6e6e4055?auto=format&fit=crop&w=600&q=80"
   ];
+  return pool;
 };
 
 // --- DYNAMIC PATHOLOGY DATA GENERATOR ---
@@ -1806,6 +1872,19 @@ export default function App() {
            severity === "Moderate" ? "ಮಧ್ಯಮ" : "ಸೌಮ್ಯ";
   };
   
+  // Profile editing state
+  const [profileName, setProfileName] = useState(currentUser?.name || '');
+  const [profileRole, setProfileRole] = useState(currentUser?.role || 'Farmer');
+  const [profileLocation, setProfileLocation] = useState(currentUser?.location || '');
+
+  useEffect(() => {
+    if (currentUser) {
+      setProfileName(currentUser.name || '');
+      setProfileRole(currentUser.role || 'Farmer');
+      setProfileLocation(currentUser.location || '');
+    }
+  }, [currentUser]);
+
   // Auth Form State
   const [authTab, setAuthTab] = useState('login');
   const [authEmail, setAuthEmail] = useState('');
@@ -4615,7 +4694,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                 <p style={{ color: 'var(--text-muted)' }}>{t('catalog_desc')}</p>
-                {currentUser && (currentUser.role === 'Botanist' || currentUser.role === 'Researcher') && (
+                {currentUser && (currentUser.role === 'Botanist' || currentUser.role === 'Researcher') ? (
                   <button
                     onClick={() => setShowAddDiseaseModal(true)}
                     className="btn-primary"
@@ -4624,6 +4703,15 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                     <Plus size={16} />
                     {language === 'kn' ? 'ಹೊಸ ರೋಗ ದಾಖಲಿಸಿ' : 'Register New Disease'}
                   </button>
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', borderRadius: '8px', backgroundColor: 'rgba(245,166,35,0.06)', border: '1px solid rgba(245,166,35,0.2)' }}>
+                    <Info size={16} color="var(--warning-color)" />
+                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                      {language === 'kn' 
+                        ? 'ಹೊಸ ರೋಗಗಳನ್ನು ದಾಖಲಿಸಲು ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸಸ್ಯವಿಜ್ಞಾನಿ ಅಥವಾ ಸಂಶೋಧಕ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.' 
+                        : 'Switch to Botanist / Researcher role in Settings to register new crop diseases.'}
+                    </span>
+                  </div>
                 )}
               </div>
 
@@ -4667,30 +4755,52 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                                       d.id.toLowerCase().includes(encSearch.toLowerCase());
                   const matchCat = encCategory === 'All' || d.category === encCategory;
                   return matchSearch && matchCat;
-                }).map(d => (
-                  <div
-                    key={d.id}
-                    className="card-glass"
-                    onClick={() => setSelectedEncyclopediaDisease(translateReport(getExtendedDiseaseReport(d, "Host Plant"), language))}
-                    style={{ padding: '1.5rem', cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '180px' }}
-                  >
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                        <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>{d.id}</span>
+                }).map(d => {
+                  const diseaseImgs = d.images || getDiseaseImages(d.id);
+                  const previewImg = diseaseImgs && diseaseImgs.length > 0 ? diseaseImgs[0] : '';
+                  return (
+                    <div
+                      key={d.id}
+                      className="card-glass"
+                      onClick={() => setSelectedEncyclopediaDisease(translateReport(getExtendedDiseaseReport(d, "Host Plant"), language))}
+                      style={{ 
+                        cursor: 'pointer', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        overflow: 'hidden',
+                        borderRadius: '12px',
+                        transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                      }}
+                    >
+                      <div style={{ position: 'relative', width: '100%', height: '140px', overflow: 'hidden', borderBottom: '1px solid var(--border-color)' }}>
+                        <img
+                          src={previewImg}
+                          alt={d.name}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
                         <span style={{
+                          position: 'absolute', top: '0.75rem', right: '0.75rem',
                           fontSize: '0.7rem', padding: '0.15rem 0.4rem', borderRadius: '4px', fontWeight: 'bold',
-                          backgroundColor: d.severity === 'Critical' ? 'rgba(224,82,82,0.1)' : d.severity === 'Severe' ? 'rgba(245,166,35,0.1)' : 'rgba(82,232,150,0.1)',
-                          color: d.severity === 'Critical' ? 'var(--danger-color)' : d.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
+                          backgroundColor: d.severity === 'Critical' ? 'rgba(224,82,82,0.9)' : d.severity === 'Severe' ? 'rgba(245,166,35,0.9)' : 'rgba(82,232,150,0.9)',
+                          color: '#0A1A0F'
                         }}>{tsev(d.severity)}</span>
                       </div>
-                      <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{td(d.name)}</h3>
-                      <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '0.85rem' }}>{d.scientific_name}</p>
+
+                      <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
+                        <div style={{ marginBottom: '1rem' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                            <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>{d.id}</span>
+                          </div>
+                          <h3 style={{ fontSize: '1.2rem', marginBottom: '0.25rem', lineHeight: '1.3' }}>{td(d.name)}</h3>
+                          <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '0.8rem', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{d.scientific_name}</p>
+                        </div>
+                        <span style={{ alignSelf: 'flex-start', fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: 'var(--surface-light)', color: 'var(--accent-color)', border: '1px solid var(--border-color)' }}>
+                          {tcat(d.category)}
+                        </span>
+                      </div>
                     </div>
-                    <span style={{ alignSelf: 'flex-start', fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: 'var(--surface-light)', color: 'var(--accent-color)', border: '1px solid var(--border-color)' }}>
-                      {tcat(d.category)}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
             </div>
@@ -4967,6 +5077,97 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
           {activeTab === 'settings' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', maxWidth: '600px' }}>
               
+              {/* Profile Settings Card */}
+              <div className="card-glass" style={{ padding: '1.5rem' }}>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <User size={18} color="var(--accent-color)" />
+                  {t('profile_settings')}
+                </h3>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  if (!profileName.trim() || !profileLocation.trim()) {
+                    triggerToast(language === 'kn' ? 'ದಯವಿಟ್ಟು ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ' : 'Please fill in all fields', 'error');
+                    return;
+                  }
+                  const updatedUser = {
+                    ...currentUser,
+                    name: profileName,
+                    role: profileRole,
+                    location: profileLocation
+                  };
+                  setCurrentUser(updatedUser);
+                  localStorage.setItem('ac_current_user', JSON.stringify(updatedUser));
+                  
+                  const updatedUsersList = registeredUsers.map(u => 
+                    u.email.toLowerCase() === currentUser.email.toLowerCase() 
+                      ? { ...u, name: profileName, role: profileRole, location: profileLocation } 
+                      : u
+                  );
+                  setRegisteredUsers(updatedUsersList);
+                  localStorage.setItem('ac_registered_users', JSON.stringify(updatedUsersList));
+                  
+                  triggerToast(language === 'kn' ? 'ಪ್ರೊಫೈಲ್ ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ' : 'Profile updated successfully!', 'success');
+                }} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>
+                      {t('name_label')}
+                    </label>
+                    <input
+                      type="text"
+                      value={profileName}
+                      onChange={(e) => setProfileName(e.target.value)}
+                      style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>
+                      {t('email_label')} (Read-Only)
+                    </label>
+                    <input
+                      type="text"
+                      disabled
+                      value={currentUser?.email || ''}
+                      style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', opacity: 0.6, cursor: 'not-allowed', color: 'var(--text-muted)' }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>
+                      {t('role_label')}
+                    </label>
+                    <select
+                      value={profileRole}
+                      onChange={(e) => setProfileRole(e.target.value)}
+                      style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                    >
+                      <option value="Farmer">{language === 'kn' ? 'ರೈತ' : 'Farmer'}</option>
+                      <option value="Botanist">{language === 'kn' ? 'ಸಸ್ಯವಿಜ್ಞಾನಿ (Botanist)' : 'Botanist'}</option>
+                      <option value="Gardener">{language === 'kn' ? 'ತೋಟಗಾರ' : 'Gardener'}</option>
+                      <option value="Researcher">{language === 'kn' ? 'ಸಂಶೋಧಕ (Researcher)' : 'Researcher'}</option>
+                      <option value="Agricultural Officer">{language === 'kn' ? 'ಕೃಷಿ ಅಧಿಕಾರಿ' : 'Agricultural Officer'}</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>
+                      {t('location_label')}
+                    </label>
+                    <input
+                      type="text"
+                      value={profileLocation}
+                      onChange={(e) => setProfileLocation(e.target.value)}
+                      style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                    />
+                  </div>
+
+                  <button type="submit" className="btn-primary" style={{ marginTop: '0.5rem', padding: '0.6rem 1.25rem', borderRadius: '8px' }}>
+                    {language === 'kn' ? 'ಪ್ರೊಫೈಲ್ ಉಳಿಸಿ' : 'Save Profile'}
+                  </button>
+                </form>
+              </div>
+
               {/* Theme Settings */}
               <div className="card-glass" style={{ padding: '1.5rem' }}>
                 <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{t('theme_preferences')}</h3>
