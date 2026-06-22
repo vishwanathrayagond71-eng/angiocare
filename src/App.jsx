@@ -882,6 +882,7 @@ export default function App() {
   const [tagFieldId, setTagFieldId] = useState('');
   const [simulateInvalidSpecimen, setSimulateInvalidSpecimen] = useState(false);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+  const [scanError, setScanError] = useState(null);
   
   // Crop Advisor states
   const [advisorState, setAdvisorState] = useState('Maharashtra');
