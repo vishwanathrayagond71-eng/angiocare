@@ -233,44 +233,238 @@ const getDiseaseImages = (diseaseId) => {
 };
 
 // --- DYNAMIC CROP NAME RESOLVER ---
-const getCropNameFromId = (diseaseId) => {
-  const prefix = String(diseaseId || "").substring(0, 3).toUpperCase();
-  switch (prefix) {
-    case "JOW": return "Jowar (Sorghum)";
-    case "MAZ": return "Maize";
-    case "BAJ": return "Bajra (Pearl Millet)";
-    case "WHT": return "Wheat";
-    case "COT": return "Cotton";
-    case "SUG": return "Sugarcane";
-    case "RED": return "Red Gram (Tur)";
-    case "BEN": return "Bengal Gram (Chickpea)";
-    case "GRN": return "Green Gram (Moong)";
-    case "BLK": return "Black Gram (Urad)";
-    case "GND": return "Groundnut";
-    case "SUN": return "Sunflower";
-    case "SES": return "Sesame";
-    case "CHL": return "Chilli";
-    case "ONN": return "Onion";
+const DISEASE_CROPS_MAP = {
+  // Jowar (Sorghum)
+  "JOW-001": ["Jowar (Sorghum)", "Bajra (Pearl Millet)", "Maize"],
+  "JOW-002": ["Jowar (Sorghum)", "Chilli", "Red Gram (Tur)"],
+  "JOW-003": ["Jowar (Sorghum)", "Maize", "Bajra (Pearl Millet)"],
+  "JOW-004": ["Jowar (Sorghum)", "Maize", "Wheat"],
+  "JOW-005": ["Jowar (Sorghum)", "Maize", "Bajra (Pearl Millet)"],
+  "JOW-006": ["Jowar (Sorghum)", "Bajra (Pearl Millet)"],
+  "JOW-007": ["Jowar (Sorghum)", "Maize", "Groundnut"],
+  "JOW-008": ["Jowar (Sorghum)", "Maize", "Wheat"],
+  "JOW-009": ["Jowar (Sorghum)", "Bajra (Pearl Millet)"],
+  "JOW-010": ["Jowar (Sorghum)", "Bajra (Pearl Millet)"],
+
+  // Maize
+  "MAZ-001": ["Maize", "Jowar (Sorghum)", "Wheat"],
+  "MAZ-002": ["Maize", "Jowar (Sorghum)"],
+  "MAZ-003": ["Maize", "Jowar (Sorghum)", "Wheat"],
+  "MAZ-004": ["Maize", "Jowar (Sorghum)", "Bajra (Pearl Millet)"],
+  "MAZ-005": ["Maize", "Sugarcane", "Groundnut"],
+  "MAZ-006": ["Maize", "Jowar (Sorghum)", "Groundnut"],
+  "MAZ-007": ["Maize", "Jowar (Sorghum)"],
+  "MAZ-008": ["Maize", "Groundnut", "Cotton"],
+  "MAZ-009": ["Maize", "Teosinte"],
+  "MAZ-010": ["Maize", "Sugarcane", "Wheat"],
+
+  // Bajra
+  "BAJ-001": ["Bajra (Pearl Millet)", "Maize", "Jowar (Sorghum)"],
+  "BAJ-002": ["Bajra (Pearl Millet)", "Jowar (Sorghum)"],
+  "BAJ-003": ["Bajra (Pearl Millet)", "Jowar (Sorghum)"],
+  "BAJ-004": ["Bajra (Pearl Millet)", "Jowar (Sorghum)", "Maize"],
+  "BAJ-005": ["Bajra (Pearl Millet)", "Wheat", "Finger Millet"],
+  "BAJ-006": ["Bajra (Pearl Millet)", "Jowar (Sorghum)", "Maize"],
+  "BAJ-007": ["Bajra (Pearl Millet)", "Jowar (Sorghum)", "Maize"],
+  "BAJ-008": ["Bajra (Pearl Millet)", "Jowar (Sorghum)", "Maize"],
+  "BAJ-009": ["Bajra (Pearl Millet)", "Jowar (Sorghum)"],
+  "BAJ-010": ["Bajra (Pearl Millet)", "Jowar (Sorghum)"],
+
+  // Wheat
+  "WHT-001": ["Wheat", "Barley", "Rye"],
+  "WHT-002": ["Wheat", "Barley"],
+  "WHT-003": ["Wheat", "Barley", "Rye"],
+  "WHT-004": ["Wheat", "Barley", "Oats"],
+  "WHT-005": ["Wheat", "Rye"],
+  "WHT-006": ["Wheat", "Barley", "Oats"],
+  "WHT-007": ["Wheat", "Barley"],
+  "WHT-008": ["Wheat", "Barley", "Rye"],
+  "WHT-009": ["Wheat", "Barley", "Maize"],
+  "WHT-010": ["Wheat", "Barley", "Rye"],
+
+  // Cotton
+  "COT-001": ["Cotton", "Okra", "Soybeans"],
+  "COT-002": ["Cotton", "Tomato", "Chilli"],
+  "COT-003": ["Cotton", "Tomato", "Potato"],
+  "COT-004": ["Cotton", "Sunflower", "Chilli"],
+  "COT-005": ["Cotton", "Chilli", "Beans"],
+  "COT-006": ["Cotton"],
+  "COT-007": ["Cotton", "Tomato"],
+  "COT-008": ["Cotton", "Groundnut", "Soybeans"],
+  "COT-009": ["Cotton", "Tomato", "Chilli"],
+  "COT-010": ["Cotton", "Groundnut", "Sunflower"],
+
+  // Sugarcane
+  "SUG-001": ["Sugarcane", "Jowar (Sorghum)", "Maize"],
+  "SUG-002": ["Sugarcane", "Jowar (Sorghum)", "Maize"],
+  "SUG-003": ["Sugarcane", "Maize", "Jowar (Sorghum)"],
+  "SUG-004": ["Sugarcane", "Maize", "Jowar (Sorghum)"],
+  "SUG-005": ["Sugarcane", "Jowar (Sorghum)"],
+  "SUG-006": ["Sugarcane", "Jowar (Sorghum)", "Maize"],
+  "SUG-007": ["Sugarcane", "Maize", "Jowar (Sorghum)"],
+  "SUG-008": ["Sugarcane", "Jowar (Sorghum)", "Maize"],
+  "SUG-009": ["Sugarcane", "Jowar (Sorghum)", "Maize"],
+  "SUG-010": ["Sugarcane", "Maize", "Jowar (Sorghum)"],
+
+  // Red Gram
+  "RED-001": ["Red Gram (Tur)", "Bengal Gram (Chickpea)", "Soybeans"],
+  "RED-002": ["Red Gram (Tur)"],
+  "RED-003": ["Red Gram (Tur)", "Soybeans", "Cowpea"],
+  "RED-004": ["Red Gram (Tur)", "Bengal Gram (Chickpea)", "Groundnut"],
+  "RED-005": ["Red Gram (Tur)", "Sunflower", "Chilli"],
+  "RED-006": ["Red Gram (Tur)", "Green Gram (Moong)", "Black Gram (Urad)"],
+  "RED-007": ["Red Gram (Tur)", "Green Gram (Moong)", "Black Gram (Urad)"],
+  "RED-008": ["Red Gram (Tur)", "Chilli", "Beans"],
+  "RED-009": ["Red Gram (Tur)", "Beans", "Cowpea"],
+  "RED-010": ["Red Gram (Tur)", "Green Gram (Moong)", "Black Gram (Urad)"],
+
+  // Bengal Gram
+  "BEN-001": ["Bengal Gram (Chickpea)", "Red Gram (Tur)", "Soybeans"],
+  "BEN-002": ["Bengal Gram (Chickpea)", "Peas", "Lentils"],
+  "BEN-003": ["Bengal Gram (Chickpea)", "Red Gram (Tur)", "Groundnut"],
+  "BEN-004": ["Bengal Gram (Chickpea)", "Groundnut", "Sunflower"],
+  "BEN-005": ["Bengal Gram (Chickpea)", "Tomato", "Beans"],
+  "BEN-006": ["Bengal Gram (Chickpea)", "Peas", "Lentils"],
+  "BEN-007": ["Bengal Gram (Chickpea)", "Green Gram (Moong)", "Black Gram (Urad)"],
+  "BEN-008": ["Bengal Gram (Chickpea)", "Red Gram (Tur)", "Green Gram (Moong)"],
+  "BEN-009": ["Bengal Gram (Chickpea)", "Alfalfa", "Peas"],
+  "BEN-010": ["Bengal Gram (Chickpea)", "Beans", "Peas"],
+
+  // Green Gram
+  "GRN-001": ["Green Gram (Moong)", "Black Gram (Urad)", "Soybeans"],
+  "GRN-002": ["Green Gram (Moong)", "Black Gram (Urad)", "Cowpea"],
+  "GRN-003": ["Green Gram (Moong)", "Black Gram (Urad)", "Peas"],
+  "GRN-004": ["Green Gram (Moong)", "Black Gram (Urad)", "Beans"],
+  "GRN-005": ["Green Gram (Moong)", "Black Gram (Urad)", "Groundnut"],
+  "GRN-006": ["Green Gram (Moong)", "Black Gram (Urad)", "Groundnut"],
+  "GRN-007": ["Green Gram (Moong)", "Black Gram (Urad)", "Cowpea"],
+  "GRN-008": ["Green Gram (Moong)", "Black Gram (Urad)", "Groundnut"],
+  "GRN-009": ["Green Gram (Moong)", "Black Gram (Urad)", "Beans"],
+  "GRN-010": ["Green Gram (Moong)", "Black Gram (Urad)", "Sesame"],
+
+  // Black Gram
+  "BLK-001": ["Black Gram (Urad)", "Green Gram (Moong)", "Soybeans"],
+  "BLK-002": ["Black Gram (Urad)", "Green Gram (Moong)", "Peas"],
+  "BLK-003": ["Black Gram (Urad)", "Green Gram (Moong)", "Cowpea"],
+  "BLK-004": ["Black Gram (Urad)", "Green Gram (Moong)", "Beans"],
+  "BLK-005": ["Black Gram (Urad)", "Green Gram (Moong)", "Cowpea"],
+  "BLK-006": ["Black Gram (Urad)", "Green Gram (Moong)", "Groundnut"],
+  "BLK-007": ["Black Gram (Urad)", "Green Gram (Moong)", "Groundnut"],
+  "BLK-008": ["Black Gram (Urad)", "Green Gram (Moong)", "Groundnut"],
+  "BLK-009": ["Black Gram (Urad)", "Green Gram (Moong)", "Beans"],
+  "BLK-010": ["Black Gram (Urad)", "Green Gram (Moong)", "Beans"],
+
+  // Groundnut
+  "GND-001": ["Groundnut"],
+  "GND-002": ["Groundnut"],
+  "GND-003": ["Groundnut"],
+  "GND-004": ["Groundnut", "Sunflower", "Bengal Gram (Chickpea)"],
+  "GND-005": ["Groundnut", "Sunflower", "Soybeans"],
+  "GND-006": ["Groundnut", "Tomato", "Potato"],
+  "GND-007": ["Groundnut", "Sunflower", "Cotton"],
+  "GND-008": ["Groundnut"],
+  "GND-009": ["Groundnut", "Maize"],
+  "GND-010": ["Groundnut", "Maize", "Jowar (Sorghum)"],
+
+  // Sunflower
+  "SUN-001": ["Sunflower", "Cotton", "Sesame"],
+  "SUN-002": ["Sunflower", "Lettuce"],
+  "SUN-003": ["Sunflower", "Safflower"],
+  "SUN-004": ["Sunflower", "Cucumber"],
+  "SUN-005": ["Sunflower", "Maize", "Jowar (Sorghum)"],
+  "SUN-006": ["Sunflower", "Peach", "Plum"],
+  "SUN-007": ["Sunflower", "Soybeans", "Beans"],
+  "SUN-008": ["Sunflower"],
+  "SUN-009": ["Sunflower", "Groundnut", "Cotton"],
+  "SUN-010": ["Sunflower", "Cotton", "Potato"],
+
+  // Sesame
+  "SES-001": ["Sesame", "Mustard", "Bengal Gram (Chickpea)"],
+  "SES-002": ["Sesame", "Sunflower", "Cotton"],
+  "SES-003": ["Sesame", "Sunflower", "Cucumber"],
+  "SES-004": ["Sesame", "Green Gram (Moong)", "Black Gram (Urad)"],
+  "SES-005": ["Sesame", "Beans", "Soybeans"],
+  "SES-006": ["Sesame", "Groundnut", "Cotton"],
+  "SES-007": ["Sesame", "Tomato", "Potato"],
+  "SES-008": ["Sesame", "Groundnut", "Maize"],
+  "SES-009": ["Sesame", "Sunflower", "Tomato"],
+  "SES-010": ["Sesame", "Chilli", "Tomato"],
+
+  // Chilli
+  "CHL-001": ["Chilli", "Tomato", "Bell Pepper"],
+  "CHL-002": ["Chilli", "Tomato", "Eggplant"],
+  "CHL-003": ["Chilli", "Tomato", "Papaya"],
+  "CHL-004": ["Chilli", "Tomato", "Eggplant"],
+  "CHL-005": ["Chilli", "Tomato", "Potato"],
+  "CHL-006": ["Chilli", "Tomato", "Eggplant"],
+  "CHL-007": ["Chilli", "Tomato", "Papaya"],
+  "CHL-008": ["Chilli", "Cucumber", "Tomato"],
+  "CHL-009": ["Chilli", "Tomato", "Eggplant"],
+  "CHL-010": ["Chilli", "Tomato", "Eggplant"],
+
+  // Onion
+  "ONN-001": ["Onion", "Garlic", "Shallots"],
+  "ONN-002": ["Onion", "Garlic", "Leeks"],
+  "ONN-003": ["Onion", "Garlic", "Shallots"],
+  "ONN-004": ["Onion", "Garlic", "Shallots"],
+  "ONN-005": ["Onion", "Garlic", "Shallots"],
+  "ONN-006": ["Onion", "Garlic", "Shallots"],
+  "ONN-007": ["Onion", "Garlic", "Shallots"],
+  "ONN-008": ["Onion", "Garlic", "Shallots"],
+  "ONN-009": ["Onion", "Garlic", "Shallots"],
+  "ONN-010": ["Onion", "Garlic", "Potato"]
+};
+
+const getCropsFromId = (diseaseId) => {
+  const normId = String(diseaseId || "").toUpperCase();
+  if (DISEASE_CROPS_MAP[normId]) {
+    return DISEASE_CROPS_MAP[normId];
+  }
+  
+  // Custom disease IDs typically look like "CUSTOM-JOW-171892372"
+  const prefix = normId.substring(0, 3);
+  const customMatch = normId.startsWith("CUSTOM-") ? normId.substring(7, 10) : prefix;
+
+  switch (customMatch) {
+    case "JOW": return ["Jowar (Sorghum)"];
+    case "MAZ": return ["Maize"];
+    case "BAJ": return ["Bajra (Pearl Millet)"];
+    case "WHT": return ["Wheat"];
+    case "COT": return ["Cotton"];
+    case "SUG": return ["Sugarcane"];
+    case "RED": return ["Red Gram (Tur)"];
+    case "BEN": return ["Bengal Gram (Chickpea)"];
+    case "GRN": return ["Green Gram (Moong)"];
+    case "BLK": return ["Black Gram (Urad)"];
+    case "GND": return ["Groundnut"];
+    case "SUN": return ["Sunflower"];
+    case "SES": return ["Sesame"];
+    case "CHL": return ["Chilli"];
+    case "ONN": return ["Onion"];
     default: {
-      const idStr = String(diseaseId || "").toUpperCase();
-      if (idStr.includes("JOW")) return "Jowar (Sorghum)";
-      if (idStr.includes("MAZ")) return "Maize";
-      if (idStr.includes("BAJ")) return "Bajra (Pearl Millet)";
-      if (idStr.includes("WHT")) return "Wheat";
-      if (idStr.includes("COT")) return "Cotton";
-      if (idStr.includes("SUG")) return "Sugarcane";
-      if (idStr.includes("RED")) return "Red Gram (Tur)";
-      if (idStr.includes("BEN")) return "Bengal Gram (Chickpea)";
-      if (idStr.includes("GRN")) return "Green Gram (Moong)";
-      if (idStr.includes("BLK")) return "Black Gram (Urad)";
-      if (idStr.includes("GND")) return "Groundnut";
-      if (idStr.includes("SUN")) return "Sunflower";
-      if (idStr.includes("SES")) return "Sesame";
-      if (idStr.includes("CHL")) return "Chilli";
-      if (idStr.includes("ONN")) return "Onion";
-      return "General Crop";
+      if (normId.includes("JOW")) return ["Jowar (Sorghum)"];
+      if (normId.includes("MAZ")) return ["Maize"];
+      if (normId.includes("BAJ")) return ["Bajra (Pearl Millet)"];
+      if (normId.includes("WHT")) return ["Wheat"];
+      if (normId.includes("COT")) return ["Cotton"];
+      if (normId.includes("SUG")) return ["Sugarcane"];
+      if (normId.includes("RED")) return ["Red Gram (Tur)"];
+      if (normId.includes("BEN")) return ["Bengal Gram (Chickpea)"];
+      if (normId.includes("GRN")) return ["Green Gram (Moong)"];
+      if (normId.includes("BLK")) return ["Black Gram (Urad)"];
+      if (normId.includes("GND")) return ["Groundnut"];
+      if (normId.includes("SUN")) return ["Sunflower"];
+      if (normId.includes("SES")) return ["Sesame"];
+      if (normId.includes("CHL")) return ["Chilli"];
+      if (normId.includes("ONN")) return ["Onion"];
+      return ["General Crop"];
     }
   }
+};
+
+const getCropNameFromId = (diseaseId) => {
+  const crops = getCropsFromId(diseaseId);
+  return crops[0] || "General Crop";
 };
 
 // --- DYNAMIC PATHOLOGY DATA GENERATOR ---
@@ -852,7 +1046,35 @@ const CROP_TRANSLATIONS = {
   "Sunflower": "ಸೂರ್ಯಕಾಂತಿ (Sunflower)",
   "Sesame": "ಎಳ್ಳು (Sesame)",
   "Chilli": "ಮೆಣಸಿನಕಾಯಿ (Chilli)",
-  "Onion": "ಈರುಳ್ಳಿ (Onion)"
+  "Onion": "ಈರುಳ್ಳಿ (Onion)",
+  "Barley": "ಬಾರ್ಲಿ (Barley)",
+  "Rye": "ರೈ ಧಾನ್ಯ (Rye)",
+  "Tomato": "ಟೊಮ್ಯಾಟೊ (Tomato)",
+  "Potato": "ಆಲೂಗಡ್ಡೆ (Potato)",
+  "Garlic": "ಬೆಳ್ಳುಳ್ಳಿ (Garlic)",
+  "Shallots": "ಸಣ್ಣ ಈರುಳ್ಳಿ (Shallots)",
+  "Leeks": "ಲೀಕ್ಸ್ (Leeks)",
+  "Peas": "ಬಟಾಣಿ (Peas)",
+  "Lentils": "ಮಸೂರ ಬೇಳೆ (Lentils)",
+  "Eggplant": "ಬದನೆಕಾಯಿ (Eggplant)",
+  "Papaya": "ಪಪ್ಪಾಯಿ (Papaya)",
+  "Cucumber": "ಸೌತೆಕಾಯಿ (Cucumber)",
+  "Soybeans": "ಸೋಯಾಬೀನ್ (Soybeans)",
+  "Cowpea": "ಅಲಸಂದಿ (Cowpea)",
+  "Beans": "ಹುರುಳಿಕಾಯಿ (Beans)",
+  "Oats": "ಓಟ್ಸ್ (Oats)",
+  "Okra": "ಬೆಂಡೆಕಾಯಿ (Okra)",
+  "Rice": "ಭತ್ತ (Rice)",
+  "Finger Millet": "ರಾಗಿ (Finger Millet)",
+  "Lettuce": "ಲೆಟಿಸ್ (Lettuce)",
+  "Safflower": "ಕುಸುಬೆ (Safflower)",
+  "Teosinte": "ಟಿಯೋಸಿಂಟೆ (Teosinte)",
+  "Alfalfa": "ಕುದುರೆ ಮೆಂತ್ಯ (Alfalfa)",
+  "Mustard": "ಸಾಸಿವೆ (Mustard)",
+  "Chickpea": "ಕಡಲೆಕಾಲು (Chickpea)",
+  "Bell Pepper": "ದೊಣ್ಣೆ ಮೆಣಸಿನಕಾಯಿ (Bell Pepper)",
+  "Peach": "ಪೀಚ್ ಹಣ್ಣು (Peach)",
+  "Plum": "ಪ್ಲಮ್ ಹಣ್ಣು (Plum)"
 };
 
 const DISEASE_TRANSLATIONS = {
@@ -4781,10 +5003,12 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           <span style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: 'var(--surface-light)', color: 'var(--accent-color)', border: '1px solid var(--border-color)' }}>
                             {tcat(d.category)}
                           </span>
-                          <span style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: 'rgba(82,232,150,0.06)', color: 'var(--accent-color)', border: '1px solid rgba(82,232,150,0.15)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                            <Sprout size={12} />
-                            {tc(getCropNameFromId(d.id))}
-                          </span>
+                          {getCropsFromId(d.id).map((crop, idx) => (
+                            <span key={idx} style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: 'rgba(82,232,150,0.06)', color: 'var(--accent-color)', border: '1px solid rgba(82,232,150,0.15)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                              <Sprout size={12} />
+                              {tc(crop)}
+                            </span>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -5723,10 +5947,12 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
               <div>
                 <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಬಾಧಿತ ಬೆಳೆ' : 'AFFECTED CROP'}</h4>
-                <p style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', gap: '0.25rem', marginTop: '0.25rem' }}>
-                  <Sprout size={14} />
-                  {tc(getCropNameFromId(selectedEncyclopediaDisease.disease_code))}
-                </p>
+                <div style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--accent-color)', display: 'flex', flexWrap: 'wrap', gap: '0.25rem', marginTop: '0.25rem', alignItems: 'center' }}>
+                  <Sprout size={14} style={{ flexShrink: 0 }} />
+                  <span>
+                    {getCropsFromId(selectedEncyclopediaDisease.disease_code).map(c => tc(c)).join(', ')}
+                  </span>
+                </div>
               </div>
               <div>
                 <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ರೋಗಕಾರಕ ಕಾರಣ' : 'CAUSE'}</h4>
