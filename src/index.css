@@ -359,3 +359,70 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);
   }
 }
+
+/* Responsive Content Wrapper Padding */
+.app-content-wrapper {
+  flex: 1;
+  padding: 2rem;
+}
+@media (max-width: 768px) {
+  .app-content-wrapper {
+    padding: 1rem !important;
+  }
+}
+
+/* Disease Detail Modal Responsive Styles */
+.disease-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.85);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.disease-modal-card {
+  max-width: 640px;
+  width: 100%;
+  padding: 2rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.disease-modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  .disease-modal-overlay {
+    padding: 0.75rem !important;
+  }
+  
+  .disease-modal-card {
+    padding: 1.25rem !important;
+    max-height: 95vh !important;
+    gap: 1.25rem !important;
+  }
+
+  .disease-modal-title {
+    font-size: 1.4rem !important;
+  }
+
+  .disease-modal-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .disease-modal-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)) !important;
+  }
+}

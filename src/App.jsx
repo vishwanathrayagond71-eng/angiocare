@@ -543,7 +543,7 @@ const getDynamicDiseaseSVG = (diseaseId, diseaseName, category, severity) => {
   `;
 
   const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="300" height="300">
       <defs>
         <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#14261C" />
@@ -4364,7 +4364,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
         </header>
 
         {/* Dynamic Inner Page Content */}
-        <div style={{ flex: 1, padding: '2rem' }}>
+        <div className="app-content-wrapper" style={{ flex: 1, padding: '2rem' }}>
           
           {/* 1. DASHBOARD VIEW */}
           {activeTab === 'dashboard' && (
@@ -4849,6 +4849,35 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           </div>
                         </div>
 
+                        {/* Reference Disease Visuals */}
+                        {localizedReport.images && localizedReport.images.length > 0 && (
+                          <div className="card-glass" style={{ padding: '1.5rem' }}>
+                            <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                              <BookOpen size={18} color="var(--accent-color)" />
+                              {language === 'kn' ? 'ರೋಗದ ಉಲ್ಲೇಖ ಚಿತ್ರಗಳು' : 'Disease Reference Gallery'}
+                            </h3>
+                            <div className="disease-modal-gallery" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+                              {localizedReport.images.map((imgUrl, idx) => (
+                                <div key={idx} style={{ position: 'relative', width: '100%', paddingBottom: '70%', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
+                                  <img
+                                    src={imgUrl}
+                                    alt={`Reference visual ${idx + 1}`}
+                                    style={{
+                                      position: 'absolute',
+                                      top: 0, left: 0,
+                                      width: '100%', height: '100%',
+                                      objectFit: 'cover',
+                                      cursor: 'pointer',
+                                      transition: 'transform 0.3s ease'
+                                    }}
+                                    onClick={() => window.open(imgUrl, '_blank')}
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
                         {/* Plant Health Score */}
                         <div className="card-glass" style={{ padding: '1.5rem', textAlign: 'center' }}>
                           <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{language === 'kn' ? 'ಸಸ್ಯದ ಆರೋಗ್ಯ ಸ್ಕೋರ್' : 'Plant Health Score'}</h3>
@@ -5208,7 +5237,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
               </div>
 
               {/* Encyclopedia Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '1.5rem' }}>
                 {combinedDiseases.filter(d => {
                   const matchSearch = d.name.toLowerCase().includes(encSearch.toLowerCase()) ||
                                       d.scientific_name.toLowerCase().includes(encSearch.toLowerCase()) ||
@@ -6090,15 +6119,12 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
 
       {/* Encyclopedia/History Detail Modal */}
       {selectedEncyclopediaDisease && (
-        <div style={{
-          position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 2000,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem'
-        }}>
-          <div className="card-glass" style={{ maxWidth: '640px', width: '100%', padding: '2rem', maxHeight: '90vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div className="disease-modal-overlay">
+          <div className="card-glass disease-modal-card" style={{ maxWidth: '640px', width: '100%', padding: '2rem', maxHeight: '90vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
                 <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-color)' }}>{selectedEncyclopediaDisease.disease_code}</span>
-                <h2 style={{ fontSize: '1.8rem' }}>{td(selectedEncyclopediaDisease.disease_name)}</h2>
+                <h2 className="disease-modal-title" style={{ fontSize: '1.8rem' }}>{td(selectedEncyclopediaDisease.disease_name)}</h2>
                 <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '0.95rem' }}>{selectedEncyclopediaDisease.scientific_name}</p>
               </div>
               <button onClick={() => setSelectedEncyclopediaDisease(null)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}><X size={24} /></button>
@@ -6115,7 +6141,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                 <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>
                   {language === 'kn' ? 'ರೋಗದ ಮಾದರಿ ಚಿತ್ರಗಳು' : 'DISEASE VISUAL SPECIMENS'}
                 </h4>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+                <div className="disease-modal-gallery" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
                   {selectedEncyclopediaDisease.images.map((imgUrl, idx) => (
                     <div key={idx} style={{ position: 'relative', width: '100%', paddingBottom: '70%', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
                       <img
