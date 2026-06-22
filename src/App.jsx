@@ -226,11 +226,6 @@ const COMMON_SYMPTOMS = [
   { id: "sym-10", text: "Water-soaked red tissue in stems", diseaseCode: "SUG-001" }
 ];
 
-// --- DYNAMIC DISEASE IMAGES GENERATOR ---
-// --- DYNAMIC DISEASE IMAGES GENERATOR ---
-const getDiseaseImages = (diseaseId) => {
-  return [];
-};
 
 // --- DYNAMIC CROP NAME RESOLVER ---
 const DISEASE_CROPS_MAP = {
@@ -465,6 +460,118 @@ const getCropsFromId = (diseaseId) => {
 const getCropNameFromId = (diseaseId) => {
   const crops = getCropsFromId(diseaseId);
   return crops[0] || "General Crop";
+};
+
+// --- DYNAMIC VECTOR SPECIMEN IMAGE GENERATOR ---
+const getDynamicDiseaseSVG = (diseaseId, diseaseName, category, severity) => {
+  const crops = getCropsFromId(diseaseId);
+  const primaryCrop = crops[0] || "General Crop";
+  
+  let leafColor = "#2D6A4F"; 
+  let spotColor = "#1B4332"; 
+  let spotRadius = 3;
+  let spotCount = 12;
+  let spotStyle = "circle"; 
+  let leafPath = "M 50 10 Q 75 50 50 90 Q 25 50 50 10"; 
+
+  if (primaryCrop.includes("Wheat") || primaryCrop.includes("Jowar") || primaryCrop.includes("Bajra") || primaryCrop.includes("Maize")) {
+    leafPath = "M 50 5 Q 60 50 52 95 Q 40 50 50 5";
+  } else if (primaryCrop.includes("Onion") || primaryCrop.includes("Garlic")) {
+    leafPath = "M 48 5 Q 52 5 54 95 Q 46 95 48 5";
+  } else if (primaryCrop.includes("Sugarcane")) {
+    leafPath = "M 50 2 Q 58 50 53 98 Q 42 50 50 2";
+  }
+
+  if (category === "Fungal") {
+    spotColor = "#5c4033"; 
+    spotRadius = 4;
+    spotStyle = "circle";
+  } else if (category === "Bacterial") {
+    spotColor = "#8b0000"; 
+    spotRadius = 5;
+    spotStyle = "blotches";
+  } else if (category === "Viral") {
+    spotColor = "#e6c300"; 
+    leafColor = "#4d906e";
+    spotStyle = "mosaic";
+  } else if (category === "Pest") {
+    spotColor = "#111D14"; 
+    spotStyle = "bites";
+  } else if (category === "Nutritional Deficiency") {
+    spotColor = "#c2d130"; 
+    leafColor = "#668560";
+    spotStyle = "margins";
+  }
+
+  let spotElements = "";
+  if (spotStyle === "circle") {
+    for (let i = 0; i < spotCount; i++) {
+      const cx = 43 + Math.sin(i * 1.5) * 6;
+      const cy = 20 + i * 5;
+      spotElements += `<circle cx="${cx}" cy="${cy}" r="${spotRadius * (0.6 + (i%3)*0.2)}" fill="${spotColor}" opacity="0.8" />`;
+    }
+  } else if (spotStyle === "blotches") {
+    for (let i = 0; i < 7; i++) {
+      const cx = 45 + Math.cos(i) * 4;
+      const cy = 25 + i * 8;
+      spotElements += `<ellipse cx="${cx}" cy="${cy}" rx="${spotRadius * 1.1}" ry="${spotRadius * 0.6}" transform="rotate(${i*15} ${cx} ${cy})" fill="${spotColor}" opacity="0.75" />`;
+    }
+  } else if (spotStyle === "mosaic") {
+    for (let i = 0; i < 10; i++) {
+      const cx = 44 + (i % 2) * 8;
+      const cy = 20 + i * 6;
+      spotElements += `<rect x="${cx}" y="${cy}" width="6" height="6" rx="1.5" fill="${spotColor}" opacity="0.7" />`;
+    }
+  } else if (spotStyle === "bites") {
+    spotElements += `
+      <circle cx="28" cy="40" r="8" fill="#0A1A0F" />
+      <circle cx="26" cy="42" r="6" fill="#0A1A0F" />
+      <circle cx="72" cy="60" r="10" fill="#0A1A0F" />
+    `;
+  } else if (spotStyle === "margins") {
+    spotElements += `
+      <path d="${leafPath}" fill="none" stroke="${spotColor}" stroke-width="4" opacity="0.5" />
+    `;
+  }
+
+  const skeleton = `
+    <path d="M 50 10 L 50 90" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+    <path d="M 50 30 Q 62 40 50 50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+    <path d="M 50 30 Q 38 40 50 50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+    <path d="M 50 50 Q 62 60 50 70" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+    <path d="M 50 50 Q 38 60 50 70" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+  `;
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+      <defs>
+        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#14261C" />
+          <stop offset="100%" stop-color="#09140E" />
+        </linearGradient>
+        <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="${leafColor}" />
+          <stop offset="100%" stop-color="#1A3F2C" />
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#bgGrad)" />
+      <path d="${leafPath}" fill="rgba(0,0,0,0.3)" transform="translate(1.5, 1.5)" />
+      <path d="${leafPath}" fill="url(#leafGrad)" stroke="#1d4d35" stroke-width="0.8" />
+      ${skeleton}
+      ${spotElements}
+      <rect x="0.5" y="0.5" width="99" height="99" fill="none" stroke="rgba(82,232,150,0.04)" rx="8" />
+    </svg>
+  `;
+
+  return "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
+};
+
+const getDiseaseImages = (diseaseId) => {
+  const baseDb = ENCYCLOPEDIA_DATABASE.find(d => d.id === diseaseId);
+  if (baseDb) {
+    return [getDynamicDiseaseSVG(baseDb.id, baseDb.name, baseDb.category, baseDb.severity)];
+  }
+  return [];
 };
 
 // --- DYNAMIC PATHOLOGY DATA GENERATOR ---
