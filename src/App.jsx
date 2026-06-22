@@ -261,7 +261,7 @@ function getExtendedDiseaseReport(base, plantName) {
         application_method: "Foliar mist spray using a pressure nozzle",
         frequency: "Once every 10 days until symptoms clear",
         safety_precautions: "Wear protective goggles, respiratory mask, and gloves during application.",
-        approximate_cost: "$18.50 per 500g bottle"
+        approximate_cost: "₹1,500 per 500g bottle"
       },
       {
         chemical_name: "Mancozeb Fungicide",
@@ -270,7 +270,7 @@ function getExtendedDiseaseReport(base, plantName) {
         application_method: "Uniform canopy spray",
         frequency: "Every 14 days",
         safety_precautions: "Do not harvest within 7 days of treatment. Keep away from water bodies.",
-        approximate_cost: "$12.00 per 1kg"
+        approximate_cost: "₹1,000 per 1kg"
       }
     ];
     organic_alternatives = [
@@ -309,7 +309,7 @@ function getExtendedDiseaseReport(base, plantName) {
         application_method: "Targeted foliar wash",
         frequency: "Every 7 days, maximum 3 applications",
         safety_precautions: "Classified antibiotic. Wear gloves. Do not apply near harvest period.",
-        approximate_cost: "$35.00 per pack"
+        approximate_cost: "₹2,800 per pack"
       }
     ];
     organic_alternatives = [
@@ -343,7 +343,7 @@ function getExtendedDiseaseReport(base, plantName) {
         application_method: "Foliar spray to suppress vectors",
         frequency: "Once every 15 days",
         safety_precautions: "Highly toxic to bees. Spray in early morning or late evening.",
-        approximate_cost: "$15.00 per bottle"
+        approximate_cost: "₹1,200 per bottle"
       }
     ];
     organic_alternatives = [
@@ -382,7 +382,7 @@ function getExtendedDiseaseReport(base, plantName) {
         application_method: "Incorporate into soil around roots",
         frequency: "Single application pre-planting or early season",
         safety_precautions: "Do not allow contact with skin. Toxic to aquatic organisms.",
-        approximate_cost: "$45.00 per pack"
+        approximate_cost: "₹3,600 per pack"
       }
     ];
     organic_alternatives = [
@@ -421,7 +421,7 @@ function getExtendedDiseaseReport(base, plantName) {
         application_method: "Direct leaf spray for instant intake",
         frequency: "Twice, 7 days apart",
         safety_precautions: "Keep in a cool dry place. Avoid eyes.",
-        approximate_cost: "$14.00 per bottle"
+        approximate_cost: "₹1,100 per bottle"
       },
       {
         chemical_name: "Water-soluble NPK Fertilizer",
@@ -430,7 +430,7 @@ function getExtendedDiseaseReport(base, plantName) {
         application_method: "Soil drenching around rootzone",
         frequency: "Once every 15 days",
         safety_precautions: "Do not over-fertilize to avoid root burn.",
-        approximate_cost: "$8.50 per kg"
+        approximate_cost: "₹700 per kg"
       }
     ];
     organic_alternatives = [
@@ -470,7 +470,7 @@ function getExtendedDiseaseReport(base, plantName) {
         application_method: "Foliar mist targeting leaf undersides",
         frequency: "Once, repeat in 7 days if pests persist",
         safety_precautions: "Wear protective mask. Do not harvest for 14 days.",
-        approximate_cost: "$22.00 per bottle"
+        approximate_cost: "₹1,800 per bottle"
       }
     ];
     organic_alternatives = [
@@ -764,6 +764,902 @@ const TIPS_OF_THE_DAY = [
   "Ladybugs and Lacewings are natural predators of aphids. Avoid spraying chemicals when they are actively feeding on pests."
 ];
 
+// --- DAILY AGRIO TIPS IN KANNADA ---
+const TIPS_OF_THE_DAY_KN = [
+  "ವಾರಕ್ಕೊಮ್ಮೆ ಆಳವಾಗಿ ನೀರುಣಿಸುವುದು ಪ್ರತಿದಿನ ಹಗುರವಾಗಿ ನೀರುಣಿಸುವುದಕ್ಕಿಂತ ಉತ್ತಮವಾಗಿದೆ. ಇದು ಬೇರುಗಳು ಆಳವಾಗಿ ಬೆಳೆಯಲು ಉತ್ತೇಜಿಸುತ್ತದೆ, ಇದರಿಂದಾಗಿ ಸಸ್ಯಗಳು ಬರ ನಿರೋಧಕವಾಗುತ್ತವೆ.",
+  "ಹನಿ ನೀರಾವರಿ ವಿಧಾನವು ಎಲೆಗಳನ್ನು ಒಣಗಿಸಿಡುತ್ತದೆ, ಇದರಿಂದಾಗಿ ಶೇಕಡಾ 80 ರಷ್ಟು ಶಿಲೀಂಧ್ರ ಮತ್ತು ಬ್ಯಾಕ್ಟೀರಿಯಾದ ಕಣಗಳು ಮೊಳಕೆಯೊಡೆಯುವುದನ್ನು ತಡೆಯುತ್ತದೆ.",
+  "ವಿವಿಧ ಸಸ್ಯಗಳನ್ನು ಕತ್ತರಿಸುವ ನಡುವೆ ನಿಮ್ಮ ಕತ್ತರಿಗಳನ್ನು 10% ಬ್ಲೀಚ್ ದ್ರಾವಣ ಅಥವಾ 70% ಆಲ್ಕೋಹಾಲ್‌ನಿಂದ ಸ್ವಚ್ಛಗೊಳಿಸಲು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
+  "ಚೆಂಡು ಹೂವಿನ ಗಿಡಗಳು ತಮ್ಮ ಬೇರುಗಳ ಮೂಲಕ ರಾಸಾಯನಿಕ ಸಂಯುಕ್ತಗಳನ್ನು ಬಿಡುಗಡೆ ಮಾಡುತ್ತವೆ, ಇವು ವಿನಾಶಕಾರಿ ಬೇರು-ಗಂಟು ನೆಮಟೋಡ್‌ಗಳನ್ನು ವಿಕರ್ಷಿಸುತ್ತವೆ.",
+  "ಕಬ್ಬಿಣದ ಕೊರತೆಯಿಂದ ಎಲೆ ಹಳದಿಯಾಗುವುದು (ಕ್ಲೋರೋಸಿಸ್) ಸಾಮಾನ್ಯವಾಗಿ ಮಣ್ಣಿನಲ್ಲಿ ಕಬ್ಬಿಣದ ಕೊರತೆಗಿಂತ ಜೌಗು ಮಣ್ಣು ಅಥವಾ ಹೆಚ್ಚಿನ ಪಿಹೆಚ್ (pH) ಮಟ್ಟದ ಸಂಕೇತವಾಗಿದೆ.",
+  "ಲೇಡಿಬಗ್ಸ್ ಮತ್ತು ಲೇಸ್‌ವಿಂಗ್ಸ್ ಜೇಡ ನುಸಿಗಳು ಹಾಗೂ ಗಿಡಹೇನುಗಳ ನೈಸರ್ಗಿಕ ಶತ್ರುಗಳು. ಅವು ಸಕ್ರಿಯವಾಗಿ ಕೀಟಗಳನ್ನು ತಿನ್ನುವಾಗ ರಾಸಾಯನಿಕಗಳನ್ನು ಸಿಂಪಡಿಸಬೇಡಿ."
+];
+
+// --- LOCALIZATION MAPS & HELPERS ---
+const CROP_TRANSLATIONS = {
+  "Jowar (Sorghum)": "ಜೋಳ (Jowar)",
+  "Maize": "ಮೆಕ್ಕೆಜೋಳ (Maize)",
+  "Bajra (Pearl Millet)": "ಸಜ್ಜೆ (Bajra)",
+  "Wheat": "ಗೋಧಿ (Wheat)",
+  "Cotton": "ಹತ್ತಿ (Cotton)",
+  "Sugarcane": "ಕಬ್ಬು (Sugarcane)",
+  "Red Gram (Tur)": "ತೊಗರಿ (Red Gram)",
+  "Bengal Gram (Chickpea)": "ಕಡಲೆ (Bengal Gram)",
+  "Green Gram (Moong)": "ಹೆಸರು (Green Gram)",
+  "Black Gram (Urad)": "ಉದ್ದು (Black Gram)",
+  "Groundnut": "ಶೇಂಗಾ (Groundnut)",
+  "Sunflower": "ಸೂರ್ಯಕಾಂತಿ (Sunflower)",
+  "Sesame": "ಎಳ್ಳು (Sesame)",
+  "Chilli": "ಮೆಣಸಿನಕಾಯಿ (Chilli)",
+  "Onion": "ಈರುಳ್ಳಿ (Onion)"
+};
+
+const DISEASE_TRANSLATIONS = {
+  "Grain Mold": "ಧಾನ್ಯದ ಬೂಷ್ಟು",
+  "Anthracnose": "ಅಂಥ್ರಾಕ್ನೋಸ್ (ಕಪ್ಪು ಚುಕ್ಕೆ ರೋಗ)",
+  "Downy Mildew": "ಬೂದು ರೋಗ",
+  "Rust": "ತುಕ್ಕು ರೋಗ",
+  "Smut": "ಮಸಿ ರೋಗ",
+  "Ergot": "ಜಿಗುಟು ರೋಗ (ಅರ್ಗಾಟ್)",
+  "Charcoal Rot": "ಕರಿದಿಣ್ಣೆ ಕೊಳೆ ರೋಗ",
+  "Leaf Blight": "ಎಲೆ ಕರಕು ರೋಗ",
+  "Zonate Leaf Spot": "ವಲಯ ಎಲೆ ಚುಕ್ಕೆ ರೋಗ",
+  "Sooty Stripe": "ಮಸಿ ಪಟ್ಟಿ ರೋಗ",
+  "Turcicum Leaf Blight": "ಟರ್ಸಿಕಮ್ ಎಲೆ ಕರಕು ರೋಗ",
+  "Maydis Leaf Blight": "ಮೇಡಿಸ್ ಎಲೆ ಕರಕು ರೋಗ",
+  "Common Rust": "ಸಾಮಾನ್ಯ ತುಕ್ಕು ರೋಗ",
+  "Banded Leaf and Sheath Blight": "ಎಲೆ ಮತ್ತು ಪೊರೆ ಕರಕು ರೋಗ",
+  "Stalk Rot": "ಕಾಂಡ ಕೊಳೆ ರೋಗ",
+  "Ear Rot": "ತೆನೆ ಕೊಳೆ ರೋಗ",
+  "Common Smut": "ಸಾಮಾನ್ಯ ಮಸಿ ರೋಗ",
+  "Maize Streak Virus": "ಮೆಕ್ಕೆಜೋಳದ ಗೆರೆ ವೈರಸ್",
+  "Downy Mildew (Green Ear)": "ಬೂದು ರೋಗ (ಹಸಿರು ತೆನೆ)",
+  "Blast": "ಅಗ್ಗಿ ರೋಗ",
+  "Leaf Spot": "ಎಲೆ ಚುಕ್ಕೆ ರೋಗ",
+  "Stem Rust": "ಕಾಂಡದ ತುಕ್ಕು ರೋಗ",
+  "Leaf Rust": "ಎಲೆಯ ತುಕ್ಕು ರೋಗ",
+  "Stripe Rust": "ಪಟ್ಟೆಯ ತುಕ್ಕು ರೋಗ",
+  "Loose Smut": "ಬಿಡಿ ಮಸಿ ರೋಗ",
+  "Karnal Bunt": "ಕರ್ನಾಲ್ ಬಂಟ್ ರೋಗ",
+  "Powdery Mildew": "ಬೂದಿ ರೋಗ",
+  "Flag Smut": "ಧ್ವಜ ಮಸಿ ರೋಗ",
+  "Spot Blotch": "ಸ್ಪಾಟ್ ಬ್ಲಾಚ್ ರೋಗ",
+  "Fusarium Head Blight": "ಫ್ಯುಸೇರಿಯಮ್ ಹೆಡ್ ಬ್ಲೈಟ್",
+  "Root Rot": "ಬೇರು ಕೊಳೆ ರೋಗ",
+  "Bacterial Blight": "ಬ್ಯಾಕ್ಟೀರಿಯಾ ಕರಕು ರೋಗ",
+  "Fusarium Wilt": "ಫ್ಯುಸೇರಿಯಮ್ ಒಣಗು ರೋಗ",
+  "Verticillium Wilt": "ವರ್ಟಿಸಿಲಿಯಮ್ ಒಣಗು ರೋಗ",
+  "Alternaria Leaf Spot": "ಆಲ್ಟರ್ನೇರಿಯಾ ಎಲೆ ಚುಕ್ಕೆ ರೋಗ",
+  "Grey Mildew": "ಬೂದು ರೋಗ",
+  "Boll Rot": "ಕಾಯಿ ಕೊಳೆ ರೋಗ",
+  "Leaf Curl Virus": "ಎಲೆ ಮುದುಡು ವೈರಸ್",
+  "Tobacco Streak Virus": "ಹೊಗೆಸೊಪ್ಪು ಗೆರೆ ವೈರಸ್",
+  "Red Rot": "ಕೆಂಪು ಕೊಳೆ ರೋಗ",
+  "Wilt": "ಒಣಗು ರೋಗ",
+  "Pokkah Boeng": "ಪೊಕ್ಕಾ ಬೋಯಿಂಗ್ ರೋಗ",
+  "Grassy Shoot Disease": "ಹುಲ್ಲಿನ ಚಿಗುರು ರೋಗ",
+  "Ratoon Stunting Disease": "ಕೂಳೆ ಕುಂಠಿತ ಬೆಳವಣಿಗೆ ರೋಗ",
+  "Mosaic Disease": "ಮೊಸಾಯಿಕ್ ರೋಗ",
+  "Eye Spot": "ಕಣ್ಣಿನ ಚುಕ್ಕೆ ರೋಗ",
+  "Pineapple Disease": "ಅನಾನಸ್ ರೋಗ",
+  "Sterility Mosaic Disease": "ಬಂಜೆತನ ಮೊಸಾಯಿಕ್ ರೋಗ",
+  "Phytophthora Blight": "ಫೈಟಾಪ್ಥೋರಾ ಕರಕು ರೋಗ",
+  "Dry Root Rot": "ಒಣ ಬೇರು ಕೊಳೆ ರೋಗ",
+  "Alternaria Blight": "ಆಲ್ಟರ್ನೇರಿಯಾ ಕರಕು ರೋಗ",
+  "Cercospora Leaf Spot": "ಸೆರ್ಕೋಸ್ಪೋರಾ ಎಲೆ ಚುಕ್ಕೆ ರೋಗ",
+  "Bacterial Leaf Spot": "ಬ್ಯಾಕ್ಟೀರಿಯಾ ಎಲೆ ಚುಕ್ಕೆ ರೋಗ",
+  "Ascochyta Blight": "ಆಸ್ಕೋಚೈಟಾ ಕರಕು ರೋಗ",
+  "Collar Rot": "ಕೊರಳು ಕೊಳೆ ರೋಗ",
+  "Botrytis Grey Mold": "ಬೊಟ್ರಿಟಿಸ್ ಬೂದು ಬೂಷ್ಟು",
+  "Black Root Rot": "ಕಪ್ಪು ಬೇರು ಕೊಳೆ ರೋಗ",
+  "Yellow Mosaic Virus": "ಹಳದಿ ಮೊಸಾಯಿಕ್ ವೈರಸ್",
+  "Web Blight": "ವೆಬ್ ಬ್ಲೈಟ್ ರೋಗ",
+  "Leaf Crinkle Disease": "ಎಲೆ ಸುಕ್ಕು ರೋಗ",
+  "Tikka Leaf Spot (Early)": "ಟಿಕ್ಕಾ ಎಲೆ ಚುಕ್ಕೆ ರೋಗ (ಮುಂಚಿನ)",
+  "Tikka Leaf Spot (Late)": "ಟಿಕ್ಕಾ ಎಲೆ ಚುಕ್ಕೆ ರೋಗ (ನಂತರದ)",
+  "Stem Rot": "ಕಾಂಡ ಕೊಳೆ ರೋಗ",
+  "Bud Necrosis Disease": "ಮೊಗ್ಗು ಕೊಳೆ ರೋಗ",
+  "Peanut Stem Necrosis Disease": "ನೆಲಗಡಲೆ ಕಾಂಡ ಕೊಳೆ ರೋಗ",
+  "Peanut Mosaic Virus": "ನೆಲಗಡಲೆ ಮೊಸಾಯಿಕ್ ವೈರಸ್",
+  "Aspergillus Crown Rot": "ಆಸ್ಪರ್ಜಿಲಸ್ ಕ್ರೌನ್ ಕೊಳೆ ರೋಗ",
+  "Head Rot": "ಹೂವಿನ ತೆನೆ ಕೊಳೆ ರೋಗ",
+  "Necrosis Disease": "ನೆಕ್ರೋಸಿಸ್ ರೋಗ",
+  "Phyllody": "ಎಲೆ ತರಹದ ಹೂವು ರೋಗ (ಫಿಲೋಡಿ)",
+  "Anthracnose (Fruit Rot)": "ಅಂಥ್ರಾಕ್ನೋಸ್ (ಹಣ್ಣು ಕೊಳೆ ರೋಗ)",
+  "Damping Off": "ಸಸಿ ಮಡಿ ಕೊಳೆ ರೋಗ",
+  "Bacterial Wilt": "ಬ್ಯಾಕ್ಟೀರಿಯಾ ಒಣಗು ರೋಗ",
+  "Dieback": "ಕೊನೆ ಒಣಗು ರೋಗ (ಡೈಬ್ಯಾಕ್)",
+  "Purple Blotch": "ನೇರಳೆ ಚುಕ್ಕೆ ರೋಗ",
+  "Stemphylium Blight": "ಸ್ಟೆಂಫಿಲಿಯಮ್ ಕರಕು ರೋಗ",
+  "Basal Rot": "ಬುಡ ಕೊಳೆ ರೋಗ",
+  "Neck Rot": "ಕುತ್ತಿಗೆ ಕೊಳೆ ರೋಗ",
+  "White Rot": "ಬಿಳಿ ಕೊಳೆ ರೋಗ",
+  "Pink Root Rot": "ಗುಲಾಬಿ ಬೇರು ಕೊಳೆ ರೋಗ",
+  "Onion Blast": "ಈರುಳ್ಳಿ ಬ್ಲಾಸ್ಟ್ ರೋಗ",
+  "Bacterial Soft Rot": "ಬ್ಯಾಕ್ಟೀರಿಯಾ ಮೃದು ಕೊಳೆ ರೋಗ",
+  "Phytophthora capsici": "ಫೈಟಾಪ್ಥೋರಾ ಕ್ಯಾಪ್ಸಿಸಿ",
+  "Early Blight": "ಮುಂಚಿನ ಕರಕು ರೋಗ",
+  "Late Blight": "ನಂತರದ ಕರಕು ರೋಗ",
+  "Bacterial Canker": "ಬ್ಯಾಕ್ಟೀರಿಯಾ ಕ್ಯಾಂಕರ್",
+  "Fire Blight": "ಅಗ್ನಿ ಕರಕು ರೋಗ",
+  "Yellow Leaf Curl": "ಹಳದಿ ಎಲೆ ಮುದುಡು",
+  "Ringspot Virus": "ಉಂಗುರ ಚುಕ್ಕೆ ವೈರಸ್",
+  "Root-Knot Nematode": "ಬೇರು ಗಂಟು ನೆಮಟೋಡ್",
+  "Iron Chlorosis": "ಕಬ್ಬಿಣದ ಕೊರತೆಯ ಹಳದಿ ರೋಗ",
+  "Nitrogen Deficiency": "ಸಾರಜನಕದ ಕೊರತೆ",
+  "Magnesium Deficiency": "ಮೆಗ್ನೀಸಿಯಮ್ ಕೊರತೆ",
+  "Calcium Deficiency (Blossom End Rot)": "ಕ್ಯಾಲ್ಸಿಯಂ ಕೊರತೆ (ಬ್ಲಾಸಮ್ ಎಂಡ್ ಕೊಳೆ ರೋಗ)",
+  "Spider Mite Infestation": "ಜೇಡ ನುಸಿ ಬಾಧೆ",
+  "Aphid Infestation": "ಗಿಡಹೇನು ಬಾಧೆ",
+  "Whitefly Infestation": "ಬಿಳಿ ನೊಣ ಬಾಧೆ",
+  "Abiotic Stress": "ಅಜೈವಿಕ ಒತ್ತಡ"
+};
+
+// --- SYMPTOM TRANSLATIONS IN KANNADA ---
+const SYMPTOM_TRANSLATIONS = {
+  "White powdery patches on leaves": "ಎಲೆಗಳ ಮೇಲೆ ಬಿಳಿ ಬೂದಿ ತರಹದ ಕಲೆಗಳು",
+  "Circular spots with yellow halos": "ಹಳದಿ ವಲಯ ಹೊಂದಿರುವ ವೃತ್ತಾಕಾರದ ಕಲೆಗಳು",
+  "Brown spots with concentric rings": "ಕೇಂದ್ರೀಕೃತ ವಲಯಗಳನ್ನು ಹೊಂದಿರುವ ಕಂದು ಕಲೆಗಳು",
+  "Greasy, water-soaked dark lesions": "ಜಿಡ್ಡಿನ, ನೀರಿನಿಂದ ಒದ್ದೆಯಾದ ಕಪ್ಪು ಕಲೆಗಳು",
+  "Leaves curling and yellowing": "ಎಲೆಗಳು ಮುದುಡುವುದು ಮತ್ತು ಹಳದಿಯಾಗುವುದು",
+  "Sunken dark spots on pods/fruit": "ಕಾಯಿ/ಹಣ್ಣುಗಳ ಮೇಲೆ ಹೂತ ಕಪ್ಪು ಕಲೆಗಳು",
+  "Orange-brown rust pustules on leaves": "ಎಲೆಗಳ ಮೇಲೆ ಕಿತ್ತಳೆ-ಕಂದು ತುಕ್ಕು ಗುಳ್ಳೆಗಳು",
+  "Loose black powder on grain heads": "ಧಾನ್ಯದ ಕದಿರುಗಳಲ್ಲಿ ಸಡಿಲವಾದ ಕಪ್ಪು ಪುಡಿ",
+  "Sudden wilting or drying of plant": "ಗಿಡಗಳು ಧಿಡೀರ್ ಒಣಗುವುದು ಅಥವಾ ಬಾಡುವುದು",
+  "Water-soaked red tissue in stems": "ಕಾಂಡಗಳಲ್ಲಿ ನೀರಿನಿಂದ ಒದ್ದೆಯಾದ ಕೆಂಪು ಅಂಗಾಂಶ"
+};
+
+const STATE_TRANSLATIONS = {
+  "Maharashtra": "ಮಹಾರಾಷ್ಟ್ರ",
+  "Karnataka": "ಕರ್ನಾಟಕ",
+  "Punjab": "ಪಂಜಾಬ್",
+  "Rajasthan": "ರಾಜಸ್ಥಾನ",
+  "Gujarat": "ಗುಜರಾತ್",
+  "Andhra Pradesh": "ಆಂಧ್ರಪ್ರದೇಶ",
+  "Uttar Pradesh": "ಉತ್ತರ ಪ್ರದೇಶ",
+  "West Bengal": "ಪಶ್ಚಿಮ ಬಂಗಾಳ"
+};
+
+const SOIL_TRANSLATIONS = {
+  "Deep Black Clayey Soil (Regur)": "ಆಳವಾದ ಕಪ್ಪು ಜೇಡಿಮಣ್ಣು (ರೆಗುರ್ ಮಣ್ಣು)",
+  "Red Sandy-Loam Soil": "ಕೆಂಪು ಮರಳು-ಲೋಮ್ ಮಣ್ಣು",
+  "Alluvial Fertile Silt": "ನದಿಮುಖಜ ಫಲವತ್ತಾದ ಕಲಿಲ ಮಣ್ಣು (ಅಲ್ಲುವಿಯಲ್ ಮಣ್ಣು)",
+  "Arid Sandy Desert Soil": "ಶುಷ್ಕ ಮರಳು ಮರುಭೂಮಿ ಮಣ್ಣು",
+  "Sandy Clay Loam (Goradu)": "ಮರಳು ಜೇಡಿ ಲೋಮ್ (ಗೊರಾಡು ಮಣ್ಣು)",
+  "Red Clayey & Laterite Soil": "ಕೆಂಪು ಜೇಡಿಮಣ್ಣು ಮತ್ತು ಲ್ಯಾಟರೈಟ್ ಮಣ್ಣು",
+  "Deep Alluvial Loam": "ಆಳವಾದ ಫಲವತ್ತಾದ ಹೂಳು ಮಣ್ಣು",
+  "Heavy Clayey & Alluvial Silt": "ಭಾರವಾದ ಜೇಡಿಮಣ್ಣು ಮತ್ತು ಫಲವತ್ತಾದ ಹೂಳು ಮಣ್ಣು"
+};
+
+const PROPERTIES_TRANSLATIONS = {
+  "High clay content, excellent moisture retention, rich in iron, calcium, lime, and potash. Low in nitrogen and phosphorus.": "ಹೆಚ್ಚಿನ ಜೇಡಿ ಅಂಶ, ಅತ್ಯುತ್ತಮ ತೇವಾಂಶ ಧಾರಣ ಶಕ್ತಿ, ಕಬ್ಬಿಣ, ಕ್ಯಾಲ್ಸಿಯಂ, ಸುಣ್ಣ ಮತ್ತು ಪೊಟ್ಯಾಶ್‌ನಿಂದ ಸಮೃದ್ಧವಾಗಿದೆ. ಸಾರಜನಕ ಮತ್ತು ರಂಜಕದಲ್ಲಿ ಕಡಿಮೆ ಇದೆ.",
+  "Well-drained, acidic to neutral pH, rich in iron and aluminum oxides, moderate organic matter, high aeration.": "ಉತ್ತಮ ನೀರು ಬಸಿಯುವಿಕೆ, ಆಮ್ಲೀಯದಿಂದ ತಟಸ್ಥ pH, ಕಬ್ಬಿಣ ಮತ್ತು ಅಲ್ಯೂಮಿನಿಯಂ ಆಕ್ಸೈಡ್‌ಗಳಿಂದ ಸಮೃದ್ಧವಾಗಿದೆ, ಮಧ್ಯಮ ಸಾವಯವ ಪದಾರ್ಥ, ಹೆಚ್ಚಿನ ಗಾಳಿಯಾಡುವಿಕೆ.",
+  "Extremely fertile, deep sandy-silt loam, neutral pH, high nutrient availability, rich in organic matter.": "ಅತ್ಯಂತ ಫಲವತ್ತಾದ, ಆಳವಾದ ಮರಳು-ಹೂಳು ಲೋಮ್, ತಟಸ್ಥ pH, ಹೆಚ್ಚಿನ ಪೋಷಕಾಂಶಗಳ ಲಭ್ಯತೆ, ಸಾವಯವ ಪದಾರ್ಥಗಳಿಂದ ಸಮೃದ್ಧವಾಗಿದೆ.",
+  "Coarse textured, highly porous, very low organic matter, highly alkaline pH, low water retention capability.": "ಒರಟು ವಿನ್ಯಾಸ, ಹೆಚ್ಚು ರಂಧ್ರಯುಕ್ತ, ಕಡಿಮೆ ಸಾವಯವ ಪದಾರ್ಥಗಳು, ಹೆಚ್ಚು ಕ್ಷಾರೀಯ pH, ಕಡಿಮೆ ನೀರು ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳುವ ಸಾಮರ್ಥ್ಯ.",
+  "Well-drained sandy loam, rich in organic matter, high potash content, neutral to slightly alkaline pH.": "ಉತ್ತಮ ನೀರು ಬಸಿಯುವ ಮರಳು ಲೋಮ್, ಸಾವಯವ ಪದಾರ್ಥಗಳಿಂದ ಸಮೃದ್ಧವಾಗಿದೆ, ಹೆಚ್ಚಿನ ಪೊಟ್ಯಾಶ್ ಅಂಶ, ತಟಸ್ಥದಿಂದ ಸ್ವಲ್ಪ ಕ್ಷಾರೀಯ pH.",
+  "Slightly acidic, moderate nitrogen, low phosphorus, good drainage, medium moisture retention.": "ಸ್ವಲ್ಪ ಆಮ್ಲೀಯ, ಮಧ್ಯಮ ಸಾರಜನಕ, ಕಡಿಮೆ ರಂಜಕ, ಉತ್ತಮ ಒಳಚರಂಡಿ, ಮಧ್ಯಮ ತೇವಾಂಶ ಧಾರಣ ಶಕ್ತಿ.",
+  "Highly fertile, rich in potash and lime, moderate phosphorus, well-aerated with good drainage.": "ಅತ್ಯಂತ ಫಲವತ್ತಾದ, ಪೊಟ್ಯಾಶ್ ಮತ್ತು ಸುಣ್ಣದಿಂದ ಸಮೃದ್ಧವಾಗಿದೆ, ಮಧ್ಯಮ ರಂಜಕ, ಉತ್ತಮ ಒಳಚರಂಡಿಯೊಂದಿಗೆ ಗಾಳಿಯಾಡುವಿಕೆ.",
+  "High organic content, slightly acidic to neutral, excellent water logging capability suitable for paddy.": "ಹೆಚ್ಚಿನ ಸಾವಯವ ಅಂಶ, ಸ್ವಲ್ಪ ಆಮ್ಲೀಯದಿಂದ ತಟಸ್ಥ pH, ಭತ್ತದ ಬೆಳೆಗೆ ಸೂಕ್ತವಾದ ಅತ್ಯುತ್ತಮ ನೀರು ನಿಲ್ಲುವ ಸಾಮರ್ಥ್ಯ."
+};
+
+const REASON_TRANSLATIONS = {
+  "Black soil retains moisture perfectly for cotton taproots during rainfall breaks.": "ಮಳೆ ಬಿಡುವಿನ ಅವಧಿಯಲ್ಲಿ ಹತ್ತಿ ಗಿಡದ ಬೇರುಗಳಿಗೆ ಕಪ್ಪು ಮಣ್ಣು ತೇವಾಂಶವನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಕಾಯ್ದಿರಿಸುತ್ತದೆ.",
+  "Highly drought resistant, thrives in clayey moisture-holding soil.": "ಅತಿ ಬರ ನಿರೋಧಕವಾಗಿದ್ದು, ತೇವಾಂಶವನ್ನು ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳುವ ಜೇಡಿಮಣ್ಣಿನಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತದೆ.",
+  "Excellent in well-drained sandy-loam black soils.": "ಉತ್ತಮ ನೀರು ಬಸಿಯುವ ಮರಳು-ಲೋಮ್ ಕಪ್ಪು ಮಣ್ಣಿನಲ್ಲಿ ಅತ್ಯುತ್ತಮವಾಗಿ ಬೆಳೆಯುತ್ತದೆ.",
+  "Requires moderate warmth and loamy clay beds.": "ಮಧ್ಯಮ ಉಷ್ಣತೆ ಮತ್ತು ಲೋಮಿ ಜೇಡಿಮಣ್ಣಿನ ಬೆಡ್ ಅವಶ್ಯಕತೆ ಇದೆ.",
+  "Residual moisture in clayey black soil supports winter chickpea growth without heavy irrigation.": "ಕಪ್ಪು ಜೇಡಿಮಣ್ಣಿನಲ್ಲಿ ಉಳಿದಿರುವ ತೇವಾಂಶವು ಹೆಚ್ಚಿನ ನೀರಾವರಿ ಇಲ್ಲದೆಯೇ ಚಳಿಗಾಲದ ಕಡಲೆ ಬೆಳವಣಿಗೆಯನ್ನು ಬೆಂಬಲಿಸುತ್ತದೆ.",
+  "Good winter crop if supplementary irrigation is provided.": "ಪೂರಕ ನೀರಾವರಿ ಒದಗಿಸಿದರೆ ಉತ್ತಮ ಚಳಿಗಾಲದ ಬೆಳೆಯಾಗಿದೆ.",
+  "Short duration crop that replenishes nitrogen before the Kharif season.": "ಖಾರಿಫ್ ಹಂಗಾಮಿಗಿಂತ ಮೊದಲು ಸಾರಜನಕವನ್ನು ಮಣ್ಣಿಗೆ ಮರುಪೂರಣ ಮಾಡುವ ಅಲ್ಪಾವಧಿ ಬೆಳೆಯಾಗಿದೆ.",
+  "Thrives in red loams with light irrigation; drought-hardy.": "ಲಘು ನೀರಾವರಿಯೊಂದಿಗೆ ಕೆಂಪು ಲೋಮ್ ಮಣ್ಣಿನಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತದೆ; ಬರ ನಿರೋಧಕವಾಗಿದೆ.",
+  "Ideal for high temperature and light sandy loam beds.": "ಹೆಚ್ಚಿನ ತಾಪಮಾನ ಮತ್ತು ಲಘು ಮರಳು ಮಿಶ್ರಿತ ಲೋಮ್ ಮಣ್ಣಿಗೆ ಸೂಕ್ತವಾಗಿದೆ.",
+  "Deep taproots tap into lower soil layers; rich in nutrients.": "ಆಳವಾದ ಬೇರುಗಳು ಮಣ್ಣಿನ ಕೆಳಗಿನ ಪದರಗಳಿಂದ ಪೋಷಕಾಂಶಗಳನ್ನು ಹೀರುತ್ತವೆ.",
+  "Grown under intensive organic input during warm summers.": "ಬೆಚ್ಚಗಿನ ಬೇಸಿಗೆಯಲ್ಲಿ ತೀವ್ರ ಸಾವಯವ ಗೊಬ್ಬರಗಳ ಬಳಕೆಯೊಂದಿಗೆ ಬೆಳೆಯಲಾಗುತ್ತದೆ.",
+  "Prefers cool winter nights and neutral sandy loam fields.": "ತಂಪಾದ ಚಳಿಗಾಲದ ರಾತ್ರಿಗಳು ಮತ್ತು ತಟಸ್ಥ ಮರಳು ಲೋಮ್ ಜಮೀನುಗಳನ್ನು ಬಯಸುತ್ತದೆ.",
+  "Performs best in fertile, well-aerated sandy clay.": "ಫಲವತ್ತಾದ, ಉತ್ತಮ ಗಾಳಿಯಾಡುವ ಮರಳು ಜೇಡಿಮಣ್ಣಿನಲ್ಲಿ ಉತ್ತಮವಾಗಿ ಬೆಳೆಯುತ್ತದೆ.",
+  "Short summer legume that improves soil fertility via root nodules.": "ಬೇರು ಗಂಟುಗಳ ಮೂಲಕ ಮಣ್ಣಿನ ಫಲವತ್ತತೆಯನ್ನು ಸುಧಾರಿಸುವ ಅಲ್ಪಾವಧಿ ಬೇಸಿಗೆ ದ್ವಿದಳ ಧಾನ್ಯ.",
+  "Grows best under high rainfall or heavy flood irrigation; loves deep silt.": "ಭಾರೀ ಮಳೆ ಅಥವಾ ಪ್ರವಾಹ ನೀರಾವರಿಯಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತದೆ; ಆಳವಾದ ಹೂಳು ಮಣ್ಣು ಅತ್ಯಂತ ಸೂಕ್ತ.",
+  "Thrives in hot, humid summers with sandy-silt beds.": "ಮರಳು-ಹೂಳು ಮಿಶ್ರಿತ ಮಣ್ಣಿನಲ್ಲಿ ಬಿಸಿ ಮತ್ತು ಆರ್ದ್ರ ಬೇಸಿಗೆಯಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತದೆ.",
+  "Grown in winter with high nitrogen fertilizers; loves alluvial moisture.": "ಹೆಚ್ಚಿನ ಸಾರಜನಕ ಗೊಬ್ಬರಗಳೊಂದಿಗೆ ಚಳಿಗಾಲದಲ್ಲಿ ಬೆಳೆಯಲಾಗುತ್ತದೆ; ಹೂಳು ಮಣ್ಣಿನ ತೇವಾಂಶ ಸೂಕ್ತ.",
+  "Thrives in dry, warm environments with light texture.": "ಲಘು ವಿನ್ಯಾಸದ ಒಣ, ಬೆಚ್ಚಗಿನ ವಾತಾವರಣದಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತದೆ.",
+  "Needs high heat index and sandy clay bed.": "ಹೆಚ್ಚಿನ ತಾಪಮಾನ ಮತ್ತು ಮರಳು ಜೇಡಿಮಣ್ಣಿನ ಅವಶ್ಯಕತೆ ಇದೆ.",
+  "Excellent rotation crop; nitrogen fixer.": "ಅತ್ಯುತ್ತಮ ಸರದಿ ಬೆಳೆ; ಸಾರಜನಕವನ್ನು ಸ್ಥಿರೀಕರಿಸುತ್ತದೆ.",
+  "Fast growing, drought-resistant winter crop.": "ವೇಗವಾಗಿ ಬೆಳೆಯುವ, ಬರ ನಿರೋಧಕ ಚಳಿಗಾಲದ ಬೆಳೆ.",
+  "High salinity tolerance; ideal for dry loams.": "ಹೆಚ್ಚಿನ ಲವಣಾಂಶ ಸಹಿಷ್ಣುತೆ; ಒಣ ಲೋಮ್ ಮಣ್ಣಿಗೆ ಸೂಕ್ತವಾಗಿದೆ.",
+  "Requires moderate drainage and organic nitrogen dressings.": "ಮಧ್ಯಮ ನೀರು ಬಸಿಯುವಿಕೆ ಮತ್ತು ಸಾವಯವ ಸಾರಜನಕದ ಅಗತ್ಯವಿದೆ.",
+  "Excellent winter crop; high sugar yields in sandy clay.": "ಅತ್ಯುತ್ತಮ ಚಳಿಗಾಲದ ಬೆಳೆ; ಮರಳು ಜೇಡಿಮಣ್ಣಿನಲ್ಲಿ ಹೆಚ್ಚಿನ ಸಕ್ಕರೆ ಇಳುವರಿ ನೀಡುತ್ತದೆ.",
+  "Deep root zone needs neutral pH.": "ಬೇರುಗಳ ಆಳವಾದ ಬೆಳವಣಿಗೆಗೆ ತಟಸ್ಥ pH ನ ಅಗತ್ಯವಿದೆ.",
+  "Thrives in alluvial delta flats; high water need.": "ಫಲವತ್ತಾದ ನದಿ ಬಯಲು ಪ್ರದೇಶಗಳಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತದೆ; ಹೆಚ್ಚಿನ ನೀರಿನ ಅಗತ್ಯವಿದೆ.",
+  "Deep clay soil provides excellent water storage for sugarcane roots.": "ಕಪ್ಪು ಜೇಡಿಮಣ್ಣು ಕಬ್ಬಿನ ಬೇರುಗಳಿಗೆ ಅತ್ಯುತ್ತಮ ನೀರಿನ ಸಂಗ್ರಹಣೆಯನ್ನು ಒದಗಿಸುತ್ತದೆ.",
+  "Grows well in deltaic alluvial margins.": "ನದಿಮುಖಜ ಫಲವತ್ತಾದ ಮಣ್ಣಿನ ಅಂಚುಗಳಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತದೆ.",
+  "Thrives in well-drained silty loams.": "ಉತ್ತಮ ನೀರು ಬಸಿಯುವ ಹೂಳು ಮಿಶ್ರಿತ ಲೋಮ್ ಮಣ್ಣಿನಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತದೆ.",
+  "Outstanding performance in alluvial silts of river beds.": "ನದಿ ಪಾತ್ರದ ಹೂಳು ಮಿಶ್ರಿತ ಫಲವತ್ತಾದ ಮಣ್ಣಿನಲ್ಲಿ ಅತ್ಯುತ್ತಮ ಇಳುವರಿ ನೀಡುತ್ತದೆ.",
+  "Grown under light irrigation in northern alluvial planes.": "ಉತ್ತರ ಭಾರತದ ಫಲವತ್ತಾದ ಬಯಲು ಪ್ರದೇಶಗಳಲ್ಲಿ ಲಘು ನೀರಾವರಿಯೊಂದಿಗೆ ಬೆಳೆಯಲಾಗುತ್ತದೆ.",
+  "Very popular pulse grown in moist post-harvest paddy fields.": "ಭತ್ತದ ಕೊಯ್ಲಿನ ನಂತರ ಒದ್ದೆಯಾದ ಗದ್ದೆಗಳಲ್ಲಿ ಬೆಳೆಯುವ ಅತ್ಯಂತ ಜನಪ್ರಿಯ ದ್ವಿದಳ ಧಾನ್ಯ.",
+  "Grows quickly in warm summer silt.": "ಬೆಚ್ಚಗಿನ ಬೇಸಿಗೆಯ ಹೂಳು ಮಣ್ಣಿನಲ್ಲಿ ವೇಗವಾಗಿ ಬೆಳೆಯುತ್ತದೆ."
+};
+
+const SEASON_TRANSLATIONS = {
+  "Kharif (Monsoon)": "ಖಾರಿಫ್ (ಮುಂಗಾರು)",
+  "Rabi (Winter)": "ರಬಿ (ಹಿಂಗಾರು)",
+  "Zaid (Summer)": "ಜೈದ್ (ಬೇಸಿಗೆ)"
+};
+
+const UI_TRANSLATIONS = {
+  en: {
+    dashboard_panel: "Dashboard Panel",
+    scan_panel: "Diagnostic Scan Panel",
+    encyclopedia_panel: "Encyclopedia Panel",
+    history_panel: "Scan History Panel",
+    analytics_panel: "Analytics Panel",
+    fields_panel: "My Fields Panel",
+    settings_panel: "Settings Panel",
+    "crop-advisor_panel": "Crop Advisor Panel",
+    
+    sidebar_dashboard: "Dashboard",
+    sidebar_scan: "Diagnostic Scan",
+    sidebar_encyclopedia: "Encyclopedia",
+    sidebar_history: "Scan History",
+    sidebar_analytics: "Analytics",
+    sidebar_fields: "My Fields",
+    sidebar_crop_advisor: "Crop Advisor",
+    sidebar_settings: "Settings",
+    sidebar_collapse: "<< Collapse",
+    sidebar_expand: ">>",
+    
+    good_morning: "Good morning",
+    good_afternoon: "Good afternoon",
+    good_evening: "Good evening",
+    welcome_sub: "The agricultural lab is online. Ready to evaluate crops, weeds, or diagnostic samples.",
+    total_scans: "Total Scans",
+    diseases_solved: "Diseases Solved",
+    fields_tracked: "Fields Tracked",
+    
+    diagnostic_engine: "Diagnostic Engine",
+    diagnostic_desc: "Run immediate analysis on infected plant leaves, crop stems, or roots. Upload images or run live macro capture.",
+    init_new_scan: "Initialize New Scan",
+    
+    tip_day: "Tip of the Day",
+    dr_angio_title: "Dr. Angio, Plant Pathologist",
+    
+    seasonal_weather_risk: "Seasonal Weather Risk",
+    current_season: "Current Season:",
+    temp_c: "TEMP (°C)",
+    humid_pct: "HUMIDITY (%)",
+    evaluate_risk: "Evaluate Risk",
+    infection_risk: "Infection Risk:",
+    high_risk_crops: "High risk crops:",
+    
+    recent_diagnoses: "Recent Lab Diagnoses",
+    no_recent_scans: "No recent crop scans detected. Complete a scan to populate history.",
+    plant_label: "Plant:",
+    confidence_label: "Confidence:",
+    report_btn: "Report",
+    
+    my_fields_status: "My Fields Status",
+    manage_fields_btn: "Manage Fields",
+    
+    status_healthy: "Healthy",
+    status_at_risk: "At Risk",
+    status_sick: "Sick",
+    scans_count: "scans",
+    
+    specimen_rejected: "Specimen Rejected",
+    reinit_scan: "Re-initialize Specimen Scan",
+    init_plant_diagnosis: "Initialize Plant Diagnosis",
+    demo_mode_active: "Demo Mode Active:",
+    demo_mode_desc: "Running diagnostics with mock engine. For real-world leaf scans and high-precision visual analysis, configure your",
+    demo_mode_link: "Anthropic Claude API Key in Settings",
+    select_host_species: "SELECT HOST PLANT SPECIES",
+    unknown_plant: "Unknown Plant",
+    simulate_invalid_specimen: "Simulate Invalid Specimen",
+    unknown_placeholder: "Species will be identified by AI pathology",
+    known_placeholder: "Start typing plant name (e.g. Wheat, Sugarcane, Jowar)",
+    symptoms_checklist_label: "OBSERVED PLANT SYMPTOMS (OPTIONAL - FOR ACCURATE PATHOLOGY MATCHING)",
+    front_camera_title: "🔍 Front Camera",
+    front_camera_desc: "Macro spot / lesion details",
+    rear_camera_title: "🌿 Rear Camera",
+    rear_camera_desc: "Environment canopy perspective",
+    drag_drop_title: "Drag and Drop specimen files",
+    drag_drop_desc: "Accepts JPG, PNG, WEBP (Max 10MB each, up to 3 specs)",
+    browse_files: "Browse Files",
+    uploaded_label: "Uploaded",
+    no_files_uploaded: "No files uploaded yet",
+    start_analysis: "Start Pathology Analysis",
+    analyzing_specimen: "Analyzing Specimen...",
+    
+    diagnostic_report_title: "Crop Pathology Diagnosis Report",
+    disease_identity: "DISEASE IDENTITY",
+    scientific_name: "SCIENTIFIC NAME",
+    category_label: "PATHOGEN CATEGORY",
+    confidence_rating: "CONFIDENCE RATING",
+    severity_level: "SEVERITY LEVEL",
+    spread_risk_label: "SPREAD RISK",
+    affected_organs: "AFFECTED ORGANS",
+    observed_symptoms: "OBSERVED SYMPTOMS",
+    pathogen_cause: "PATHOGENIC CAUSE",
+    disease_description: "DISEASE DESCRIPTION",
+    if_untreated_label: "IF LEFT UNTREATED",
+    recovery_timeline_label: "RECOVERY TIMELINE",
+    expert_pathology_tip: "EXPERT PATHOLOGY TIP",
+    follow_up_instructions: "FOLLOW-UP CARE INSTRUCTIONS",
+    similar_pathologies: "SIMILAR PATHOLOGIES",
+    
+    treatment_plan: "TREATMENT PLAN",
+    immediate_actions: "IMMEDIATE BIOLOGICAL ACTIONS",
+    chemical_treatments: "RECOMMENDED CHEMICAL TREATMENTS",
+    organic_alternatives: "ORGANIC & BIOLOGICAL ALTERNATIVES",
+    preventive_measures: "PREVENTIVE MEASURES & HYGIENE",
+    chemical_name: "Chemical Name",
+    active_ingredient: "Active Ingredient",
+    dosage: "Dosage",
+    application_method: "Application Method",
+    frequency: "Frequency",
+    safety_precautions: "Safety Precautions",
+    approximate_cost: "Approximate Cost",
+    remedy_label: "Remedy",
+    preparation: "Preparation",
+    application: "Application",
+    
+    save_to_field: "SAVE TO FIELD LOG",
+    select_field: "Select Field...",
+    save_report_btn: "Save Report to History",
+    saved_badge: "Saved ✅",
+    discard_report: "Discard & Reset",
+    
+    catalog_title: "🌾 Crop Disease Encyclopedia",
+    catalog_desc: "Search and study all 150 crop-specific diseases, their prevention measures, and local treatments.",
+    search_placeholder: "Search diseases by name, plant, or scientific name...",
+    all_crops: "All Crops",
+    all_categories: "All Categories",
+    disease_details: "Disease Details",
+    close_details: "Close Details",
+    
+    lab_history_title: "📋 Lab Diagnostic History Log",
+    lab_history_desc: "Access and review previously saved agricultural scans, crop reports, and fields logging.",
+    search_history_placeholder: "Search history by crop or disease...",
+    clear_history_btn: "Clear Entire History",
+    no_history: "No reports found in history.",
+    
+    fields_title: "🗺️ My Farm Fields Layout",
+    fields_desc: "Track health states, crop types, and acreage logs for your individual field blocks.",
+    add_field_btn: "Add New Field",
+    field_name_placeholder: "Field Name (e.g. North Ridge, River Valley)",
+    acreage_label: "Acreage (Acres)",
+    soil_type_label: "Soil Type (e.g. Clay, Sandy, Loam)",
+    select_crop: "Select Crop...",
+    select_season: "Select Season...",
+    cancel_btn: "Cancel",
+    confirm_add_field: "Create Field Block",
+    field_history_log: "FIELD SCAN HISTORY",
+    delete_field: "Delete Field",
+    no_fields: "No fields created yet. Create a field block above to track status.",
+    
+    geo_advisor_title: "🌾 Geo-Agricultural Crop & Soil Advisor",
+    geo_advisor_desc: "Leverage live location tracking to identify local soil profiles, typical regional crops, and optimal planting suitability scores.",
+    auto_detect_location: "Auto-Detect Location",
+    locating_farm: "Locating Farm...",
+    simulate_region: "SIMULATE REGION",
+    gps_latitude: "GPS LATITUDE",
+    gps_longitude: "GPS LONGITUDE",
+    accuracy_status: "ACCURACY STATUS",
+    satellite_resolved: "Satellite Resolved ✅",
+    live_farm_grid: "📍 Live Local Farm Grid",
+    local_soil_profile: "Local Soil Profile:",
+    soil_type_classification: "SOIL TYPE CLASSIFICATION",
+    soil_properties: "PHYSICAL & CHEMICAL PROPERTIES",
+    primary_crops_grown: "Primary Crops Grown in",
+    crops_grown_desc: "These agricultural crops represent the current dominant agricultural footprint in this geographic soil zone:",
+    seasonal_suitability: "Seasonal Planting Suitability",
+    suitability_desc: "Detailed suitability compatibility ratings calculated dynamically based on regional soil chemistry and seasonal heat index profiles.",
+    planting_cycle: "Planting Cycle",
+    
+    settings_title: "⚙️ Lab Settings & Configuration",
+    settings_desc: "Manage user profiles, theme properties, diagnostic engine endpoints, and local backup records.",
+    profile_settings: "Farmer Profile Settings",
+    name_label: "Full Name",
+    email_label: "Email Address",
+    role_label: "Farmer/Botanist Role",
+    location_label: "Farm Location/Region",
+    theme_preferences: "Theme & Styling Preferences",
+    dark_mode: "Dark Theme",
+    light_mode: "Light Theme",
+    diagnostic_engine_config: "Diagnostic AI Engine Config",
+    api_mode_label: "AI Diagnostic Analysis Mode",
+    api_key_label: "Anthropic Claude API Key",
+    api_key_desc: "Enables production visual leaf scan analysis with Anthropic's Claude 3.5 Sonnet.",
+    proxy_url_label: "Proxy Server URL (Optional)",
+    treatment_preferences: "Report Treatment Preferences",
+    notif_preferences: "Notification Preferences",
+    danger_zone: "Danger Zone & Data Resets",
+    delete_account_btn: "Permanently Delete Account",
+    confirm_delete_account: "Yes, delete my entire account and history",
+    
+    doctor_title: "Dr. Angio (Plant Pathologist)",
+    chat_placeholder: "Ask Dr. Angio about crop diseases, remedies...",
+    send_btn: "Send",
+    clear_chat: "Reset Lab Conversation",
+    welcome_chat: "Hello! I am Dr. Angio, your virtual agricultural pathologist. Ask me about your crops, soils, or diseases.",
+    
+    saved_success: "Report saved to history successfully!",
+    field_saved: "Report logged to field successfully!",
+    field_added: "New field block created successfully!",
+    field_deleted: "Field block deleted.",
+    location_success: "Location resolved successfully!",
+    location_failed: "Location detection failed."
+  },
+  kn: {
+    dashboard_panel: "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಪ್ಯಾನಲ್",
+    scan_panel: "ರೋಗನಿರ್ಣಯ ಸ್ಕ್ಯಾನ್ ಪ್ಯಾನಲ್",
+    encyclopedia_panel: "ಬೆಳೆ ವಿಶ್ವಕೋಶ ಪ್ಯಾನಲ್",
+    history_panel: "ಸ್ಕ್ಯಾನ್ ಇತಿಹಾಸ ಪ್ಯಾನಲ್",
+    analytics_panel: "ವಿಶ್ಲೇಷಣೆ ಪ್ಯಾನಲ್",
+    fields_panel: "ನನ್ನ ಜಮೀನುಗಳು ಪ್ಯಾನಲ್",
+    settings_panel: "ಸೆಟ್ಟಿಂಗ್ಸ್ ಪ್ಯಾನಲ್",
+    "crop-advisor_panel": "ಬೆಳೆ ಸಲಹೆಗಾರ ಪ್ಯಾನಲ್",
+    
+    sidebar_dashboard: "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+    sidebar_scan: "ರೋಗನಿರ್ಣಯ ಸ್ಕ್ಯಾನ್",
+    sidebar_encyclopedia: "ಬೆಳೆ ವಿಶ್ವಕೋಶ",
+    sidebar_history: "ಸ್ಕ್ಯಾನ್ ಇತಿಹಾಸ",
+    sidebar_analytics: "ವಿಶ್ಲೇಷಣೆ",
+    sidebar_fields: "ನನ್ನ ಜಮೀನುಗಳು",
+    sidebar_crop_advisor: "ಬೆಳೆ ಸಲಹೆಗಾರ",
+    sidebar_settings: "ಸೆಟ್ಟಿಂಗ್ಸ್",
+    sidebar_collapse: "<< ಕುಗ್ಗಿಸು",
+    sidebar_expand: ">>",
+    
+    good_morning: "ಶುಭೋದಯ",
+    good_afternoon: "ಶುಭ ಮಧ್ಯಾಹ್ನ",
+    good_evening: "ಶುಭ ಸಂಜೆ",
+    welcome_sub: "ಕೃಷಿ ಪ್ರಯೋಗಾಲಯವು ಸಕ್ರಿಯವಾಗಿದೆ. ಬೆಳೆಗಳು, ಕಳೆಗಳು ಅಥವಾ ರೋಗನಿರ್ಣಯದ ಮಾದರಿಗಳನ್ನು ಪರೀಕ್ಷಿಸಲು ಸಿದ್ಧವಾಗಿದೆ.",
+    total_scans: "ಒಟ್ಟು ಸ್ಕ್ಯಾನ್‌ಗಳು",
+    diseases_solved: "ಪರಿಹರಿಸಲಾದ ರೋಗಗಳು",
+    fields_tracked: "ಟ್ರ್ಯಾಕ್ ಮಾಡಿದ ಜಮೀನುಗಳು",
+    
+    diagnostic_engine: "ರೋಗನಿರ್ಣಯ ಇಂಜಿನ್",
+    diagnostic_desc: "ಸೋಂಕಿತ ಸಸ್ಯದ ಎಲೆಗಳು, ಕಾಂಡಗಳು ಅಥವಾ ಬೇರುಗಳ ತಕ್ಷಣದ ವಿಶ್ಲೇಷಣೆಯನ್ನು ಚಲಾಯಿಸಿ. ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ ಅಥವಾ ಲೈವ್ ಕ್ಯಾಪ್ಚರ್ ಮಾಡಿ.",
+    init_new_scan: "ಹೊಸ ಸ್ಕ್ಯಾನ್ ಪ್ರಾರಂಭಿಸಿ",
+    
+    tip_day: "ದಿನದ ಸಲಹೆ",
+    dr_angio_title: "ಡಾ. ಆಂಜಿಯೋ, ಸಸ್ಯ ರೋಗಶಾಸ್ತ್ರಜ್ಞರು",
+    
+    seasonal_weather_risk: "ಹವಾಮಾನ ಆಧಾರಿತ ರೋಗದ ಅಪಾಯ",
+    current_season: "ಪ್ರಸ್ತುತ ಋತು:",
+    temp_c: "ತಾಪಮಾನ (°C)",
+    humid_pct: "ಆರ್ದ್ರತೆ (%)",
+    evaluate_risk: "ಅಪಾಯ ಮೌಲ್ಯಮಾಪನ ಮಾಡಿ",
+    infection_risk: "ಸೋಂಕಿನ ಅಪಾಯ:",
+    high_risk_crops: "ಹೆಚ್ಚಿನ ಅಪಾಯವಿರುವ ಬೆಳೆಗಳು:",
+    
+    recent_diagnoses: "ಇತ್ತೀಚಿನ ಪ್ರಯೋಗಾಲಯ ರೋಗನಿರ್ಣಯಗಳು",
+    no_recent_scans: "ಯಾವುದೇ ಇತ್ತೀಚಿನ ಬೆಳೆ ಸ್ಕ್ಯಾನ್‌ಗಳು ಪತ್ತೆಯಾಗಿಲ್ಲ. ಇತಿಹಾಸವನ್ನು ಭರ್ತಿ ಮಾಡಲು ಸ್ಕ್ಯಾನ್ ಪೂರ್ಣಗೊಳಿಸಿ.",
+    plant_label: "ಸಸ್ಯ:",
+    confidence_label: "ನಿಖರತೆ:",
+    report_btn: "ವರದಿ",
+    
+    my_fields_status: "ನನ್ನ ಜಮೀನುಗಳ ಸ್ಥಿತಿ",
+    manage_fields_btn: "ಜಮೀನುಗಳನ್ನು ನಿರ್ವಹಿಸಿ",
+    
+    status_healthy: "ಆರೋಗ್ಯಕರ",
+    status_at_risk: "ಅಪಾಯದಲ್ಲಿದೆ",
+    status_sick: "ರೋಗಗ್ರಸ್ತ",
+    scans_count: "ಸ್ಕ್ಯಾನ್‌ಗಳು",
+    
+    specimen_rejected: "ಮಾದರಿಯನ್ನು ತಿರಸ್ಕರಿಸಲಾಗಿದೆ",
+    reinit_scan: "ಮಾದರಿ ಸ್ಕ್ಯಾನ್ ಮರು-ಪ್ರಾರಂಭಿಸಿ",
+    init_plant_diagnosis: "ಸಸ್ಯದ ರೋಗನಿರ್ಣಯ ಪ್ರಾರಂಭಿಸಿ",
+    demo_mode_active: "ಡೆಮೊ ಮೋಡ್ ಸಕ್ರಿಯವಾಗಿದೆ:",
+    demo_mode_desc: "ಮಾಕ್ ಇಂಜಿನ್‌ನೊಂದಿಗೆ ರೋಗನಿರ್ಣಯವನ್ನು ಚಾಲನೆ ಮಾಡಲಾಗುತ್ತಿದೆ. ನೈಜ ಎಲೆ ಸ್ಕ್ಯಾನ್ ಮತ್ತು ದೃಶ್ಯ ವಿಶ್ಲೇಷಣೆಗಾಗಿ,",
+    demo_mode_link: "ಸೆಟ್ಟಿಂಗ್ಸ್‌ನಲ್ಲಿ ಆಂಥ್ರೊಪಿಕ್ ಕ್ಲೋಡ್ ಎಪಿಐ ಕೀಲಿಯನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ",
+    select_host_species: "ಯಜಮಾನ ಸಸ್ಯದ ತಳಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+    unknown_plant: "ಅಜ್ಞಾತ ಸಸ್ಯ (ಗೊತ್ತಿಲ್ಲದ ಗಿಡ)",
+    simulate_invalid_specimen: "ಅಮಾನ್ಯ ಮಾದರಿಯನ್ನು ಸಿಮ್ಯುಲೇಟ್ ಮಾಡಿ",
+    unknown_placeholder: "ಸಸ್ಯದ ತಳಿಯನ್ನು ಎಐ ರೋಗಶಾಸ್ತ್ರದ ಮೂಲಕ ಗುರುತಿಸಲಾಗುವುದು",
+    known_placeholder: "ಸಸ್ಯದ ಹೆಸರನ್ನು ಟೈಪ್ ಮಾಡಲು ಪ್ರಾರಂಭಿಸಿ (ಉದಾಹರಣೆಗೆ ಜೋಳ, ಕಬ್ಬು, ಗೋಧಿ)",
+    symptoms_checklist_label: "ವೀಕ್ಷಿಸಿದ ಸಸ್ಯದ ರೋಗಲಕ್ಷಣಗಳು (ಐಚ್ಛಿಕ - ನಿಖರವಾದ ರೋಗನಿರ್ಣಯಕ್ಕಾಗಿ)",
+    front_camera_title: "🔍 ಮುಂಭಾಗದ ಕ್ಯಾಮೆರಾ",
+    front_camera_desc: "ಮ್ಯಾಕ್ರೋ ಸ್ಪಾಟ್ / ಕಲೆಯ ವಿವರಗಳು",
+    rear_camera_title: "🌿 ಹಿಂಭಾಗದ ಕ್ಯಾಮೆರಾ",
+    rear_camera_desc: "ಪರಿಸರ ಹಸಿರು ಒಟ್ಟಾರೆ ದೃಷ್ಟಿಕೋನ",
+    drag_drop_title: "ಮಾದರಿ ಚಿತ್ರಗಳನ್ನು ಇಲ್ಲಿ ಎಳೆಯಿರಿ ಮತ್ತು ಬಿಡಿ",
+    drag_drop_desc: "JPG, PNG, WEBP ಫೈಲ್‌ಗಳನ್ನು ಸ್ವೀಕರಿಸಲಾಗುತ್ತದೆ (ಪ್ರತಿಯೊಂದೂ ಗರಿಷ್ಠ 10MB, 3 ಫೈಲ್‌ಗಳವರೆಗೆ)",
+    browse_files: "ಫೈಲ್‌ಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ",
+    uploaded_label: "ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗಿದೆ",
+    no_files_uploaded: "ಇನ್ನೂ ಯಾವುದೇ ಫೈಲ್‌ಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗಿಲ್ಲ",
+    start_analysis: "ರೋಗಶಾಸ್ತ್ರ ವಿಶ್ಲೇಷಣೆ ಪ್ರಾರಂಭಿಸಿ",
+    analyzing_specimen: "ಮಾದರಿಯನ್ನು ವಿಶ್ಲೇಷಿಸಲಾಗುತ್ತಿದೆ...",
+    
+    diagnostic_report_title: "ಬೆಳೆ ರೋಗಶಾಸ್ತ್ರ ರೋಗನಿರ್ಣಯ ವರದಿ",
+    disease_identity: "ರೋಗದ ಹೆಸರು",
+    scientific_name: "ವೈಜ್ಞಾನಿಕ ಹೆಸರು",
+    category_label: "ರೋಗಕಾರಕದ ವರ್ಗ",
+    confidence_rating: "ನಿಖರತೆಯ ರೇಟಿಂಗ್",
+    severity_level: "ಗಂಭೀರತೆಯ ಮಟ್ಟ",
+    spread_risk_label: "ಹರಡುವ ಅಪಾಯ",
+    affected_organs: "ಬಾಧಿತ ಭಾಗಗಳು",
+    observed_symptoms: "ವೀಕ್ಷಿಸಿದ ರೋಗಲಕ್ಷಣಗಳು",
+    pathogen_cause: "ರೋಗಕಾರಕ ಕಾರಣ",
+    disease_description: "ರೋಗದ ವಿವರಣೆ",
+    if_untreated_label: "ಚಿಕಿತ್ಸೆ ನೀಡದೆ ಬಿಟ್ಟರೆ",
+    recovery_timeline_label: "ಚೇತರಿಕೆಯ ಸಮಯ",
+    expert_pathology_tip: "ತಜ್ಞರ ಸಲಹೆ",
+    follow_up_instructions: "ಮುಂದಿನ ಕಾಳಜಿಯ ಸೂಚನೆಗಳು",
+    similar_pathologies: "ಇದೇ ರೀತಿಯ ರೋಗಗಳು",
+    
+    treatment_plan: "ಚಿಕಿತ್ಸಾ ಯೋಜನೆ",
+    immediate_actions: "ತಕ್ಷಣದ ಜೈವಿಕ ಕ್ರಮಗಳು",
+    chemical_treatments: "ಶಿಫಾರಸು ಮಾಡಿದ ರಾಸಾಯನಿಕ ಚಿಕಿತ್ಸೆಗಳು",
+    organic_alternatives: "ಸಾವಯವ ಮತ್ತು ಜೈವಿಕ ಪರ್ಯಾಯಗಳು",
+    preventive_measures: "ತಡೆಗಟ್ಟುವ ಕ್ರಮಗಳು ಮತ್ತು ನೈರ್ಮಲ್ಯ",
+    chemical_name: "ರಾಸಾಯನಿಕದ ಹೆಸರು",
+    active_ingredient: "ಸಕ್ರಿಯ ಪದಾರ್ಥ",
+    dosage: "ಪ್ರಮಾಣ (ಡೋಸೇಜ್)",
+    application_method: "ಬಳಸುವ ವಿಧಾನ",
+    frequency: "ಬಳಕೆಯ ಆವರ್ತನ",
+    safety_precautions: "ಸುರಕ್ಷತಾ ಮುನ್ನೆಚ್ಚರಿಕೆಗಳು",
+    approximate_cost: "ಅಂದಾಜು ವೆಚ್ಚ",
+    remedy_label: "ಪರಿಹಾರ",
+    preparation: "ತಯಾರಿಕೆ",
+    application: "ಬಳಕೆ",
+    
+    save_to_field: "ಜಮೀನಿನ ದಿನಚರಿಗೆ ಉಳಿಸಿ",
+    select_field: "ಜಮೀನನ್ನು ಆಯ್ಕೆಮಾಡಿ...",
+    save_report_btn: "ವರದಿಯನ್ನು ಇತಿಹಾಸಕ್ಕೆ ಉಳಿಸಿ",
+    saved_badge: "ಉಳಿಸಲಾಗಿದೆ ✅",
+    discard_report: "ತಿರಸ್ಕರಿಸಿ ಮತ್ತು ಮರುಹೊಂದಿಸಿ",
+    
+    catalog_title: "🌾 ಬೆಳೆ ರೋಗಗಳ ವಿಶ್ವಕೋಶ",
+    catalog_desc: "ಎಲ್ಲಾ 150 ಬೆಳೆ-ನಿರ್ದಿಷ್ಟ ರೋಗಗಳು, ಅವುಗಳ ತಡೆಗಟ್ಟುವ ಕ್ರಮಗಳು ಮತ್ತು ಸ್ಥಳೀಯ ಚಿಕಿತ್ಸೆಗಳನ್ನು ಹುಡುಕಿ ಮತ್ತು ಅಧ್ಯಯನ ಮಾಡಿ.",
+    search_placeholder: "ರೋಗದ ಹೆಸರು, ಸಸ್ಯ ಅಥವಾ ವೈಜ್ಞಾನಿಕ ಹೆಸರಿನ ಮೂಲಕ ಹುಡುಕಿ...",
+    all_crops: "ಎಲ್ಲಾ ಬೆಳೆಗಳು",
+    all_categories: "ಎಲ್ಲಾ ವರ್ಗಗಳು",
+    disease_details: "ರೋಗದ ವಿವರಗಳು",
+    close_details: "ವಿವರ ಮುಚ್ಚಿ",
+    
+    lab_history_title: "📋 ಲ್ಯಾಬ್ ರೋಗನಿರ್ಣಯ ಇತಿಹಾಸ ದಿನಚರಿ",
+    lab_history_desc: "ಹಿಂದೆ ಉಳಿಸಿದ ಬೆಳೆ ಸ್ಕ್ಯಾನ್‌ಗಳು, ವರದಿಗಳು ಮತ್ತು ಜಮೀನಿನ ದಾಖಲೆಗಳನ್ನು ಪ್ರವೇಶಿಸಿ ಮತ್ತು ಪರಿಶೀಲಿಸಿ.",
+    search_history_placeholder: "ಬೆಳೆ ಅಥವಾ ರೋಗದ ಹೆಸರಿನ ಮೂಲಕ ಹುಡುಕಿ...",
+    clear_history_btn: "ಇಡೀ ಇತಿಹಾಸವನ್ನು ಅಳಿಸಿಹಾಕಿ",
+    no_history: "ಇತಿಹಾಸದಲ್ಲಿ ಯಾವುದೇ ವರದಿಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
+    
+    fields_title: "🗺️ ನನ್ನ ಕೃಷಿ ಜಮೀನುಗಳ ವಿನ್ಯಾಸ",
+    fields_desc: "ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಜಮೀನು ಬ್ಲಾಕ್‌ಗಳ ಆರೋಗ್ಯ ಸ್ಥಿತಿ, ಬೆಳೆ ಪ್ರಕಾರಗಳು ಮತ್ತು ಎಕರೆ ದಾಖಲೆಗಳನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.",
+    add_field_btn: "ಹೊಸ ಜಮೀನು ಸೇರಿಸಿ",
+    field_name_placeholder: "ಜಮೀನಿನ ಹೆಸರು (ಉದಾಹರಣೆಗೆ ಉತ್ತರ ಭಾಗ, ನದಿ ತೀರ)",
+    acreage_label: "ವಿಸ್ತೀರ್ಣ (ಎಕರೆಗಳು)",
+    soil_type_label: "ಮಣ್ಣಿನ ಪ್ರಕಾರ (ಉದಾಹರಣೆಗೆ ಜೇಡಿಮಣ್ಣು, ಮರಳು, ಲೋಮ್)",
+    select_crop: "ಬೆಳೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ...",
+    select_season: "ಹಂಗಾಮನ್ನು ಆಯ್ಕೆಮಾಡಿ...",
+    cancel_btn: "ರದ್ದುಮಾಡಿ",
+    confirm_add_field: "ಜಮೀನು ಬ್ಲಾಕ್ ರಚಿಸಿ",
+    field_history_log: "ಜಮೀನಿನ ಸ್ಕ್ಯಾನ್ ಇತಿಹಾಸ",
+    delete_field: "ಜಮೀನನ್ನು ಅಳಿಸಿ",
+    no_fields: "ಇನ್ನೂ ಯಾವುದೇ ಜಮೀನುಗಳನ್ನು ರಚಿಸಲಾಗಿಲ್ಲ. ಸ್ಥಿತಿಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು ಮೇಲೆ ಜಮೀನು ಬ್ಲಾಕ್ ರಚಿಸಿ.",
+    
+    geo_advisor_title: "🌾 ಭೌಗೋಳಿಕ-ಕೃಷಿ ಬೆಳೆ ಮತ್ತು ಮಣ್ಣಿನ ಸಲಹೆಗಾರ",
+    geo_advisor_desc: "ಸ್ಥಳೀಯ ಮಣ್ಣಿನ ಪ್ರೊಫೈಲ್‌ಗಳು, ವಿಶಿಷ್ಟ ಪ್ರಾದೇಶಿಕ ಬೆಳೆಗಳು ಮತ್ತು ಉತ್ತಮ ನೆಡುವಿಕೆ ಸೂಕ್ತತೆಯ ಸ್ಕೋರ್‌ಗಳನ್ನು ಗುರುತಿಸಲು ಲೈವ್ ಸ್ಥಳ ಟ್ರ್ಯಾಕಿಂಗ್ ಬಳಸಿ.",
+    auto_detect_location: "ಸ್ವಯಂಚಾಲಿತ ಸ್ಥಳ ಪತ್ತೆ",
+    locating_farm: "ಜಮೀನಿನ ಸ್ಥಳ ಪತ್ತೆ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+    simulate_region: "ಪ್ರದೇಶವನ್ನು ಸಿಮ್ಯುಲೇಟ್ ಮಾಡಿ",
+    gps_latitude: "ಜಿಪಿಎಸ್ ಅಕ್ಷಾಂಶ (LAT)",
+    gps_longitude: "ಜಿಪಿಎಸ್ ರೇಖಾಂಶ (LNG)",
+    accuracy_status: "ನಿಖರತೆಯ ಸ್ಥಿತಿ",
+    satellite_resolved: "ಉಪಗ್ರಹ ನಿರ್ಧರಿಸಿದೆ ✅",
+    live_farm_grid: "📍 ಲೈವ್ ಸ್ಥಳೀಯ ಜಮೀನು ಗ್ರಿಡ್",
+    local_soil_profile: "ಸ್ಥಳೀಯ ಮಣ್ಣಿನ ವಿವರ:",
+    soil_type_classification: "ಮಣ್ಣಿನ ಪ್ರಕಾರದ ವರ್ಗೀಕರಣ",
+    soil_properties: "ಭೌತಿಕ ಮತ್ತು ರಾಸಾಯನಿಕ ಗುಣಲಕ್ಷಣಗಳು",
+    primary_crops_grown: "ಪ್ರಾಥಮಿಕ ಬೆಳೆಗಳನ್ನು ಬೆಳೆಯಲಾಗುತ್ತದೆ:",
+    crops_grown_desc: "ಈ ಬೆಳೆಗಳು ಈ ಭೌಗೋಳಿಕ ಮಣ್ಣಿನ ವಲಯದಲ್ಲಿ ಪ್ರಸ್ತುತ ಪ್ರಮುಖ ಬೆಳೆಗಳಾಗಿವೆ:",
+    seasonal_suitability: "ಹಂಗಾಮು ಆಧಾರಿತ ನೆಡುವಿಕೆ ಸೂಕ್ತತೆ",
+    suitability_desc: "ಸ್ಥಳೀಯ ಮಣ್ಣಿನ ರಸಾಯನಶಾಸ್ತ್ರ ಮತ್ತು ಹಂಗಾಮು ತಾಪಮಾನ ಸೂಚ್ಯಂಕಗಳ ಆಧಾರದ ಮೇಲೆ ಸೂಕ್ತತೆಯ ರೇಟಿಂಗ್‌ಗಳನ್ನು ಲೆಕ್ಕಹಾಕಲಾಗುತ್ತದೆ.",
+    planting_cycle: "ನೆಡುವಿಕೆ ಚಕ್ರ",
+    
+    settings_title: "⚙️ ಲ್ಯಾಬ್ ಸೆಟ್ಟಿಂಗ್ಸ್ ಮತ್ತು ಕಾನ್ಫಿಗರೇಶನ್",
+    settings_desc: "ಬಳಕೆದಾರರ ಪ್ರೊಫೈಲ್‌ಗಳು, ಥೀಮ್ ಗುಣಲಕ್ಷಣಗಳು, ರೋಗನಿರ್ಣಯ ಎಐ ಎಂಜಿನ್‌ಗಳು ಮತ್ತು ಸ್ಥಳೀಯ ಬ್ಯಾಕಪ್ ದಾಖಲೆಗಳನ್ನು ನಿರ್ವಹಿಸಿ.",
+    profile_settings: "ರೈತರ ಪ್ರೊಫೈಲ್ ಸೆಟ್ಟಿಂಗ್ಸ್",
+    name_label: "ಪೂರ್ಣ ಹೆಸರು",
+    email_label: "ಇಮೇಲ್ ವಿಳಾಸ",
+    role_label: "ರೈತ/ಸಸ್ಯವಿಜ್ಞಾನಿ ಪಾತ್ರ",
+    location_label: "ಜಮೀನಿನ ಸ್ಥಳ/ಪ್ರದೇಶ",
+    theme_preferences: "ಥೀಮ್ ಮತ್ತು ಶೈಲಿಯ ಆದ್ಯತೆಗಳು",
+    dark_mode: "ಕಪ್ಪು ಥೀಮ್",
+    light_mode: "ಬಿಳಿ ಥೀಮ್",
+    diagnostic_engine_config: "ರೋಗನಿರ್ಣಯ ಎಐ ಎಂಜಿನ್ ಕಾನ್ಫಿಗರೇಶನ್",
+    api_mode_label: "ಎಐ ರೋಗನಿರ್ಣಯ ವಿಶ್ಲೇಷಣೆ ಮೋಡ್",
+    api_key_label: "ಆಂಥ್ರೊಪಿಕ್ ಕ್ಲೋಡ್ ಎಪಿಐ ಕೀ",
+    api_key_desc: "ಆಂಥ್ರೊಪಿಕ್ ಕ್ಲೋಡ್ 3.5 ಸಾನೆಟ್‌ನೊಂದಿಗೆ ನೈಜ ದೃಶ್ಯ ಎಲೆ ಸ್ಕ್ಯಾನ್ ವಿಶ್ಲೇಷಣೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸುತ್ತದೆ.",
+    proxy_url_label: "ಪ್ರಾಕ್ಸಿ ಸರ್ವರ್ ಯುಆರ್‌ಎಲ್ (ಐಚ್ಛಿಕ)",
+    treatment_preferences: "ವರದಿ ಚಿಕಿತ್ಸಾ ಆದ್ಯತೆಗಳು",
+    notif_preferences: "ಅಧಿಸೂಚನೆ ಆದ್ಯತೆಗಳು",
+    danger_zone: "ಅಪಾಯದ ವಲಯ ಮತ್ತು ಡೇಟಾ ಮರುಹೊಂದಿಕೆ",
+    delete_account_btn: "ಖಾತೆಯನ್ನು ಕಾಯಂ ಆಗಿ ಅಳಿಸಿ",
+    confirm_delete_account: "ಹೌದು, ನನ್ನ ಇಡೀ ಖಾತೆ ಮತ್ತು ಇತಿಹಾಸವನ್ನು ಅಳಿಸಿಹಾಕಿ",
+    
+    doctor_title: "ಡಾ. ಆಂಜಿಯೋ (ಸಸ್ಯ ರೋಗಶಾಸ್ತ್ರಜ್ಞ)",
+    chat_placeholder: "ಬೆಳೆ ರೋಗಗಳು, ಪರಿಹಾರಗಳ ಬಗ್ಗೆ ಡಾ. ಆಂಜಿಯೋ ಅವರೊಂದಿಗೆ ಚರ್ಚಿಸಿ...",
+    send_btn: "ಕಳುಹಿಸಿ",
+    clear_chat: "ಚಾಟ್ ಹಿಸ್ಟರಿ ರಿಸೆಟ್ ಮಾಡಿ",
+    welcome_chat: "ನಮಸ್ಕಾರ! ನಾನು ನಿಮ್ಮ ವರ್ಚುವಲ್ ಕೃಷಿ ರೋಗಶಾಸ್ತ್ರಜ್ಞ ಡಾ. ಆಂಜಿಯೋ. ನಿಮ್ಮ ಬೆಳೆಗಳು, ಮಣ್ಣುಗಳು ಅಥವಾ ರೋಗಗಳ ಬಗ್ಗೆ ಕೇಳಿ.",
+    
+    saved_success: "ವರದಿಯನ್ನು ಇತಿಹಾಸಕ್ಕೆ ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ!",
+    field_saved: "ವರದಿಯನ್ನು ಜಮೀನಿನ ದಿನಚರಿಗೆ ಯಶಸ್ವಿಯಾಗಿ ಲಾಗ್ ಮಾಡಲಾಗಿದೆ!",
+    field_added: "ಹೊಸ ಜಮೀನು ಬ್ಲಾಕ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಲಾಗಿದೆ!",
+    field_deleted: "ಜಮೀನು ಬ್ಲಾಕ್ ಅನ್ನು ಅಳಿಸಲಾಗಿದೆ.",
+    location_success: "ಸ್ಥಳವನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಪತ್ತೆಹಚ್ಚಲಾಗಿದೆ!",
+    location_failed: "ಸ್ಥಳ ಪತ್ತೆಹಚ್ಚುವಿಕೆ ವಿಫಲವಾಗಿದೆ."
+  }
+};
+
+const translateSoilInfo = (info, lang) => {
+  if (lang !== 'kn') return info;
+  
+  const typicalCrops = info.typicalCrops.map(crop => CROP_TRANSLATIONS[crop] || crop);
+  const suitability = {};
+  
+  Object.entries(info.suitability).forEach(([season, list]) => {
+    const translatedSeason = SEASON_TRANSLATIONS[season] || season;
+    suitability[translatedSeason] = list.map(item => ({
+      crop: CROP_TRANSLATIONS[item.crop] || item.crop,
+      score: item.score,
+      reason: REASON_TRANSLATIONS[item.reason] || item.reason
+    }));
+  });
+  
+  return {
+    soilType: SOIL_TRANSLATIONS[info.soilType] || info.soilType,
+    properties: PROPERTIES_TRANSLATIONS[info.properties] || info.properties,
+    typicalCrops,
+    suitability
+  };
+};
+
+function translateReport(report, lang) {
+  if (lang !== 'kn') return report;
+  
+  const translated = { ...report };
+  translated.disease_name = DISEASE_TRANSLATIONS[report.disease_name] || report.disease_name;
+  translated.category = report.category === "Fungal" ? "ಶಿಲೀಂಧ್ರ" :
+                        report.category === "Bacterial" ? "ಬ್ಯಾಕ್ಟೀರಿಯಾ" :
+                        report.category === "Viral" ? "ವೈರಸ್" :
+                        report.category === "Nematodal" ? "ನೆಮಟೋಡ್" :
+                        report.category === "Nutritional Deficiency" ? "ಪೋಷಕಾಂಶಗಳ ಕೊರತೆ" : "ಕೀಟಗಳು";
+  translated.severity = report.severity === "Critical" ? "ಅತಿ ಗಂಭೀರ" :
+                        report.severity === "Severe" ? "ಗಂಭೀರ" :
+                        report.severity === "Moderate" ? "ಮಧ್ಯಮ" : "ಸೌಮ್ಯ";
+  translated.spread_risk = report.spread_risk === "Very High" ? "ಅತಿ ಹೆಚ್ಚು" :
+                           report.spread_risk === "High" ? "ಹೆಚ್ಚು" :
+                           report.spread_risk === "Medium" ? "ಮಧ್ಯಮ" : "ಕಡಿಮೆ";
+  
+  if (report.category === "Fungal") {
+    translated.symptoms_observed = ["ಎಲೆಗಳ ಮೇಲೆ ಬಿಳಿ ಬೂದಿ ತರಹದ ಕಲೆಗಳು", "ಎಲೆಯ ಅಂಚುಗಳು ಹಳದಿಯಾಗುವುದು", "ಮೇಲ್ಭಾಗದಲ್ಲಿ ಒಣಗಿದ ಕಂದು ಕಲೆಗಳು", "ಅಕಾಲಿಕ ಎಲೆ ಉದುರುವಿಕೆ"];
+    translated.cause = "ಗಾಳಿ, ಹೆಚ್ಚಿನ ತೇವಾಂಶ ಮತ್ತು ನೇರ ಎಲೆಗಳ ಸಂಪರ್ಕದ ಮೂಲಕ ಹರಡುವ ಶಿಲೀಂಧ್ರ ಬೀಜಕಗಳು.";
+    translated.disease_description = `${translated.disease_name || "ಶಿಲೀಂಧ್ರ ರೋಗ"} ಇದು ಸಸ್ಯಕ್ಕೆ ಹಾನಿ ಮಾಡುವ ತೀವ್ರವಾದ ಶಿಲೀಂಧ್ರ ಸೋಂಕು. ಸಾಮಾನ್ಯವಾಗಿ ಗಾಳಿಯ ಕೊರತೆ ಮತ್ತು ತೇವಾಂಶದ ವಾತಾವರಣದಲ್ಲಿ ಇದು ವೇಗವಾಗಿ ಹರಡುತ್ತದೆ.`;
+    translated.if_untreated = "ಎಲೆಗಳು ಸಂಪೂರ್ಣ ಉದುರಿಹೋಗುತ್ತವೆ, ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ ಕುಂಠಿತವಾಗುತ್ತದೆ ಮತ್ತು ಬೆಳೆ ಇಳುವರಿ ಗಣನೀಯವಾಗಿ ಕಡಿಮೆಯಾಗುತ್ತದೆ.";
+    translated.recovery_timeline = "ಸಕ್ರಿಯ ಶಿಲೀಂಧ್ರನಾಶಕಗಳೊಂದಿಗೆ 14 ರಿಂದ 28 ದಿನಗಳು";
+    translated.expert_tip = "ಶಿಲೀಂಧ್ರ ಬೀಜಕಗಳು ಹರಡುವುದನ್ನು ತಡೆಯಲು ಗಿಡಗಳನ್ನು ಕತ್ತರಿಸುವ ಕತ್ತರಿಗಳನ್ನು 70% ಐಸೊಪ್ರೊಪೈಲ್ ಆಲ್ಕೋಹಾಲ್‌ನಿಂದ ಸ್ವಚ್ಛಗೊಳಿಸಿ.";
+    translated.treatment_plan = {
+      immediate_actions: ["ಸೋಂಕಿತ ಎಲೆಗಳನ್ನು ತಕ್ಷಣ ಕತ್ತರಿಸಿ ನಾಶಪಡಿಸಿ.", "ತೇವಾಂಶವನ್ನು ಕಡಿಮೆ ಮಾಡಲು ಎಲೆಗಳ ಮೇಲೆ ನೀರು ಸಿಂಪಡಿಸುವುದನ್ನು ತಪ್ಪಿಸಿ.", "ಸೋಂಕಿತ ಗಿಡಗಳನ್ನು ಪ್ರತ್ಯೇಕಿಸಿ."],
+      chemical_treatments: [
+        {
+          chemical_name: "ತಾಮ್ರದ ಹೈಡ್ರಾಕ್ಸೈಡ್ ಸಿಂಪಡಣೆ",
+          active_ingredient: "ತಾಮ್ರದ ಹೈಡ್ರಾಕ್ಸೈಡ್ (53.8%)",
+          dosage: "1 ಲೀಟರ್ ನೀರಿಗೆ 2 ಗ್ರಾಂ",
+          application_method: "ಪ್ರೆಶರ್ ನಾಜಲ್ ಬಳಸಿ ಎಲೆಗಳಿಗೆ ಸಿಂಪಡಿಸುವುದು",
+          frequency: "ರೋಗಲಕ್ಷಣಗಳು ವಾಸಿಯಾಗುವವರೆಗೆ ಪ್ರತಿ 10 ದಿನಗಳಿಗೊಮ್ಮೆ",
+          safety_precautions: "ಸಿಂಪಡಿಸುವಾಗ ರಕ್ಷಣಾತ್ಮಕ ಕನ್ನಡಕ, ಮಾಸ್ಕ್ ಮತ್ತು ಕೈಗವಸುಗಳನ್ನು ಧರಿಸಿ.",
+          approximate_cost: "500 ಗ್ರಾಂಗೆ ₹1,500"
+        },
+        {
+          chemical_name: "ಮ್ಯಾಂಕೋಜೆಬ್ ಶಿಲೀಂಧ್ರನಾಶಕ",
+          active_ingredient: "ಮ್ಯಾಂಕೋಜೆಬ್ (75% WP)",
+          dosage: "1 ಲೀಟರ್ ನೀರಿಗೆ 2.5 ಗ್ರಾಂ",
+          application_method: "ಗಿಡದ ಮೇಲ್ಭಾಗಕ್ಕೆ ಏಕರೂಪವಾಗಿ ಸಿಂಪಡಿಸಿ",
+          frequency: "ಪ್ರತಿ 14 ದಿನಗಳಿಗೊಮ್ಮೆ",
+          safety_precautions: "ಸಿಂಪಡಿಸಿದ ನಂತರ 7 ದಿನಗಳವರೆಗೆ ಬೆಳೆ ಕಟಾವು ಮಾಡಬೇಡಿ. ಜಲಮೂಲಗಳಿಂದ ದೂರವಿಡಿ.",
+          approximate_cost: "1 ಕೆಜಿಗೆ ₹1,000"
+        }
+      ],
+      organic_alternatives: [
+        {
+          remedy: "ಬೇವು ಎಣ್ಣೆ ದ್ರಾವಣ",
+          preparation: "5ಮಿಲಿ ಬೇವು ಎಣ್ಣೆ ಮತ್ತು 2ಮಿಲಿ ಸಾವಯವ ದ್ರವ ಸೋಪನ್ನು 1 ಲೀಟರ್ ಉಗುರುಬೆಚ್ಚಗಿನ ನೀರಿನಲ್ಲಿ ಮಿಶ್ರಣ ಮಾಡಿ",
+          application: "ಸೂರ್ಯನ ಶಾಖದಿಂದ ಎಲೆಗಳು ಸುಡದಂತೆ ತಡೆಯಲು ಸಂಜೆ ವೇಳೆ ಎಲೆಗಳ ಮೇಲೆ ಸಂಪೂರ್ಣವಾಗಿ ಸಿಂಪಡಿಸಿ"
+        },
+        {
+          remedy: "ಪೊಟ್ಯಾಸಿಯಮ್ ಬೈಕಾರ್ಬನೇಟ್ ಸಿಂಪಡಣೆ",
+          preparation: "3 ಗ್ರಾಂ ಪೊಟ್ಯಾಸಿಯಮ್ ಬೈಕಾರ್ಬನೇಟ್ ಅನ್ನು 1 ಲೀಟರ್ ನೀರಿನಲ್ಲಿ ಕರಗಿಸಿ",
+          application: "ಶಿಲೀಂಧ್ರ ಜೀವಕೋಶದ ಗೋಡೆಗಳನ್ನು ಒಡೆಯಲು ಕಲೆಗಳ ಮೇಲೆ ಸಿಂಪಡಿಸಿ"
+        }
+      ],
+      preventive_measures: ["ಗಾಳಿಯಾಡಲು ಅನುಕೂಲವಾಗುವಂತೆ ನಿಯಮಿತವಾಗಿ ಕತ್ತರಿಸು ಪ್ರಕ್ರಿಯೆ ಮಾಡಿ.", "ಮಣ್ಣಿನಿಂದ ಶಿಲೀಂಧ್ರಗಳು ಹರಡದಂತೆ ತಡೆಯಲು ಒಣ ಎಲೆಗಳ ಹೊದಿಕೆ (ಮಲ್ಚಿಂಗ್) ಬಳಸಿ.", "ಗಿಡಗಳ ನಡುವೆ ಸೂಕ್ತ ಅಂತರ ಕಾಯ್ದುಕೊಳ್ಳಿ."]
+    };
+  } else if (report.category === "Bacterial") {
+    translated.symptoms_observed = ["ನೀರು ಕುಡಿದಂತಿರುವ ಕಪ್ಪು ಕಲೆಗಳು", "ಬೆಚ್ಚಗಿನ ಹವಾಮಾನದಲ್ಲಿ ಕಾಂಡದಿಂದ ಬ್ಯಾಕ್ಟೀರಿಯಾದ ಸ್ರವಿಸುವಿಕೆ", "ನರಗಳಿಂದ ಸೀಮಿತವಾದ ಕೋನೀಯ ಎಲೆ ಕಲೆಗಳು", "ಧಿಡೀರ್ ಒಣಗುವುದು"];
+    translated.cause = "ಬ್ಯಾಕ್ಟೀರಿಯಾ ಜೀವಕೋಶಗಳು ಸಸ್ಯದ ಗಾಯಗಳು ಅಥವಾ ಪತ್ರರಂಧ್ರಗಳ ಮೂಲಕ ನಾಳೀಯ ರಚನೆಗಳನ್ನು ಪ್ರವೇಶಿಸುವುದು.";
+    translated.disease_description = `ಇದು ಸಸ್ಯದ ರಸ ಹರಿವನ್ನು ತಡೆಯುವ ಮತ್ತು ಎಲೆಗಳನ್ನು ಹಾನಿಗೊಳಿಸುವ ತೀವ್ರವಾದ ಬ್ಯಾಕ್ಟೀರಿಯಾ ಸೋಂಕು. ಇದು ಅತ್ಯಂತ ಸಾಂಕ್ರಾಮಿಕವಾಗಿದೆ.`;
+    translated.if_untreated = "ನಾಳೀಯ ವ್ಯವಸ್ಥೆಯ ಕುಸಿತ, ಸಂಪೂರ್ಣ ಒಣಗುವಿಕೆ ಮತ್ತು ಭವಿಷ್ಯದ ಬೆಳೆಗಳ ಮೇಲೆ ಪರಿಣಾಮ ಬೀರುವ ಮಣ್ಣಿನ ಮಾಲಿನ್ಯ.";
+    translated.recovery_timeline = "21 ರಿಂದ 35 ದಿನಗಳು (ಸಾಮಾನ್ಯವಾಗಿ ಸೋಂಕಿತ ಗಿಡವನ್ನು ತೆಗೆದುಹಾಕಬೇಕಾಗುತ್ತದೆ)";
+    translated.expert_tip = "ಒದ್ದೆಯಾದ ಹವಾಮಾನದಲ್ಲಿ ಗಿಡಗಳನ್ನು ಕತ್ತರಿಸಬೇಡಿ; ನೀರಿನ ಹನಿಗಳು ಬ್ಯಾಕ್ಟೀರಿಯಾ ಹರಡಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ.";
+    translated.treatment_plan = {
+      immediate_actions: ["ಹೆಚ್ಚು ಸೋಂಕಿತ ಬೆಳೆಗಳನ್ನು ತಕ್ಷಣವೇ ಕಿತ್ತುಹಾಕಿ ನಾಶಪಡಿಸಿ.", "ಪ್ರತಿ ಕಡಿತದ ನಂತರ ಉಪಕರಣಗಳನ್ನು ಸೋಂಕುರಹಿತಗೊಳಿಸಿ.", "ಎಲೆಗಳ ಮೇಲೆ ನೀರು ಹಾಯಿಸುವುದನ್ನು ತಕ್ಷಣ ನಿಲ್ಲಿಸಿ."],
+      chemical_treatments: [
+        {
+          chemical_name: "ಸ್ಟ್ರೆಪ್ಟೊಮೈಸಿನ್ ಸಲ್ಫೇಟ್",
+          active_ingredient: "ಸ್ಟ್ರೆಪ್ಟೊಮೈಸಿನ್ (9%), ಆಕ್ಸಿಟೆಟ್ರಾಸೈಕ್ಲಿನ್ (1%)",
+          dosage: "2 ಲೀಟರ್ ನೀರಿಗೆ 1 ಗ್ರಾಂ",
+          application_method: "ಎಲೆಗಳ ಮೇಲೆ ಸಿಂಪಡಣೆ",
+          frequency: "ಪ್ರತಿ 7 ದಿನಗಳಿಗೊಮ್ಮೆ, ಗರಿಷ್ಠ 3 ಬಾರಿ",
+          safety_precautions: "ಇದು ಪ್ರತಿಜೀವಕವಾಗಿದೆ. ಕೈಗವಸು ಧರಿಸಿ. ಕೊಯ್ಲು ಅವಧಿಗೆ ಹತ್ತಿರವಿರುವಾಗ ಬಳಸಬೇಡಿ.",
+          approximate_cost: "ಒಂದು ಪ್ಯಾಕ್‌ಗೆ ₹2,800"
+        }
+      ],
+      organic_alternatives: [
+        {
+          remedy: "ದ್ರವ ತಾಮ್ರದ ಸೋಪ್ ಸಿಂಪಡಣೆ",
+          preparation: "1 ಲೀಟರ್ ನೀರಿನಲ್ಲಿ 10ಮಿಲಿ ದ್ರವ ತಾಮ್ರದ ಸೋಪ್ ಮಿಶ್ರಣ ಮಾಡಿ",
+          application: "ಬ್ಯಾಕ್ಟೀರಿಯಾ ಪ್ರವೇಶಿಸದಂತೆ ತಡೆಯಲು ಸೂರ್ಯೋದಯದ ಸಮಯದಲ್ಲಿ ಎಲೆಗಳ ಮೇಲೆ ಸಿಂಪಡಿಸಿ"
+        }
+      ],
+      preventive_measures: ["ರೋಗಮುಕ್ತ ಪ್ರಮಾಣೀಕೃತ ಬೀಜಗಳನ್ನು ಮಾತ್ರ ಬಿತ್ತನೆ ಮಾಡಿ.", "ಎಲೆಗಳು ಒದ್ದೆಯಾಗಿರುವಾಗ ಬೆಳೆಗಳನ್ನು ಮುಟ್ಟಬೇಡಿ ಅಥವಾ ಕೊಯ್ಲು ಮಾಡಬೇಡಿ.", "ಎಲೆಗಳನ್ನು ಒಣಗಿಸಲು ಹನಿ ನೀರಾವರಿ ಬಳಸಿ."]
+    };
+  } else if (report.category === "Viral") {
+    translated.symptoms_observed = ["ಎಲೆಗಳ ಮೇಲೆ ಹಳದಿ ಮತ್ತು ಹಸಿರು ಬಣ್ಣದ ಮೊಸಾಯಿಕ್ ವಿನ್ಯಾಸಗಳು", "ಕುಂಠಿತಗೊಂಡ ಮತ್ತು ಮುದುಡಿದ ಎಲೆಗಳ ಬೆಳವಣಿಗೆ", "ಎಲೆಗಳು ವಿರೂಪಗೊಳ್ಳುವುದು", "ಹಣ್ಣುಗಳ ಮೇಲೆ ಉಂಗುರದಾಕಾರದ ಕಲೆಗಳು"];
+    translated.cause = "ಸಸ್ಯದ ಜೀವಕೋಶಗಳ ಒಳಗೆ ವೈರಸ್ ಪುನರಾವರ್ತನೆಯಾಗುವುದು, ಮುಖ್ಯವಾಗಿ ಗಿಡಹೇನುಗಳಂತಹ ಹೀರುವ ಕೀಟಗಳಿಂದ ಹರಡುತ್ತದೆ.";
+    translated.disease_description = `ಇದು ಸಸ್ಯದ ಜೀವಕೋಶಗಳನ್ನು ಆಕ್ರಮಿಸಿಕೊಂಡು ಎಲೆಗಳ ಮೊಸಾಯಿಕ್ ವಿನ್ಯಾಸಕ್ಕೆ ಕಾರಣವಾಗುವ ವೈರಲ್ ಸೋಂಕು. ಇದಕ್ಕೆ ಯಾವುದೇ ನೇರ ರಾಸಾಯನಿಕ ಚಿಕಿತ್ಸೆ ಇಲ್ಲ.`;
+    translated.if_untreated = "ಸಂಪೂರ್ಣ ಬೆಳವಣಿಗೆ ಕುಂಠಿತಗೊಳ್ಳುವುದು, ಎಲೆಗಳು ವಿರೂಪಗೊಳ್ಳುವುದು ಮತ್ತು ಕೀಟಗಳ ಮೂಲಕ ಇಡೀ ತೋಟಕ್ಕೆ ಹರಡುವುದು.";
+    translated.recovery_timeline = "ಗುಣಪಡಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ (ಹರಡದಂತೆ ತಡೆಗಟ್ಟುವುದರ ಮೇಲೆ ಗಮನ ಹರಿಸಿ)";
+    translated.expert_tip = "ವೈರಸ್ ಅನ್ನು ರಾಸಾಯನಿಕವಾಗಿ ಗುಣಪಡಿಸಲು ಸಾಧ್ಯವಿಲ್ಲದ ಕಾರಣ, ಕೀಟ ವಾಹಕಗಳನ್ನು ನಿಯಂತ್ರಿಸುವುದರ ಮೇಲೆ 100% ಗಮನ ಹರಿಸಿ.";
+    translated.treatment_plan = {
+      immediate_actions: ["ಸೋಂಕಿತ ಗಿಡಗಳನ್ನು ತಕ್ಷಣವೇ ಕಿತ್ತು ಸುಟ್ಟುಹಾಕಿ.", "ಸುತ್ತಮುತ್ತಲಿನ ಹೀರುವ ಕೀಟಗಳ (ಗಿಡಹೇನು/ಬಿಳಿ ನೊಣ) ಸಂಖ್ಯೆಯನ್ನು ನಿಯಂತ್ರಿಸಿ.", "ಆರೋಗ್ಯಕರ ಗಿಡಗಳನ್ನು ಮುಟ್ಟುವ ಮುನ್ನ ಕೈಗಳನ್ನು ಸೋಪಿನಿಂದ ತೊಳೆಯಿರಿ."],
+      chemical_treatments: [
+        {
+          chemical_name: "ಇಮಿಡಾಕ್ಲೋಪ್ರಿಡ್ (ಕೀಟ ನಿಯಂತ್ರಣ)",
+          active_ingredient: "ಇಮಿಡಾಕ್ಲೋಪ್ರಿಡ್ 17.8% SL",
+          dosage: "1 ಲೀಟರ್ ನೀರಿಗೆ 0.5ಮಿಲಿ",
+          application_method: "ಕೀಟಗಳನ್ನು ನಿಯಂತ್ರಿಸಲು ಎಲೆಗಳಿಗೆ ಸಿಂಪಡಿಸಿ",
+          frequency: "15 ದಿನಗಳಿಗೊಮ್ಮೆ",
+          safety_precautions: "ಜೇನುನೊಣಗಳಿಗೆ ಅತ್ಯಂತ ವಿಷಕಾರಿ. ಮುಂಜಾನೆ ಅಥವಾ ಸಂಜೆ ವೇಳೆ ಸಿಂಪಡಿಸಿ.",
+          approximate_cost: "ಒಂದು ಬಾಟಲಿಗೆ ₹1,200"
+        }
+      ],
+      organic_alternatives: [
+        {
+          remedy: "ಹಳದಿ ಜಿಗುಟು ಬಲೆಗಳು",
+          preparation: "ಗಿಡಗಳ ಎತ್ತರಕ್ಕೆ ತಕ್ಕಂತೆ ಹಳದಿ ಜಿಗುಟು ಕಾರ್ಡ್‌ಗಳನ್ನು ನೇತುಹಾಕಿ",
+          application: "ಹೀರುವ ಕೀಟಗಳನ್ನು ನೈಸರ್ಗಿಕವಾಗಿ ಆಕರ್ಷಿಸಿ ಹಿಡಿಯುತ್ತದೆ"
+        },
+        {
+          remedy: "ಕೀಟನಾಶಕ ಸೋಪ್ ದ್ರಾವಣ",
+          preparation: "1 ಲೀಟರ್ ನೀರಿನಲ್ಲಿ 20ಮಿಲಿ ಸೋಪ್ ಮಿಶ್ರಣ ಮಾಡಿ",
+          application: "ಎಲೆಗಳ ಕೆಳಭಾಗದಲ್ಲಿರುವ ಕೀಟಗಳ ಗೂಡುಗಳಿಗೆ ಸಿಂಪಡಿಸಿ"
+        }
+      ],
+      preventive_measures: ["ಎಳೆಯ ಸಸ್ಯಗಳ ಮೇಲೆ ಕೀಟ ನಿರೋಧಕ ಜಾಲರಿಗಳನ್ನು ಬಳಸಿ.", "ವೈರಸ್ ಹೊಂದಿರುವ ಕಳೆಗಳನ್ನು ನಿಯಮಿತವಾಗಿ ತೆಗೆದುಹಾಕಿ.", "ರೋಗ ನಿರೋಧಕ ತಳಿಗಳನ್ನು ಬೆಳೆಸಿ."]
+    };
+  } else if (report.category === "Nematodal") {
+    translated.symptoms_observed = ["ಬೇರುಗಳಲ್ಲಿ ಗಂಟುಗಳು ಕಂಡುಬರುವುದು", "ತೇವಾಂಶವಿದ್ದರೂ ಬಿಸಿಲಿನಲ್ಲಿ ಗಿಡಗಳು ಒಣಗುವುದು", "ಕುಂಠಿತ ಬೆಳವಣಿಗೆ ಮತ್ತು ಹಳದಿ ಎಲೆಗಳು", "ದುರ್ಬಲ ಬೇರು ವ್ಯವಸ್ಥೆ"];
+    translated.cause = "ಸೂಕ್ಷ್ಮದರ್ಶಕ ರೌಂಡ್‌ವರ್ಮ್‌ಗಳು ಬೇರುಗಳ ಒಳಗೆ ಆಹಾರ ಸೇವಿಸಿ ನೀರು ಹೀರದಂತೆ ತಡೆಯುವುದು.";
+    translated.disease_description = `ಬೇರುಗಳನ್ನು ಆಕ್ರಮಿಸುವ ನೆಮಟೋಡ್ ಕೀಟಗಳು ಸಸ್ಯದ ಪೋಷಕಾಂಶಗಳನ್ನು ಹೀರಲಿಕ್ಕೆ ಶುರುಮಾಡುತ್ತವೆ ಮತ್ತು ಬೇರುಗಳಲ್ಲಿ ಗಂಟುಗಳನ್ನು ಉಂಟುಮಾಡುತ್ತವೆ.`;
+    translated.if_untreated = "ಬೆಳೆಯ ನಿಧಾನಗತಿಯ ಸಾವು, ಬೇರುಗಳ ಸಂಪೂರ್ಣ ನಾಶ ಮತ್ತು ಮಣ್ಣಿನಲ್ಲಿ ಕೀಟಗಳ ಕಾಯಂ ಸೋಂಕು.";
+    translated.recovery_timeline = "30 ರಿಂದ 60 ದಿನಗಳು (ಮಣ್ಣಿನ ಚಿಕಿತ್ಸೆ)";
+    translated.expert_tip = "ಸಾಕಷ್ಟು ಸಾವಯವ ಗೊಬ್ಬರವನ್ನು ಬಳಸಿ; ಮಣ್ಣಿನಲ್ಲಿರುವ ಪ್ರಯೋಜನಕಾರಿ ಶಿಲೀಂಧ್ರಗಳು ನೆಮಟೋಡ್‌ಗಳನ್ನು ನಿಯಂತ್ರಣದಲ್ಲಿಡುತ್ತವೆ.";
+    translated.treatment_plan = {
+      immediate_actions: ["ಬೇಸಿಗೆಯಲ್ಲಿ ಮಣ್ಣನ್ನು ಪ್ಲಾಸ್ಟಿಕ್ ಹೊದಿಕೆಯಿಂದ ಮುಚ್ಚಿ ಸೂರ್ಯನ ತಾಪಕ್ಕೆ ಕಾಯಿಸಿ (ಸೋಲರೈಸೇಶನ್).", "ಸೋಂಕಿತ ಗಿಡಗಳನ್ನು ಕಿತ್ತುಹಾಕಿ.", "ಮಣ್ಣಿಗೆ ಸಾವಯವ ಗೊಬ್ಬರ ಸೇರಿಸಿ."],
+      chemical_treatments: [
+        {
+          chemical_name: "ಫ್ಲೂಯೆನ್ಸಲ್ಫೋನ್ ನೆಮಟಿಸೈಡ್",
+          active_ingredient: "ಫ್ಲೂಯೆನ್ಸಲ್ಫೋನ್ (2% GR)",
+          dosage: "ಪ್ರತಿ ಚದರ ಮೀಟರ್‌ಗೆ 20 ಗ್ರಾಂ",
+          application_method: "ಬೇರುಗಳ ಸುತ್ತಲಿನ ಮಣ್ಣಿನಲ್ಲಿ ಮಿಶ್ರಣ ಮಾಡಿ",
+          frequency: "ಬಿತ್ತನೆಗೆ ಮುಂಚಿತವಾಗಿ ಅಥವಾ ಆರಂಭಿಕ ಹಂತದಲ್ಲಿ ಒಂದು ಬಾರಿ",
+          safety_precautions: "ಚರ್ಮದ ಸಂಪರ್ಕವನ್ನು ತಪ್ಪಿಸಿ. ಜಲಚರಗಳಿಗೆ ಹಾನಿಕಾರಕ.",
+          approximate_cost: "ಪ್ಯಾಕ್‌ಗೆ ₹3,600"
+        }
+      ],
+      organic_alternatives: [
+        {
+          remedy: "ಚೆಂಡು ಹೂವಿನ ಸಹ-ಬೆಳೆ",
+          preparation: "ಬೆಳೆಗಳ ಸುತ್ತಲೂ ಚೆಂಡು ಹೂವಿನ ಗಿಡಗಳನ್ನು ದಟ್ಟವಾಗಿ ಬೆಳೆಸಿ",
+          application: "ಇದರ ಬೇರುಗಳು ನೆಮಟೋಡ್‌ಗಳಿಗೆ ವಿಷಕಾರಿಯಾದ ಆಲ್ಫಾ-ಟರ್ಥಿನೈಲ್ ಅನ್ನು ಬಿಡುಗಡೆ ಮಾಡುತ್ತವೆ"
+        },
+        {
+          remedy: "ಬೇವು ಹಿಂಡಿ ಬಳಕೆ",
+          preparation: "ಪ್ರತಿ ಗಿಡದ ಬುಡಕ್ಕೆ 100 ಗ್ರಾಂ ಬೇವಿನ ಹಿಂಡಿ ಪುಡಿ ಸೇರಿಸಿ",
+          application: "ಮೇಲ್ಮಣ್ಣಿನಲ್ಲಿ ಚೆನ್ನಾಗಿ ಮಿಶ್ರಣ ಮಾಡಿ ನೀರುಣಿಸಿ"
+        }
+      ],
+      preventive_measures: ["ಏಕದಳ ಧಾನ್ಯಗಳೊಂದಿಗೆ ಬೆಳೆ ಸರದಿಯನ್ನು ಅನುಸರಿಸಿ.", "ಮಣ್ಣಿನ ಸೂಕ್ಷ್ಮಜೀವಿಗಳನ್ನು ಹೆಚ್ಚಿಸಲು ಹಟ್ಟಿ ಗೊಬ್ಬರ ಬಳಸಿ.", "ಸಸಿಮಡಿಗಳನ್ನು ಮುಂಚಿತವಾಗಿ ಬಿಸಿಲಿನಲ್ಲಿ ಒಣಗಿಸಿ."]
+    };
+  } else if (report.category === "Nutritional Deficiency") {
+    translated.symptoms_observed = ["ನರಗಳ ಮಧ್ಯೆ ಹಳದಿಯಾಗುವುದು (ಹಸಿರು ನರಗಳು, ಹಳದಿ ಎಲೆ)", "ಎಲೆಗಳ ಕೆಳಭಾಗದಲ್ಲಿ ನೇರಳೆ ಬಣ್ಣ ಕಂಡುಬರುವುದು", "ನಿಧಾನ ಬೆಳವಣಿಗೆ", "ಎಲೆಗಳ ತುದಿ ಒಣಗುವುದು"];
+    translated.cause = "ಮಣ್ಣಿನಲ್ಲಿ ಅಗತ್ಯ ಖನಿಜಗಳ ಕೊರತೆ ಅಥವಾ ಮಣ್ಣಿನ ಪಿಹೆಚ್ (pH) ಮಟ್ಟ ತಪ್ಪಾಗಿರುವುದರಿಂದ ಪೋಷಕಾಂಶ ಹೀರಿಕೊಳ್ಳಲು ಅಡ್ಡಿ.";
+    translated.disease_description = `ಇದು ಪೋಷಕಾಂಶಗಳ ಕೊರತೆಯ ಅಸ್ವಸ್ಥತೆಯಾಗಿದೆ. ಸಸ್ಯಕ್ಕೆ ಕ್ಲೋರೊಫಿಲ್ ಮತ್ತು ಶಕ್ತಿಯನ್ನು ತಯಾರಿಸಲು ಅಗತ್ಯ ಅಂಶಗಳು ಲಭ್ಯವಿಲ್ಲ.`;
+    translated.if_untreated = "ಕುಂಠಿತ ಬೆಳವಣಿಗೆ, ಹೂವು ಬಿಡದಿರುವುದು, ಎಲೆಗಳು ಉದುರುವುದು ಮತ್ತು ದುರ್ಬಲ ಕಾಂಡಗಳು ಗಾಳಿಗೆ ಮುರಿದುಬೀಳುವುದು.";
+    translated.recovery_timeline = "7 ರಿಂದ 14 ದಿನಗಳು (ವೇಗದ ದೃಶ್ಯ ಪ್ರತಿಕ್ರಿಯೆ)";
+    translated.expert_tip = "ಎಲೆ ಹಳದಿಯಾಗುವುದು ಹೆಚ್ಚಾಗಿ ಮಣ್ಣಿನ ಅತಿ ತೇವಾಂಶ ಅಥವಾ ಅಸಮರ್ಪಕ pH ನಿಂದ ಉಂಟಾಗುತ್ತದೆ, ಇದು ಪೋಷಕಾಂಶಗಳನ್ನು ಲಾಕ್ ಮಾಡುತ್ತದೆ.";
+    translated.treatment_plan = {
+      immediate_actions: ["ಮಣ್ಣಿನ pH ಪರೀಕ್ಷಿಸಿ.", "ತ್ವರಿತ ಹೀರಿಕೊಳ್ಳುವಿಕೆಗಾಗಿ ಎಲೆಗಳ ಮೇಲೆ ಪೋಷಕಾಂಶಗಳ ಸಿಂಪಡಣೆ ಮಾಡಿ.", "ನೀರುಣಿಸುವ ನೀರಿನ pH ಸರಿಪಡಿಸಿ."],
+      chemical_treatments: [
+        {
+          chemical_name: "ಕಿಲೇಟೆಡ್ ಸೂಕ್ಷ್ಮ ಪೋಷಕಾಂಶ ಸಿಂಪಡಣೆ",
+          active_ingredient: "ಕಿಲೇಟೆಡ್ ಕಬ್ಬಿಣ/EDTA ಸಂಯುಕ್ತ",
+          dosage: "1 ಲೀಟರ್ ನೀರಿಗೆ 1 ಗ್ರಾಂ",
+          application_method: "ತ್ವರಿತ ಪೋಷಣೆಗಾಗಿ ನೇರವಾಗಿ ಎಲೆಗಳಿಗೆ ಸಿಂಪಡಿಸಿ",
+          frequency: "7 ದಿನಗಳ ಅಂತರದಲ್ಲಿ ಎರಡು ಬಾರಿ",
+          safety_precautions: "ತಂಪಾದ ಒಣ ಜಾಗದಲ್ಲಿ ಸಂಗ್ರಹಿಸಿ. ಕಣ್ಣುಗಳ ಸಂಪರ್ಕ ತಪ್ಪಿಸಿ.",
+          approximate_cost: "ಬಾಟಲಿಗೆ ₹1,100"
+        },
+        {
+          chemical_name: "NPK ರಸಗೊಬ್ಬರ",
+          active_ingredient: "NPK 19-19-19 ಸಮತೋಲಿತ ಮಿಶ್ರಣ",
+          dosage: "1 ಲೀಟರ್ ನೀರಿಗೆ 5 ಗ್ರಾಂ",
+          application_method: "ಬೇರುಗಳ ಸುತ್ತಲೂ ಮಣ್ಣನ್ನು ನೆನೆಸಿ",
+          frequency: "15 ದಿನಗಳಿಗೊಮ್ಮೆ",
+          safety_precautions: "ಬೇರುಗಳು ಸುಡುವುದನ್ನು ತಡೆಯಲು ಅತಿಯಾದ ರಸಗೊಬ್ಬರ ಬಳಸಬೇಡಿ.",
+          approximate_cost: "1 ಕೆಜಿಗೆ ₹700"
+        }
+      ],
+      organic_alternatives: [
+        {
+          remedy: "ಕಾಂಪೋಸ್ಟ್ ಟೀ ಸಿಂಪಡಣೆ",
+          preparation: "1 ಲೀಟರ್ ಕಾಂಪೋಸ್ಟ್ ಅನ್ನು 5 ಲೀಟರ್ ನೀರಿನಲ್ಲಿ 24 ಗಂಟೆಗಳ ಕಾಲ ನೆನೆಸಿಡಿ",
+          application: "ಸೂಕ್ಷ್ಮ ಪೋಷಕಾಂಶಗಳಿಗಾಗಿ ಎಲೆಗಳಿಗೆ ಸಿಂಪಡಿಸಿ ಮತ್ತು ಬೇರುಗಳಿಗೆ ಸುರಿಯಿರಿ"
+        },
+        {
+          remedy: "ಎಪ್ಸಮ್ ಸಾಲ್ಟ್ (ಮೆಗ್ನೀಸಿಯಮ್‌ಗಾಗಿ)",
+          preparation: "1 ಲೀಟರ್ ಬಿಸಿ ನೀರಿನಲ್ಲಿ 10 ಗ್ರಾಂ ಎಪ್ಸಮ್ ಸಾಲ್ಟ್ ಕರಗಿಸಿ",
+          application: "ಹಳದಿ ಎಲೆಗಳನ್ನು ಹೊಂದಿರುವ ಗಿಡದ ಬೇರುಗಳಿಗೆ ಸುರಿಯಿರಿ"
+        }
+      ],
+      preventive_measures: ["ಮಣ್ಣಿನ pH ಅನ್ನು ಆದರ್ಶ 6.0–6.8 ವ್ಯಾಪ್ತಿಯಲ್ಲಿ ಇರಿಸಿ.", "ಪ್ರತಿ ಹಂಗಾಮಿನಲ್ಲಿ ಎರಡು ಬಾರಿ ಸಮೃದ್ಧವಾದ ಎರೆಗೊಬ್ಬರವನ್ನು ಮಣ್ಣಿಗೆ ಸೇರಿಸಿ.", "ಬೇರುಗಳು ಉಸಿರಾಡಲು ಅತಿಯಾದ ನೀರು ನಿಲ್ಲದಂತೆ ನೋಡಿಕೊಳ್ಳಿ."]
+    };
+  } else {
+    translated.symptoms_observed = ["ಎಲೆಗಳ ಮೇಲೆ ಸಣ್ಣ ಹಳದಿ ಚುಕ್ಕೆಗಳು", "ಎಲೆಯ ಮೇಲ್ಭಾಗದಲ್ಲಿ ಜಿಗುಟಾದ ಜೇನುತುಪ್ಪದಂತಹ ದ್ರವ", "ಎಲೆಯ ಕೆಳಭಾಗದಲ್ಲಿ ತೆಳುವಾದ ಜಾಲಗಳು", "ವಿರೂಪಗೊಂಡ ಎಲೆಗಳು"];
+    translated.cause = "ಹೀರುವ ಅಥವಾ ಕಡಿಯುವ ಕೀಟಗಳು ಸಸ್ಯದ ರಸ ಮತ್ತು ಅಂಗಾಂಶಗಳನ್ನು ತಿನ್ನುವುದು.";
+    translated.disease_description = `ಇದು ಕೀಟಗಳ ದಾಳಿಯಾಗಿದೆ. ಕೀಟಗಳು ಜೀವಕೋಶಗಳಿಂದ ಕ್ಲೋರೊಫಿಲ್ ಮತ್ತು ಸಕ್ಕರೆಯನ್ನು ಹೀರುತ್ತವೆ, ಇದು ಬೂಷ್ಟು ರೋಗವನ್ನು ಆಹ್ವಾನಿಸುತ್ತದೆ.`;
+    translated.if_untreated = "ಎಲೆಗಳು ವಿರೂಪಗೊಳ್ಳುವುದು, ಜಿಗುಟಾದ ದ್ರವದ ಮೇಲೆ ಕಪ್ಪು ಬೂಷ್ಟು ಬೆಳೆಯುವುದು ಮತ್ತು ಬೆಳೆ ಸಂಪೂರ್ಣ ನಾಶವಾಗುವುದು.";
+    translated.recovery_timeline = "7 ರಿಂದ 10 ದಿನಗಳ ನಿಯಮಿತ ನಿಯಂತ್ರಣ";
+    translated.expert_tip = "ಎಲೆಗಳ ಕೆಳಭಾಗವನ್ನು ಗುರಿಯಾಗಿಸಿ; 90% ಹೀರುವ ಕೀಟಗಳು ಅಲ್ಲಿ ಅಡಗಿಕೊಳ್ಳುತ್ತವೆ ಮತ್ತು ಮೊಟ್ಟೆಗಳನ್ನು ಇಡುತ್ತವೆ.";
+    translated.treatment_plan = {
+      immediate_actions: ["ಕೀಟಗಳನ್ನು ಪ್ರಬಲ ನೀರಿನ ಜಿಟಿಜಿತಿಯಿಂದ ತೊಳೆದುಹಾಕಿ.", "ತಕ್ಷಣವೇ ಕೀಟನಾಶಕ ಸೋಪ್ ಸಿಂಪಡಿಸಿ.", "ಹೆಚ್ಚು ಬಾಧಿತವಾದ ಹೂವು ಅಥವಾ ಎಲೆ ಮೊಗ್ಗುಗಳನ್ನು ಕತ್ತರಿಸಿ."],
+      chemical_treatments: [
+        {
+          chemical_name: "ಅಬಾಮೆಕ್ಟಿನ್ ಮೈಟಿಸೈಡ್",
+          active_ingredient: "ಅಬಾಮೆಕ್ಟಿನ್ 1.8% EC",
+          dosage: "1 ಲೀಟರ್ ನೀರಿಗೆ 0.5ಮಿಲಿ",
+          application_method: "ಎಲೆಗಳ ಕೆಳಭಾಗವನ್ನು ಗುರಿಯಾಗಿಸಿ ಸಿಂಪಡಿಸಿ",
+          frequency: "ಒಂದು ಬಾರಿ, ಕೀಟಗಳು ಮುಂದುವರಿದರೆ 7 ದಿನಗಳ ನಂತರ ಪುನರಾವರ್ತಿಸಿ",
+          safety_precautions: "ರಕ್ಷಣಾತ್ಮಕ ಮಾಸ್ಕ್ ಧರಿಸಿ. ಸಿಂಪಡಿಸಿದ ನಂತರ 14 ದಿನಗಳವರೆಗೆ ಕೊಯ್ಲು ಮಾಡಬೇಡಿ.",
+          approximate_cost: "ಬಾಟಲಿಗೆ ₹1,800"
+        }
+      ],
+      organic_alternatives: [
+        {
+          remedy: "ಬೇವಿನ ಎಣ್ಣೆ ಮತ್ತು ಸೋಪ್ ಸಿಂಪಡಣೆ",
+          preparation: "1 ಲೀಟರ್ ನೀರಿನಲ್ಲಿ 15ಮಿಲಿ ದ್ರವ ಸೋಪ್ ಮತ್ತು 5ಮಿಲಿ ಬೇವಿನ ಎಣ್ಣೆ ಮಿಶ್ರಣ ಮಾಡಿ",
+          application: "ಎಲೆಗಳ ಕೆಳಭಾಗಕ್ಕೆ ಸಂಪೂರ್ಣವಾಗಿ ಸಿಂಪಡಿಸಿ"
+        },
+        {
+          remedy: "ಪರಭಕ್ಷಕ ಕೀಟಗಳ ಬಳಕೆ",
+          preparation: "ಲೇಡಿಬಗ್ಸ್ ಅಥವಾ ಲೇಸ್‌ವಿಂಗ್ಸ್‌ನಂತಹ ಮಿತ್ರ ಕೀಟಗಳನ್ನು ತೋಟಕ್ಕೆ ಬಿಡಿ",
+          application: "ಸಂಜೆಯ ಸಮಯದಲ್ಲಿ ಬೆಳೆಗಳ ಮೇಲೆ ನೇರವಾಗಿ ಬಿಡುಗಡೆ ಮಾಡಿ"
+        }
+      ],
+      preventive_measures: ["ಕೀಟಗಳು ವಾಸಿಸುವ ಸುತ್ತಮುತ್ತಲಿನ ಕಸ ಮತ್ತು ಕಳೆಗಳನ್ನು ತೆಗೆದುಹಾಕಿ.", "ವಾರಕ್ಕೊಮ್ಮೆ ಎಲೆಗಳ ಕೆಳಭಾಗವನ್ನು ಪರೀಕ್ಷಿಸಿ.", "ಬೆಳ್ಳುಳ್ಳಿ ಮತ್ತು ಚೆಂಡು ಹೂವನ್ನು ಸಹ-ಬೆಳೆಯಾಗಿ ಬೆಳೆಸಿ."]
+    };
+  }
+
+  if (report.disease_code === "JOW-001") {
+    translated.disease_description = "ಜೋಳದ ಗಿಡಗಳಿಗೆ ತಗಲುವ ಧಾನ್ಯದ ಬೂಷ್ಟು ರೋಗ. ಇದು ಬಿತ್ತನೆ ಸಮಯದಲ್ಲಿ ಧಾನ್ಯಗಳ ಗುಣಮಟ್ಟವನ್ನು ಕೆಡಿಸುತ್ತದೆ.";
+  }
+  
+  translated.seasonal_risk = report.seasonal_risk === "Summer / Warm Monsoons" ? "ಬೇಸಿಗೆ / ಬೆಚ್ಚಗಿನ ಮುಂಗಾರು" : "ಚಳಿಗಾಲ";
+  translated.follow_up_care = ["ವಾರಕ್ಕೊಮ್ಮೆ ಹೊಸ ಎಲೆಗಳ ಮೇಲೆ ರೋಗ ಮರುಕಳಿಸುವುದನ್ನು ಪರಿಶೀಲಿಸಿ.", "ಮಣ್ಣಿನ ತೇವಾಂಶವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ ಆದರೆ ಎಲೆಗಳು ಒಣಗಿರಲಿ.", "ಭಾರೀ ಮಳೆಯ ನಂತರ ರಕ್ಷಣಾತ್ಮಕ ಸಾವಯವ ಸಿಂಪಡಣೆಯನ್ನು ಮರು-ಅನ್ವಯಿಸಿ."];
+  translated.similar_diseases = report.similar_diseases.map(d => DISEASE_TRANSLATIONS[d] || d);
+
+  return translated;
+}
+
 // --- APP COMPONENT ---
 export default function App() {
   // --- STATE LIST ---
@@ -814,6 +1710,47 @@ export default function App() {
 
   // Pages: 'dashboard' | 'scan' | 'encyclopedia' | 'history' | 'analytics' | 'fields' | 'settings'
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [language, setLanguage] = useState(() => {
+    try {
+      const saved = localStorage.getItem('ac_lang');
+      if (saved) return saved;
+    } catch (e) {
+      console.error("Init language failed", e);
+    }
+    return 'en';
+  });
+
+  const t = (key) => {
+    return UI_TRANSLATIONS[language]?.[key] || UI_TRANSLATIONS['en']?.[key] || key;
+  };
+
+  const tc = (cropName) => {
+    if (language !== 'kn') return cropName;
+    return CROP_TRANSLATIONS[cropName] || cropName;
+  };
+
+  const td = (diseaseName) => {
+    if (language !== 'kn') return diseaseName;
+    return DISEASE_TRANSLATIONS[diseaseName] || diseaseName;
+  };
+
+  const tcat = (cat) => {
+    if (language !== 'kn') return cat;
+    return cat === "All" ? "ಎಲ್ಲಾ" :
+           cat === "Fungal" ? "ಶಿಲೀಂಧ್ರ" :
+           cat === "Bacterial" ? "ಬ್ಯಾಕ್ಟೀರಿಯಾ" :
+           cat === "Viral" ? "ವೈರಸ್" :
+           cat === "Nematodal" ? "ನೆಮಟೋಡ್" :
+           cat === "Nutritional Deficiency" ? "ಪೋಷಕಾಂಶಗಳ ಕೊರತೆ" :
+           cat === "Pest" ? "ಕೀಟಗಳು" : cat;
+  };
+
+  const tsev = (severity) => {
+    if (language !== 'kn') return severity;
+    return severity === "Critical" ? "ಅತಿ ಗಂಭೀರ" :
+           severity === "Severe" ? "ಗಂಭೀರ" :
+           severity === "Moderate" ? "ಮಧ್ಯಮ" : "ಸೌಮ್ಯ";
+  };
   
   // Auth Form State
   const [authTab, setAuthTab] = useState('login');
@@ -1040,8 +1977,13 @@ export default function App() {
       const cat = s?.report?.category;
       if (cat && counts[cat] !== undefined) counts[cat]++;
     });
-    return Object.keys(counts).map(key => ({ name: key, value: counts[key] })).filter(d => d.value > 0);
-  }, [scanHistory]);
+    return Object.keys(counts).map(key => ({
+      name: language === 'kn'
+        ? (key === "Fungal" ? "ಶಿಲೀಂಧ್ರ" : key === "Bacterial" ? "ಬ್ಯಾಕ್ಟೀರಿಯಾ" : key === "Viral" ? "ವೈರಸ್" : key === "Nematodal" ? "ನೆಮಟೋಡ್" : key === "Nutritional Deficiency" ? "ಪೋಷಕಾಂಶಗಳ ಕೊರತೆ" : key === "Pest" ? "ಕೀಟಗಳು" : "ಅಜೈವಿಕ")
+        : key,
+      value: counts[key]
+    })).filter(d => d.value > 0);
+  }, [scanHistory, language]);
 
   const scanActivityData = useMemo(() => {
     if (scanHistory.length === 0) return [{ date: new Date().toLocaleDateString(), Scans: 0 }];
@@ -1061,8 +2003,8 @@ export default function App() {
         counts[s.plant_name] = (counts[s.plant_name] || 0) + 1;
       }
     });
-    return Object.keys(counts).map(key => ({ plant: key, Count: counts[key] })).sort((a, b) => b.Count - a.Count).slice(0, 5);
-  }, [scanHistory]);
+    return Object.keys(counts).map(key => ({ plant: tc(key), Count: counts[key] })).sort((a, b) => b.Count - a.Count).slice(0, 5);
+  }, [scanHistory, language]);
 
   const mostCommonDiseaseDetected = useMemo(() => {
     if (scanHistory.length === 0) return "None Detected";
@@ -1146,6 +2088,10 @@ export default function App() {
     document.documentElement.className = theme === 'light' ? 'light-mode' : '';
     localStorage.setItem('ac_theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem('ac_lang', language);
+  }, [language]);
 
   useEffect(() => {
     localStorage.setItem('ac_notifications', JSON.stringify(notifications));
@@ -1878,7 +2824,8 @@ The JSON must have this exact structure:
       let doctorResponse = "";
 
       if (apiMode === 'live' && apiKey) {
-        const chatSystemPrompt = `You are Dr. Angio, a friendly expert plant doctor on the Angio-Care platform. You have deep knowledge of plant diseases, treatments, chemical and organic remedies, agricultural best practices, soil health, and seasonal care. You help farmers, gardeners, and botanists diagnose and treat their plants. Be warm, professional, and practical. Give specific chemical names, dosages, and application methods when asked. Always prioritize plant safety and human health. If urgency is detected, recommend professional agronomist consultation.`;
+        const chatSystemPrompt = `You are Dr. Angio, a friendly expert plant doctor on the Angio-Care platform. You have deep knowledge of plant diseases, treatments, chemical and organic remedies, agricultural best practices, soil health, and seasonal care. You help farmers, gardeners, and botanists diagnose and treat their plants. Be warm, professional, and practical. Give specific chemical names, dosages, and application methods when asked. Always prioritize plant safety and human health. If urgency is detected, recommend professional agronomist consultation.
+Note: The user's active platform language is set to ${language === 'kn' ? 'Kannada (ಕನ್ನಡ)' : 'English'}. If the active platform language is Kannada, or if the user communicates in Kannada, you MUST respond in fluent and grammatically correct Kannada (ಕನ್ನಡ) script, explaining concepts in ways local Indian farmers would understand.`;
 
         // Format history for Claude, skipping any leading assistant messages to satisfy Anthropic constraints
         const activeMessages = chatMessages.filter((m, idx) => {
@@ -1919,22 +2866,39 @@ The JSON must have this exact structure:
         await new Promise(resolve => setTimeout(resolve, 1500));
         const cleanMsg = msg.toLowerCase();
         
-        if (cleanMsg.includes("chemical")) {
-          doctorResponse = "For rapid chemical control of fungal diseases, copper fungicides or Mancozeb sprays are widely recommended. Always apply early in the morning, use a quality sprayer for full coverage, and wear personal protective equipment.";
-        } else if (cleanMsg.includes("contagious") || cleanMsg.includes("spread")) {
-          doctorResponse = "Yes, fungal and bacterial diseases spread incredibly fast through wind, irrigation splashes, or contaminated tools. I advise isolating infected plants and pruning away diseased sections immediately.";
-        } else if (cleanMsg.includes("organic") || cleanMsg.includes("natural")) {
-          doctorResponse = "An excellent organic remedy is a 0.5% neem oil foliar spray mixed with soap emulsifier, or a baking soda solution. These neutralize leaf pH and form a protective barrier against fungal spores.";
-        } else if (cleanMsg.includes("prevent")) {
-          doctorResponse = "Prevention is key! Keep plant canopies well-ventilated, prune branches to let air flow, water the base of the stems (not leaves), and rotate crop types every year.";
+        if (language === 'kn') {
+          if (cleanMsg.includes("chemical") || cleanMsg.includes("ರಾಸಾಯನಿಕ") || cleanMsg.includes("dosage") || cleanMsg.includes("ಪ್ರಮಾಣ")) {
+            doctorResponse = "ರಾಸಾಯನಿಕ ನಿಯಂತ್ರಣಕ್ಕಾಗಿ, ತಾಮ್ರದ ಶಿಲೀಂಧ್ರನಾಶಕ ಅಥವಾ ಮ್ಯಾಂಕೋಜೆಬ್ ಸಿಂಪಡಣೆಗಳನ್ನು ಶಿಫಾರಸು ಮಾಡಲಾಗುತ್ತದೆ. ಮುಂಜಾನೆ ಸಿಂಪಡಿಸಿ ಮತ್ತು ಕೀಟನಾಶಕ ಸಿಂಪಡಿಸುವಾಗ ರಕ್ಷಣಾತ್ಮಕ ಕನ್ನಡಕ ಹಾಗೂ ಮಾಸ್ಕ್ ಧರಿಸಿ.";
+          } else if (cleanMsg.includes("contagious") || cleanMsg.includes("ಹರಡ") || cleanMsg.includes("spread")) {
+            doctorResponse = "ಹೌದು, ಸಸ್ಯ ರೋಗಗಳು ಗಾಳಿ, ನೀರಿನ ಹನಿಗಳು ಮತ್ತು ಬಳಸಿದ ಕೃಷಿ ಉಪಕರಣಗಳ ಮೂಲಕ ವೇಗವಾಗಿ ಹರಡುತ್ತವೆ. ಸೋಂಕಿತ ಭಾಗಗಳನ್ನು ತಕ್ಷಣ ಕತ್ತರಿಸಿ ತೋಟದಿಂದ ದೂರ ಹಾಕಿ.";
+          } else if (cleanMsg.includes("organic") || cleanMsg.includes("ಸಾವಯವ") || cleanMsg.includes("natural") || cleanMsg.includes("ನೈಸರ್ಗಿಕ")) {
+            doctorResponse = "ಸಾವಯವ ಪರಿಹಾರಕ್ಕಾಗಿ, 1 ಲೀಟರ್ ನೀರಿನಲ್ಲಿ 5ಮಿಲಿ ಬೇವಿನ ಎಣ್ಣೆ ಮತ್ತು 2ಮಿಲಿ ದ್ರವ ಸೋಪು ಬೆರೆಸಿ ಸಂಜೆ ವೇಳೆ ಸಿಂಪಡಿಸಿ. ಇದು ಸಸ್ಯಕ್ಕೆ ರೋಗನಿರೋಧಕ ಶಕ್ತಿ ನೀಡುತ್ತದೆ.";
+          } else if (cleanMsg.includes("prevent") || cleanMsg.includes("ತಡೆಗಟ್ಟ")) {
+            doctorResponse = "ರೋಗ ತಡೆಗಟ್ಟಲು ಸಸ್ಯಗಳ ನಡುವೆ ಗಾಳಿಯಾಡುವಂತೆ ಸೂಕ್ತ ಅಂತರವಿರಲಿ, ಬುಡಕ್ಕೆ ಮಾತ್ರ ನೀರುಣಿಸಿ (ಎಲೆಗಳ ಮೇಲಲ್ಲ) ಮತ್ತು ಪ್ರತಿ ವರ್ಷ ಬೆಳೆ ಸರದಿಯನ್ನು ಅನುಸರಿಸಿ.";
+          } else {
+            doctorResponse = "ಇದು ಪ್ರಮುಖ ಕೃಷಿ ಪ್ರಶ್ನೆಯಾಗಿದೆ. ನಿಮ್ಮ ಸಸ್ಯದ ಎಲೆಗಳ ಚಿತ್ರವನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ ವರದಿ ಪಡೆಯಿರಿ. ಮಣ್ಣು ಚೆನ್ನಾಗಿ ಒಣಗಲು ಬಿಡಿ, ಉತ್ತಮ ಒಳಚರಂಡಿ ವ್ಯವಸ್ಥೆ ಮಾಡಿ ಮತ್ತು ಸಾವಯವ ಗೊಬ್ಬರ ಬಳಸಿ.";
+          }
         } else {
-          doctorResponse = "That's an important botanical query. If you've uploaded a picture, check the scan report. I highly advise keeping the foliage dry, ensuring soil drainage, and applying organic mulch. If leaves wilt suddenly, consider checking for root-knot nematodes or vascular bacterial wilt.";
+          if (cleanMsg.includes("chemical")) {
+            doctorResponse = "For rapid chemical control of fungal diseases, copper fungicides or Mancozeb sprays are widely recommended. Always apply early in the morning, use a quality sprayer for full coverage, and wear personal protective equipment.";
+          } else if (cleanMsg.includes("contagious") || cleanMsg.includes("spread")) {
+            doctorResponse = "Yes, fungal and bacterial diseases spread incredibly fast through wind, irrigation splashes, or contaminated tools. I advise isolating infected plants and pruning away diseased sections immediately.";
+          } else if (cleanMsg.includes("organic") || cleanMsg.includes("natural")) {
+            doctorResponse = "An excellent organic remedy is a 0.5% neem oil foliar spray mixed with soap emulsifier, or a baking soda solution. These neutralize leaf pH and form a protective barrier against fungal spores.";
+          } else if (cleanMsg.includes("prevent")) {
+            doctorResponse = "Prevention is key! Keep plant canopies well-ventilated, prune branches to let air flow, water the base of the stems (not leaves), and rotate crop types every year.";
+          } else {
+            doctorResponse = "That's an important botanical query. If you've uploaded a picture, check the scan report. I highly advise keeping the foliage dry, ensuring soil drainage, and applying organic mulch. If leaves wilt suddenly, consider checking for root-knot nematodes or vascular bacterial wilt.";
+          }
         }
       }
 
       setChatMessages(prev => [...prev, { sender: 'doctor', text: doctorResponse, time: new Date().toLocaleTimeString() }]);
     } catch (err) {
-      setChatMessages(prev => [...prev, { sender: 'doctor', text: "I'm having trouble connecting to my brain right now. Please verify your Anthropic API key in Settings, or try again.", time: new Date().toLocaleTimeString() }]);
+      const errMsg = language === 'kn'
+        ? "ನನ್ನ ಸರ್ವರ್ ಸಂಪರ್ಕದಲ್ಲಿ ತೊಂದರೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಆಂಥ್ರೊಪಿಕ್ ಕ್ಲೋಡ್ ಎಪಿಐ ಕೀಲಿಯನ್ನು ಸೆಟ್ಟಿಂಗ್ಸ್‌ನಲ್ಲಿ ಪರಿಶೀಲಿಸಿ ಅಥವಾ ನಂತರ ಪ್ರಯತ್ನಿಸಿ."
+        : "I'm having trouble connecting to my brain right now. Please verify your Anthropic API key in Settings, or try again.";
+      setChatMessages(prev => [...prev, { sender: 'doctor', text: errMsg, time: new Date().toLocaleTimeString() }]);
     } finally {
       setIsTypingChat(false);
     }
@@ -2400,7 +3364,7 @@ The JSON must have this exact structure:
               }}
             >
               <Activity size={20} />
-              {!sidebarCollapsed && <span>Dashboard</span>}
+              {!sidebarCollapsed && <span>{t('sidebar_dashboard')}</span>}
             </button>
 
             <button
@@ -2419,7 +3383,7 @@ The JSON must have this exact structure:
               }}
             >
               <Camera size={20} />
-              {!sidebarCollapsed && <span>Diagnostic Scan</span>}
+              {!sidebarCollapsed && <span>{t('sidebar_scan')}</span>}
             </button>
 
             <button
@@ -2434,7 +3398,7 @@ The JSON must have this exact structure:
               }}
             >
               <BookOpen size={20} />
-              {!sidebarCollapsed && <span>Encyclopedia</span>}
+              {!sidebarCollapsed && <span>{t('sidebar_encyclopedia')}</span>}
             </button>
 
             <button
@@ -2449,7 +3413,7 @@ The JSON must have this exact structure:
               }}
             >
               <History size={20} />
-              {!sidebarCollapsed && <span>Scan History</span>}
+              {!sidebarCollapsed && <span>{t('sidebar_history')}</span>}
             </button>
 
             <button
@@ -2464,7 +3428,7 @@ The JSON must have this exact structure:
               }}
             >
               <BarChart2 size={20} />
-              {!sidebarCollapsed && <span>Analytics</span>}
+              {!sidebarCollapsed && <span>{t('sidebar_analytics')}</span>}
             </button>
 
             <button
@@ -2478,7 +3442,7 @@ The JSON must have this exact structure:
               }}
             >
               <Map size={20} />
-              {!sidebarCollapsed && <span>My Fields</span>}
+              {!sidebarCollapsed && <span>{t('sidebar_fields')}</span>}
             </button>
 
             <button
@@ -2492,7 +3456,7 @@ The JSON must have this exact structure:
               }}
             >
               <MapPin size={20} />
-              {!sidebarCollapsed && <span>Crop Advisor</span>}
+              {!sidebarCollapsed && <span>{t('sidebar_crop_advisor')}</span>}
             </button>
 
             <button
@@ -2506,7 +3470,7 @@ The JSON must have this exact structure:
               }}
             >
               <Settings size={20} />
-              {!sidebarCollapsed && <span>Settings</span>}
+              {!sidebarCollapsed && <span>{t('sidebar_settings')}</span>}
             </button>
           </nav>
         </div>
@@ -2530,7 +3494,7 @@ The JSON must have this exact structure:
               width: '100%', padding: '0.5rem', background: 'none', border: '1px solid var(--border-color)', color: 'var(--text-muted)', cursor: 'pointer', borderRadius: '6px'
             }}
           >
-            {sidebarCollapsed ? ">>" : "<< Collapse"}
+            {sidebarCollapsed ? t('sidebar_expand') : t('sidebar_collapse')}
           </button>
         </div>
       </aside>
@@ -2552,15 +3516,61 @@ The JSON must have this exact structure:
         }}>
           <div>
             <h1 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)' }}>
-              {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Panel
+              {t(activeTab + '_panel')}
             </h1>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            {/* Language Selector Toggle */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              backgroundColor: 'rgba(255,255,255,0.02)',
+              border: '1px solid var(--border-color)',
+              padding: '2px',
+              borderRadius: '20px',
+              gap: '2px'
+            }}>
+              <button
+                onClick={() => setLanguage('en')}
+                style={{
+                  padding: '0.35rem 0.75rem',
+                  fontSize: '0.8rem',
+                  borderRadius: '18px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  backgroundColor: language === 'en' ? 'var(--accent-color)' : 'transparent',
+                  color: language === 'en' ? '#000' : 'var(--text-muted)',
+                  fontWeight: 'bold',
+                  transition: 'all 0.2s ease',
+                  fontFamily: 'var(--font-display)'
+                }}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLanguage('kn')}
+                style={{
+                  padding: '0.35rem 0.75rem',
+                  fontSize: '0.8rem',
+                  borderRadius: '18px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  backgroundColor: language === 'kn' ? 'var(--accent-color)' : 'transparent',
+                  color: language === 'kn' ? '#000' : 'var(--text-muted)',
+                  fontWeight: 'bold',
+                  transition: 'all 0.2s ease',
+                  fontFamily: 'var(--font-display)'
+                }}
+              >
+                ಕನ್ನಡ
+              </button>
+            </div>
+
             {/* Streak Gamification Card */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', backgroundColor: 'rgba(245,166,35,0.08)', border: '1px solid rgba(245,166,35,0.2)', padding: '0.35rem 0.75rem', borderRadius: '20px' }}>
               <Flame size={16} color="var(--warning-color)" fill="var(--warning-color)" />
-              <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--warning-color)', fontFamily: 'var(--font-mono)' }}>{currentUser.streakDays} Day Streak</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--warning-color)', fontFamily: 'var(--font-mono)' }}>{currentUser.streakDays} {language === 'kn' ? 'ದಿನಗಳ ಸತತ ಬಳಕೆ' : 'Day Streak'}</span>
             </div>
 
             {/* Notification bell dropdown */}
@@ -2651,23 +3661,23 @@ The JSON must have this exact structure:
               {/* Profile Card Header / Welcome Banner */}
               <div className="card-glass" style={{ padding: '2.5rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem', backgroundImage: 'linear-gradient(135deg, var(--surface-color) 0%, rgba(45,106,79,0.06) 100%)' }}>
                 <div>
-                  <h2 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Good morning, {currentUser.name} 🌿</h2>
-                  <p style={{ color: 'var(--text-muted)' }}>The agricultural lab is online. Ready to evaluate crops, weeds, or diagnostic samples.</p>
+                  <h2 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಶುಭೋದಯ' : 'Good morning'}, {currentUser.name} 🌿</h2>
+                  <p style={{ color: 'var(--text-muted)' }}>{t('welcome_sub')}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1.5rem' }}>
                   <div style={{ textAlign: 'center' }}>
                     <h3 style={{ fontSize: '1.8rem', color: 'var(--accent-color)', fontFamily: 'var(--font-mono)' }}>{scanHistory.length}</h3>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>Total Scans</p>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>{t('total_scans')}</p>
                   </div>
                   <div style={{ borderLeft: '1px solid var(--border-color)' }}></div>
                   <div style={{ textAlign: 'center' }}>
                     <h3 style={{ fontSize: '1.8rem', color: 'var(--warning-color)', fontFamily: 'var(--font-mono)' }}>{totalDiseasesDetectedCount}</h3>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>Diseases Solved</p>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>{t('diseases_solved')}</p>
                   </div>
                   <div style={{ borderLeft: '1px solid var(--border-color)' }}></div>
                   <div style={{ textAlign: 'center' }}>
                     <h3 style={{ fontSize: '1.8rem', color: 'var(--accent-color)', fontFamily: 'var(--font-mono)' }}>{fields.length}</h3>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>Fields Tracked</p>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>{t('fields_tracked')}</p>
                   </div>
                 </div>
               </div>
@@ -2678,9 +3688,9 @@ The JSON must have this exact structure:
                 {/* Scan CTA Card */}
                 <div className="card-glass" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderLeft: '4px solid var(--accent-color)' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.6rem', marginBottom: '0.5rem' }}>Diagnostic Engine</h3>
+                    <h3 style={{ fontSize: '1.6rem', marginBottom: '0.5rem' }}>{t('diagnostic_engine')}</h3>
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-                      Run immediate analysis on infected plant leaves, crop stems, or roots. Upload images or run live macro capture.
+                      {t('diagnostic_desc')}
                     </p>
                   </div>
                   <button onClick={() => {
@@ -2688,7 +3698,7 @@ The JSON must have this exact structure:
                     setActiveReport(null);
                     setScanError(null);
                   }} className="btn-primary" style={{ alignSelf: 'flex-start' }}>
-                    Initialize New Scan <ArrowRight size={16} />
+                    {t('init_new_scan')} <ArrowRight size={16} />
                   </button>
                 </div>
 
@@ -2696,25 +3706,25 @@ The JSON must have this exact structure:
                 <div className="card-glass" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', justifyBlock: 'space-between' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
                     <Award color="var(--warning-color)" size={24} />
-                    <h3 style={{ fontSize: '1.4rem' }}>Tip of the Day</h3>
+                    <h3 style={{ fontSize: '1.4rem' }}>{t('tip_day')}</h3>
                   </div>
                   <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', lineHeight: '1.6', fontSize: '0.95rem' }}>
-                    "{TIPS_OF_THE_DAY[tipIndex]}"
+                    "{language === 'kn' ? TIPS_OF_THE_DAY_KN[tipIndex] : TIPS_OF_THE_DAY[tipIndex]}"
                   </p>
                   <span style={{ fontSize: '0.75rem', color: 'var(--accent-color)', marginTop: '1rem', fontFamily: 'var(--font-mono)' }}>
-                    - Dr. Angio, Plant Pathologist
+                    {language === 'kn' ? '- ಡಾ. ಆಂಜಿಯೋ, ಸಸ್ಯ ರೋಗಶಾಸ್ತ್ರಜ್ಞರು' : '- Dr. Angio, Plant Pathologist'}
                   </span>
                 </div>
 
                 {/* Weather Disease Risk Card */}
                 <div className="card-glass" style={{ padding: '2rem' }}>
-                  <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Seasonal Weather Risk</h3>
+                  <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>{t('seasonal_weather_risk')}</h3>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
-                    Current Season: <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>Summer/Monsoons</span>
+                    {t('current_season')} <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>{language === 'kn' ? 'ಬೇಸಿಗೆ/ಮುಂಗಾರು' : 'Summer/Monsoons'}</span>
                   </p>
                   <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem' }}>
                     <div style={{ flex: 1 }}>
-                      <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>TEMP (°C)</label>
+                      <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>{t('temp_c')}</label>
                       <input
                         type="number"
                         value={weatherTemp}
@@ -2723,7 +3733,7 @@ The JSON must have this exact structure:
                       />
                     </div>
                     <div style={{ flex: 1 }}>
-                      <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>HUMIDITY (%)</label>
+                      <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>{t('humid_pct')}</label>
                       <input
                         type="number"
                         value={weatherHumid}
@@ -2733,17 +3743,17 @@ The JSON must have this exact structure:
                     </div>
                   </div>
                   <button onClick={evaluateWeatherRisk} className="btn-secondary" style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}>
-                    Evaluate Risk
+                    {t('evaluate_risk')}
                   </button>
 
                   {weatherRiskResult && (
                     <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                        <span style={{ fontSize: '0.85rem' }}>Infection Risk:</span>
+                        <span style={{ fontSize: '0.85rem' }}>{t('infection_risk')}</span>
                         <span style={{
                           fontWeight: 'bold', fontSize: '0.85rem',
                           color: weatherRiskResult.status === 'High Risk' ? 'var(--danger-color)' : weatherRiskResult.status === 'Moderate' ? 'var(--warning-color)' : 'var(--accent-color)'
-                        }}>{weatherRiskResult.status} ({weatherRiskResult.score}%)</span>
+                        }}>{language === 'kn' ? (weatherRiskResult.status === 'High Risk' ? 'ಹೆಚ್ಚಿನ ಅಪಾಯ' : weatherRiskResult.status === 'Moderate' ? 'ಮಧ್ಯಮ ಅಪಾಯ' : 'ಕಡಿಮೆ ಅಪಾಯ') : weatherRiskResult.status} ({weatherRiskResult.score}%)</span>
                       </div>
                       <div style={{ height: '6px', borderRadius: '3px', backgroundColor: 'var(--border-color)', overflow: 'hidden', marginBottom: '0.5rem' }}>
                         <div style={{
@@ -2751,7 +3761,7 @@ The JSON must have this exact structure:
                           backgroundColor: weatherRiskResult.status === 'High Risk' ? 'var(--danger-color)' : weatherRiskResult.status === 'Moderate' ? 'var(--warning-color)' : 'var(--accent-color)'
                         }}></div>
                       </div>
-                      <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>High risk crops: {weatherRiskResult.diseases.join(', ')}</p>
+                      <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('high_risk_crops')} {weatherRiskResult.diseases.map(d => td(d)).join(', ')}</p>
                     </div>
                   )}
                 </div>
@@ -2763,11 +3773,11 @@ The JSON must have this exact structure:
                 
                 {/* Recent Scan History */}
                 <div className="card-glass" style={{ padding: '2rem' }}>
-                  <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Recent Lab Diagnoses</h3>
+                  <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t('recent_diagnoses')}</h3>
                   {scanHistory.length === 0 ? (
                     <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                       <Info size={32} style={{ marginBottom: '0.5rem' }} />
-                      <p>No recent crop scans detected. Complete a scan to populate history.</p>
+                      <p>{t('no_recent_scans')}</p>
                     </div>
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -2776,17 +3786,17 @@ The JSON must have this exact structure:
                           <img src={s.image} alt={s.plant_name} style={{ width: '60px', height: '60px', borderRadius: '6px', objectFit: 'cover' }} />
                           <div style={{ flex: 1 }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                              <h4 style={{ fontSize: '1rem' }}>{s.report.disease_name}</h4>
+                              <h4 style={{ fontSize: '1rem' }}>{td(s.report.disease_name)}</h4>
                               <span style={{
                                 fontSize: '0.75rem', padding: '0.25rem 0.5rem', borderRadius: '4px', fontWeight: 'bold',
                                 backgroundColor: s.report.severity === 'Critical' ? 'rgba(224,82,82,0.1)' : s.report.severity === 'Severe' ? 'rgba(245,166,35,0.1)' : 'rgba(82,232,150,0.1)',
                                 color: s.report.severity === 'Critical' ? 'var(--danger-color)' : s.report.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
-                              }}>{s.report.severity}</span>
+                              }}>{tsev(s.report.severity)}</span>
                             </div>
-                            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Plant: {s.plant_name} | Confidence: {s.report.confidence}%</p>
+                            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t('plant_label')} {tc(s.plant_name)} | {t('confidence_label')} {s.report.confidence}%</p>
                           </div>
                           <button onClick={() => { setActiveReport(s); setActiveTab('scan'); }} className="btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}>
-                            Report
+                            {t('report_btn')}
                           </button>
                         </div>
                       ))}
@@ -2796,23 +3806,23 @@ The JSON must have this exact structure:
 
                 {/* Fields Summary */}
                 <div className="card-glass" style={{ padding: '2rem' }}>
-                  <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>My Fields Status</h3>
+                  <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t('my_fields_status')}</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                     {fields.map(f => (
                       <div key={f.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
                         <div>
                           <h4 style={{ fontSize: '0.9rem' }}>{f.name}</h4>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{f.plantType} | {f.scansCount} scans</span>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{tc(f.plantType)} | {f.scansCount} {t('scans_count')}</span>
                         </div>
                         <span style={{
                           fontSize: '0.75rem', fontWeight: 'bold', padding: '0.2rem 0.5rem', borderRadius: '4px',
                           color: f.status === 'Healthy' ? 'var(--accent-color)' : f.status === 'At Risk' ? 'var(--warning-color)' : 'var(--danger-color)',
                           backgroundColor: f.status === 'Healthy' ? 'rgba(82,232,150,0.06)' : 'rgba(224,82,82,0.06)'
-                        }}>{f.status}</span>
+                        }}>{t('status_' + f.status.toLowerCase().replace(' ', '_'))}</span>
                       </div>
                     ))}
                     <button onClick={() => setActiveTab('fields')} className="btn-secondary" style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem' }}>
-                      Manage Fields
+                      {t('manage_fields_btn')}
                     </button>
                   </div>
                 </div>
@@ -2823,587 +3833,592 @@ The JSON must have this exact structure:
           )}
 
           {/* 2. DIAGNOSTIC SCAN VIEW */}
-          {activeTab === 'scan' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              
-              {/* Specimen Validation Error Card */}
-              {scanError && (
-                <div className="card-glass" style={{ padding: '2.5rem 2rem', maxWidth: '600px', margin: '0 auto', width: '100%', border: '2px solid var(--danger-color)', textAlign: 'center' }}>
-                  <div style={{ display: 'inline-flex', padding: '0.75rem', borderRadius: '50%', backgroundColor: 'rgba(224,82,82,0.06)', marginBottom: '1.25rem' }}>
-                    <AlertTriangle size={36} color="var(--danger-color)" />
+          {activeTab === 'scan' && (() => {
+            const localizedReport = activeReport ? translateReport(activeReport.report, language) : null;
+            return (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                
+                {/* Specimen Validation Error Card */}
+                {scanError && (
+                  <div className="card-glass" style={{ padding: '2.5rem 2rem', maxWidth: '600px', margin: '0 auto', width: '100%', border: '2px solid var(--danger-color)', textAlign: 'center' }}>
+                    <div style={{ display: 'inline-flex', padding: '0.75rem', borderRadius: '50%', backgroundColor: 'rgba(224,82,82,0.06)', marginBottom: '1.25rem' }}>
+                      <AlertTriangle size={36} color="var(--danger-color)" />
+                    </div>
+                    <h2 style={{ fontSize: '1.6rem', color: 'var(--danger-color)', marginBottom: '0.75rem' }}>{t('specimen_rejected')}</h2>
+                    <p style={{ color: 'var(--text-primary)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                      {scanError.includes("Invalid specimen detected") && language === 'kn' ? "ಅಮಾನ್ಯ ಮಾದರಿ ಪತ್ತೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ನಿಜವಾದ ಸಸ್ಯದ ಎಲೆ, ಕಾಂಡ ಅಥವಾ ಬೇರಿನ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ." : scanError}
+                    </p>
+                    <button onClick={handleResetScan} className="btn-primary" style={{ padding: '0.6rem 1.5rem' }}>
+                      {t('reinit_scan')}
+                    </button>
                   </div>
-                  <h2 style={{ fontSize: '1.6rem', color: 'var(--danger-color)', marginBottom: '0.75rem' }}>Specimen Rejected</h2>
-                  <p style={{ color: 'var(--text-primary)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-                    {scanError}
-                  </p>
-                  <button onClick={handleResetScan} className="btn-primary" style={{ padding: '0.6rem 1.5rem' }}>
-                    Re-initialize Specimen Scan
-                  </button>
-                </div>
-              )}
+                )}
 
-              {/* Scan Setup Panel */}
-              {!activeReport && !isScanning && !scanError && (
-                <div className="card-glass" style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto', width: '100%' }}>
-                  <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center' }}>Initialize Plant Diagnosis</h2>
+                {/* Scan Setup Panel */}
+                {!activeReport && !isScanning && !scanError && (
+                  <div className="card-glass" style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto', width: '100%' }}>
+                    <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center' }}>{t('init_plant_diagnosis')}</h2>
 
-                  {apiMode === 'mock' && (
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.75rem',
-                      padding: '1.5rem',
-                      borderRadius: '8px',
-                      backgroundColor: 'rgba(217, 119, 6, 0.12)',
-                      border: '1px solid rgba(217, 119, 6, 0.3)',
-                      marginBottom: '1.5rem',
-                      color: '#fbbf24',
-                      fontSize: '0.85rem',
-                      lineHeight: '1.5'
-                    }}>
-                      <AlertTriangle size={20} style={{ flexShrink: 0, color: '#f59e0b' }} />
-                      <div style={{ flexGrow: 1 }}>
-                        <strong>Demo Mode Active:</strong> Running diagnostics with mock engine. For real-world leaf scans and high-precision visual analysis, configure your <span style={{ textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', color: '#f59e0b' }} onClick={() => setActiveTab('settings')}>Anthropic Claude API Key in Settings</span>.
+                    {apiMode === 'mock' && (
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        padding: '1.5rem',
+                        borderRadius: '8px',
+                        backgroundColor: 'rgba(217, 119, 6, 0.12)',
+                        border: '1px solid rgba(217, 119, 6, 0.3)',
+                        marginBottom: '1.5rem',
+                        color: '#fbbf24',
+                        fontSize: '0.85rem',
+                        lineHeight: '1.5'
+                      }}>
+                        <AlertTriangle size={20} style={{ flexShrink: 0, color: '#f59e0b' }} />
+                        <div style={{ flexGrow: 1 }}>
+                          <strong>{t('demo_mode_active')}</strong> {t('demo_mode_desc')} <span style={{ textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold', color: '#f59e0b' }} onClick={() => setActiveTab('settings')}>{t('demo_mode_link')}</span>.
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
 
-                  {/* Plant Autocomplete */}
-                  <div style={{ marginBottom: '1.5rem', position: 'relative' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>SELECT HOST PLANT SPECIES</label>
-                      <div style={{ display: 'flex', gap: '1rem' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', cursor: 'pointer' }}>
-                          <input
-                            type="checkbox"
-                            checked={isUnknown}
-                            onChange={(e) => {
-                              setIsUnknown(e.target.checked);
-                              if (e.target.checked) setPlantName('');
-                            }}
-                          /> Unknown Plant
-                        </label>
-                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', cursor: 'pointer', color: 'var(--danger-color)' }}>
-                          <input
-                            type="checkbox"
-                            checked={simulateInvalidSpecimen}
-                            onChange={(e) => setSimulateInvalidSpecimen(e.target.checked)}
-                          /> Simulate Invalid Specimen
-                        </label>
-                      </div>
-                    </div>
-
-                    <div style={{ position: 'relative' }}>
-                      <input
-                        type="text"
-                        disabled={isUnknown}
-                        value={plantName}
-                        onChange={(e) => {
-                          setPlantName(e.target.value);
-                          setShowSuggestions(true);
-                        }}
-                        onFocus={() => setShowSuggestions(true)}
-                        placeholder={isUnknown ? "Species will be identified by AI pathology" : "Start typing plant name (e.g. Rose, Tomato, Rice)"}
-                        style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '8px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
-                      />
-                      {showSuggestions && plantName.trim() && !isUnknown && (
-                        <div className="card-glass" style={{
-                          position: 'absolute', top: '100%', left: 0, right: 0, maxHeight: '200px', overflowY: 'auto', zIndex: 10,
-                          backgroundColor: 'var(--surface-color)', padding: '0.5rem 0'
-                        }}>
-                          {PLANTS_LIST.filter(p => p.toLowerCase().includes(plantName.toLowerCase())).map(p => (
-                            <div
-                              key={p}
-                              onClick={() => {
-                                setPlantName(p);
-                                setShowSuggestions(false);
+                    {/* Plant Autocomplete */}
+                    <div style={{ marginBottom: '1.5rem', position: 'relative' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                        <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{t('select_host_species')}</label>
+                        <div style={{ display: 'flex', gap: '1rem' }}>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', cursor: 'pointer' }}>
+                            <input
+                              type="checkbox"
+                              checked={isUnknown}
+                              onChange={(e) => {
+                                setIsUnknown(e.target.checked);
+                                if (e.target.checked) setPlantName('');
                               }}
-                              style={{ padding: '0.5rem 1rem', cursor: 'pointer', hover: 'background: var(--surface-light)' }}
-                              onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--surface-light)'}
-                              onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                            /> {t('unknown_plant')}
+                          </label>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', cursor: 'pointer', color: 'var(--danger-color)' }}>
+                            <input
+                              type="checkbox"
+                              checked={simulateInvalidSpecimen}
+                              onChange={(e) => setSimulateInvalidSpecimen(e.target.checked)}
+                            /> {language === 'kn' ? 'ಅಮಾನ್ಯ ಮಾದರಿಯನ್ನು ಸಿಮ್ಯುಲೇಟ್ ಮಾಡಿ' : 'Simulate Invalid Specimen'}
+                          </label>
+                        </div>
+                      </div>
+
+                      <div style={{ position: 'relative' }}>
+                        <input
+                          type="text"
+                          disabled={isUnknown}
+                          value={plantName}
+                          onChange={(e) => {
+                            setPlantName(e.target.value);
+                            setShowSuggestions(true);
+                          }}
+                          onFocus={() => setShowSuggestions(true)}
+                          placeholder={isUnknown ? t('unknown_placeholder') : t('known_placeholder')}
+                          style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '8px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                        />
+                        {showSuggestions && plantName.trim() && !isUnknown && (
+                          <div className="card-glass" style={{
+                            position: 'absolute', top: '100%', left: 0, right: 0, maxHeight: '200px', overflowY: 'auto', zIndex: 10,
+                            backgroundColor: 'var(--surface-color)', padding: '0.5rem 0'
+                          }}>
+                            {PLANTS_LIST.filter(p => p.toLowerCase().includes(plantName.toLowerCase())).map(p => (
+                              <div
+                                key={p}
+                                onClick={() => {
+                                  setPlantName(p);
+                                  setShowSuggestions(false);
+                                }}
+                                style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}
+                                onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--surface-light)'}
+                                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                              >
+                                {tc(p)}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Visual Symptoms Checklist */}
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>
+                        {t('symptoms_checklist_label')}
+                      </label>
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                        gap: '0.75rem',
+                        padding: '1rem',
+                        borderRadius: '8px',
+                        backgroundColor: 'var(--surface-light)',
+                        border: '1px solid var(--border-color)',
+                        maxHeight: '220px',
+                        overflowY: 'auto'
+                      }}>
+                        {COMMON_SYMPTOMS.map((sym) => {
+                          const isChecked = selectedSymptoms.includes(sym.text);
+                          return (
+                            <label
+                              key={sym.id}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: '0.5rem',
+                                fontSize: '0.85rem',
+                                color: isChecked ? 'var(--accent-color)' : 'var(--text-primary)',
+                                cursor: 'pointer',
+                                padding: '0.5rem',
+                                borderRadius: '6px',
+                                transition: 'all 0.2s ease',
+                                backgroundColor: isChecked ? 'rgba(46, 117, 89, 0.15)' : 'transparent',
+                                border: isChecked ? '1px solid rgba(46, 117, 89, 0.3)' : '1px solid transparent'
+                              }}
                             >
-                              {p}
+                              <input
+                                type="checkbox"
+                                checked={isChecked}
+                                style={{ marginTop: '0.15rem', accentColor: 'var(--accent-color)' }}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setSelectedSymptoms([...selectedSymptoms, sym.text]);
+                                  } else {
+                                    setSelectedSymptoms(selectedSymptoms.filter(item => item !== sym.text));
+                                  }
+                                }}
+                              />
+                              <span>{language === 'kn' ? (SYMPTOM_TRANSLATIONS[sym.text] || sym.text) : sym.text}</span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Dual Camera capturing */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+                      
+                      <div className="card-glass" style={{ padding: '1rem', textAlign: 'center', cursor: 'pointer' }} onClick={() => startCamera('front')}>
+                        <Camera size={24} color="var(--accent-color)" style={{ marginBottom: '0.5rem' }} />
+                        <h4 style={{ fontSize: '0.95rem' }}>{t('front_camera_title')}</h4>
+                        <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('front_camera_desc')}</p>
+                        {frontCameraImage && (
+                          <img src={frontCameraImage} alt="front" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '6px', marginTop: '0.5rem' }} />
+                        )}
+                      </div>
+
+                      <div className="card-glass" style={{ padding: '1rem', textAlign: 'center', cursor: 'pointer' }} onClick={() => startCamera('rear')}>
+                        <Camera size={24} color="var(--accent-color)" style={{ marginBottom: '0.5rem' }} />
+                        <h4 style={{ fontSize: '0.95rem' }}>{t('rear_camera_title')}</h4>
+                        <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('rear_camera_desc')}</p>
+                        {rearCameraImage && (
+                          <img src={rearCameraImage} alt="rear" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '6px', marginTop: '0.5rem' }} />
+                        )}
+                      </div>
+
+                    </div>
+
+                    {/* Image Upload Zone */}
+                    <div
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={handleFileDrop}
+                      style={{
+                        border: '2px dashed var(--border-color)',
+                        borderRadius: '12px',
+                        padding: '2.5rem',
+                        textAlign: 'center',
+                        backgroundColor: 'rgba(82,232,150,0.01)',
+                        marginBottom: '1.5rem',
+                        transition: 'border-color 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.target.style.borderColor = 'var(--primary-color)'}
+                      onMouseLeave={(e) => e.target.style.borderColor = 'var(--border-color)'}
+                    >
+                      <Upload size={36} color="var(--text-muted)" style={{ marginBottom: '0.75rem' }} />
+                      <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>{t('drag_drop_title')}</h3>
+                      <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>{t('drag_drop_desc')}</p>
+                      <label className="btn-secondary" style={{ cursor: 'pointer', padding: '0.5rem 1rem' }}>
+                        {t('browse_files')}
+                        <input type="file" multiple accept="image/*" onChange={handleFileSelect} style={{ display: 'none' }} />
+                      </label>
+
+                      {uploadedFiles.length > 0 && (
+                        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1.5rem' }}>
+                          {uploadedFiles.map((f, idx) => (
+                            <div key={idx} style={{ position: 'relative', width: '80px', height: '80px' }}>
+                              <img src={f} alt="uploaded specimen" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '6px' }} />
+                              <button
+                                onClick={() => removeUploadedFile(idx)}
+                                style={{
+                                  position: 'absolute', top: '-6px', right: '-6px', backgroundColor: 'var(--danger-color)',
+                                  border: 'none', borderRadius: '50%', color: '#fff', width: '18px', height: '18px',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '0.65rem'
+                                }}
+                              >
+                                <X size={10} />
+                              </button>
                             </div>
                           ))}
                         </div>
                       )}
                     </div>
-                  </div>
 
-                  {/* Visual Symptoms Checklist */}
-                  <div style={{ marginBottom: '1.5rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>
-                      OBSERVED PLANT SYMPTOMS (OPTIONAL - FOR ACCURATE PATHOLOGY MATCHING)
-                    </label>
-                    <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                      gap: '0.75rem',
-                      padding: '1rem',
-                      borderRadius: '8px',
-                      backgroundColor: 'var(--surface-light)',
-                      border: '1px solid var(--border-color)',
-                      maxHeight: '220px',
-                      overflowY: 'auto'
-                    }}>
-                      {COMMON_SYMPTOMS.map((sym) => {
-                        const isChecked = selectedSymptoms.includes(sym.text);
-                        return (
-                          <label
-                            key={sym.id}
-                            style={{
-                              display: 'flex',
-                              alignItems: 'flex-start',
-                              gap: '0.5rem',
-                              fontSize: '0.85rem',
-                              color: isChecked ? 'var(--accent-color)' : 'var(--text-primary)',
-                              cursor: 'pointer',
-                              padding: '0.5rem',
-                              borderRadius: '6px',
-                              transition: 'all 0.2s ease',
-                              backgroundColor: isChecked ? 'rgba(46, 117, 89, 0.15)' : 'transparent',
-                              border: isChecked ? '1px solid rgba(46, 117, 89, 0.3)' : '1px solid transparent'
-                            }}
-                          >
-                            <input
-                              type="checkbox"
-                              checked={isChecked}
-                              style={{ marginTop: '0.15rem', accentColor: 'var(--accent-color)' }}
-                              onChange={(e) => {
-                                if (e.target.checked) {
-                                  setSelectedSymptoms([...selectedSymptoms, sym.text]);
-                                } else {
-                                  setSelectedSymptoms(selectedSymptoms.filter(item => item !== sym.text));
-                                }
-                              }}
-                            />
-                            <span>{sym.text}</span>
-                          </label>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Dual Camera capturing */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
-                    
-                    <div className="card-glass" style={{ padding: '1rem', textAlign: 'center', cursor: 'pointer' }} onClick={() => startCamera('front')}>
-                      <Camera size={24} color="var(--accent-color)" style={{ marginBottom: '0.5rem' }} />
-                      <h4 style={{ fontSize: '0.95rem' }}>🔍 Front Camera</h4>
-                      <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Macro spot / lesion details</p>
-                      {frontCameraImage && (
-                        <img src={frontCameraImage} alt="front" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '6px', marginTop: '0.5rem' }} />
-                      )}
-                    </div>
-
-                    <div className="card-glass" style={{ padding: '1rem', textAlign: 'center', cursor: 'pointer' }} onClick={() => startCamera('rear')}>
-                      <Camera size={24} color="var(--accent-color)" style={{ marginBottom: '0.5rem' }} />
-                      <h4 style={{ fontSize: '0.95rem' }}>🌿 Rear Camera</h4>
-                      <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Environment canopy perspective</p>
-                      {rearCameraImage && (
-                        <img src={rearCameraImage} alt="rear" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '6px', marginTop: '0.5rem' }} />
-                      )}
-                    </div>
-
-                  </div>
-
-                  {/* Image Upload Zone */}
-                  <div
-                    onDragOver={(e) => e.preventDefault()}
-                    onDrop={handleFileDrop}
-                    style={{
-                      border: '2px dashed var(--border-color)',
-                      borderRadius: '12px',
-                      padding: '2.5rem',
-                      textAlign: 'center',
-                      backgroundColor: 'rgba(82,232,150,0.01)',
-                      marginBottom: '1.5rem',
-                      transition: 'border-color 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.target.style.borderColor = 'var(--primary-color)'}
-                    onMouseLeave={(e) => e.target.style.borderColor = 'var(--border-color)'}
-                  >
-                    <Upload size={36} color="var(--text-muted)" style={{ marginBottom: '0.75rem' }} />
-                    <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>Drag and Drop specimen files</h3>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Accepts JPG, PNG, WEBP (Max 10MB each, up to 3 specs)</p>
-                    <label className="btn-secondary" style={{ cursor: 'pointer', padding: '0.5rem 1rem' }}>
-                      Browse Files
-                      <input type="file" multiple accept="image/*" onChange={handleFileSelect} style={{ display: 'none' }} />
-                    </label>
-
-                    {uploadedFiles.length > 0 && (
-                      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1.5rem' }}>
-                        {uploadedFiles.map((f, idx) => (
-                          <div key={idx} style={{ position: 'relative', width: '80px', height: '80px' }}>
-                            <img src={f} alt="uploaded specimen" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '6px' }} />
-                            <button
-                              onClick={() => removeUploadedFile(idx)}
-                              style={{
-                                position: 'absolute', top: '-6px', right: '-6px', backgroundColor: 'var(--danger-color)',
-                                border: 'none', borderRadius: '50%', color: '#fff', width: '18px', height: '18px',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '0.65rem'
-                              }}
-                            >
-                              <X size={10} />
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <button onClick={runPlantAnalysis} className="btn-primary" style={{ width: '100%', padding: '0.85rem' }}>
-                    Analyse Plant Specimen <Sprout size={16} />
-                  </button>
-                </div>
-              )}
-
-              {/* BioScan Ring Pulsing Scan state */}
-              {isScanning && (
-                <div style={{ textAlign: 'center', padding: '4rem 0' }}>
-                  <div className="scan-ring-container">
-                    <div className="scan-ring-outer"></div>
-                    <div className="scan-ring-inner"></div>
-                    <div className="scan-pulse-circle"></div>
-                    <div className="scan-line-sweep"></div>
-                    <Sprout size={48} color="var(--accent-color)" />
-                  </div>
-                  <h3 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-display)', marginTop: '2.5rem', marginBottom: '0.5rem' }}>
-                    Running Pathological Molecular Scan...
-                  </h3>
-                  <div style={{ width: '200px', height: '6px', backgroundColor: 'var(--border-color)', borderRadius: '3px', margin: '0 auto', overflow: 'hidden' }}>
-                    <div style={{ height: '100%', width: `${scanProgress}%`, backgroundColor: 'var(--accent-color)', transition: 'width 0.3s' }}></div>
-                  </div>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.75rem', fontFamily: 'var(--font-mono)' }}>
-                    Sequencing target pixels... {scanProgress}%
-                  </p>
-                </div>
-              )}
-
-              {/* Complete Report Details */}
-              {activeReport && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <button onClick={handleResetScan} className="btn-secondary" style={{ padding: '0.5rem 1rem' }}>
-                      <ArrowLeft size={16} /> New Scan
+                    <button onClick={runPlantAnalysis} className="btn-primary" style={{ width: '100%', padding: '0.85rem' }}>
+                      {t('start_analysis')} <Sprout size={16} />
                     </button>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <button
-                        onClick={() => {
-                          const text = `Angio-Care Crop Report\nPlant: ${activeReport.plant_name}\nDisease: ${activeReport.report.disease_name} (${activeReport.report.disease_code})\nSeverity: ${activeReport.report.severity}\nConfidence: ${activeReport.report.confidence}%\nTreatment: ${activeReport.report.treatment_plan.immediate_actions.join(', ')}`;
-                          navigator.clipboard.writeText(text);
-                          triggerToast("Report summary copied to clipboard!", "success");
-                        }}
-                        className="btn-secondary" style={{ padding: '0.5rem' }}
-                      >
-                        <Share2 size={16} /> Share Report
-                      </button>
-                      <button onClick={() => setShowAgronomistModal(true)} className="btn-primary" style={{ padding: '0.5rem 1rem' }}>
-                        <UserCheck size={16} /> Connect Agronomist
-                      </button>
-                    </div>
                   </div>
+                )}
 
-                  {/* Main Report Card layout */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
-                    
-                    {/* Left Column Specimen & Stats */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                      <div className="card-glass" style={{ padding: '1.5rem' }}>
-                        <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Specimen Visual</h3>
-                        <img src={activeReport.image} alt="specimen" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '1rem' }} />
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Date Analyzed:</span>
-                          <span style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>{activeReport.date} {activeReport.time}</span>
-                        </div>
-                      </div>
+                {/* BioScan Ring Pulsing Scan state */}
+                {isScanning && (
+                  <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+                    <div className="scan-ring-container">
+                      <div className="scan-ring-outer"></div>
+                      <div className="scan-ring-inner"></div>
+                      <div className="scan-pulse-circle"></div>
+                      <div className="scan-line-sweep"></div>
+                      <Sprout size={48} color="var(--accent-color)" />
+                    </div>
+                    <h3 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-display)', marginTop: '2.5rem', marginBottom: '0.5rem' }}>
+                      {language === 'kn' ? 'ರೋಗಶಾಸ್ತ್ರೀಯ ಆಣ್ವಿಕ ಸ್ಕ್ಯಾನ್ ಚಾಲನೆಯಲ್ಲಿದೆ...' : 'Running Pathological Molecular Scan...'}
+                    </h3>
+                    <div style={{ width: '200px', height: '6px', backgroundColor: 'var(--border-color)', borderRadius: '3px', margin: '0 auto', overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${scanProgress}%`, backgroundColor: 'var(--accent-color)', transition: 'width 0.3s' }}></div>
+                    </div>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.75rem', fontFamily: 'var(--font-mono)' }}>
+                      {language === 'kn' ? 'ಲಕ್ಷ್ಯ ಪಿಕ್ಸೆಲ್‌ಗಳ ಅನುಕ್ರಮಣಿಕೆ...' : 'Sequencing target pixels...'} {scanProgress}%
+                    </p>
+                  </div>
+                )}
 
-                      {/* Plant Health Score */}
-                      <div className="card-glass" style={{ padding: '1.5rem', textAlign: 'center' }}>
-                        <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Plant Health Score</h3>
-                        <div style={{ position: 'relative', width: '120px', height: '120px', margin: '0 auto 1rem' }}>
-                          {/* Radial Progress Gauge */}
-                          <svg width="120" height="120" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border-color)" strokeWidth="8" />
-                            <circle
-                              cx="60" cy="60" r="50" fill="none"
-                              stroke={activeReport.healthScore > 70 ? 'var(--accent-color)' : activeReport.healthScore > 40 ? 'var(--warning-color)' : 'var(--danger-color)'}
-                              strokeWidth="8"
-                              strokeDasharray={`${2 * Math.PI * 50}`}
-                              strokeDashoffset={`${2 * Math.PI * 50 * (1 - activeReport.healthScore / 100)}`}
-                              transform="rotate(-90 60 60)"
-                              strokeLinecap="round"
-                              style={{ transition: 'stroke-dashoffset 1s ease' }}
-                            />
-                          </svg>
-                          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                            <span style={{ fontSize: '1.6rem', fontWeight: 'bold', fontFamily: 'var(--font-mono)' }}>{Math.round(activeReport.healthScore)}</span>
-                          </div>
-                        </div>
-                        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                          {activeReport.healthScore > 70 ? "Healthy status with minor tissue infection." : activeReport.healthScore > 40 ? "Moderate disease stress. Treatment recommended." : "Severe pathological threat. Act immediately."}
-                        </p>
-                      </div>
-
-                      {/* Field tagging & schedule reminders */}
-                      <div className="card-glass" style={{ padding: '1.5rem' }}>
-                        <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Tag Specimen & Schedule Followup</h3>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                          <div>
-                            <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>TAG TO FIELD LOCATION</label>
-                            <select
-                              value={activeReport.field_id}
-                              onChange={(e) => assignScanToField(activeReport.id, e.target.value)}
-                              style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)' }}
-                            >
-                              <option value="">Select Field</option>
-                              {fields.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
-                            </select>
-                          </div>
-                          <div>
-                            <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>SCHEDULE FOLLOW-UP REMINDER</label>
-                            <input
-                              type="date"
-                              value={newReminderDate}
-                              onChange={(e) => setNewReminderDate(e.target.value)}
-                              style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', marginBottom: '0.5rem' }}
-                            />
-                            <input
-                              type="text"
-                              placeholder="e.g. Apply copper sulfate spray"
-                              value={newReminderNote}
-                              onChange={(e) => setNewReminderNote(e.target.value)}
-                              style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', marginBottom: '0.5rem' }}
-                            />
-                            <button onClick={handleAddReminder} className="btn-secondary" style={{ width: '100%', padding: '0.5rem' }}>
-                              <Calendar size={14} /> Schedule Reminder
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Before / After Specimen comparison */}
-                      <div className="card-glass" style={{ padding: '1.5rem' }}>
-                        <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Before & After Treatment Comparison</h3>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginBottom: '1rem' }}>
-                          <div style={{ border: '1px dashed var(--border-color)', borderRadius: '6px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-                            {beforeImage ? (
-                              <img src={beforeImage} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="before" />
-                            ) : (
-                              <label style={{ cursor: 'pointer', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                                Before Photo
-                                <input type="file" onChange={(e) => {
-                                  const reader = new FileReader();
-                                  reader.onload = () => setBeforeImage(reader.result);
-                                  reader.readAsDataURL(e.target.files[0]);
-                                }} style={{ display: 'none' }} />
-                              </label>
-                            )}
-                          </div>
-                          <div style={{ border: '1px dashed var(--border-color)', borderRadius: '6px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-                            {afterImage ? (
-                              <img src={afterImage} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="after" />
-                            ) : (
-                              <label style={{ cursor: 'pointer', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                                After Photo
-                                <input type="file" onChange={(e) => {
-                                  const reader = new FileReader();
-                                  reader.onload = () => setAfterImage(reader.result);
-                                  reader.readAsDataURL(e.target.files[0]);
-                                }} style={{ display: 'none' }} />
-                              </label>
-                            )}
-                          </div>
-                        </div>
-                        <button onClick={handleBeforeAfterCompare} className="btn-secondary" style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }} disabled={isComparing}>
-                          {isComparing ? "Running comparative scans..." : "Compare specimen results"}
+                {/* Complete Report Details */}
+                {activeReport && localizedReport && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <button onClick={handleResetScan} className="btn-secondary" style={{ padding: '0.5rem 1rem' }}>
+                        <ArrowLeft size={16} /> {language === 'kn' ? 'ಹೊಸ ಸ್ಕ್ಯಾನ್' : 'New Scan'}
+                      </button>
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <button
+                          onClick={() => {
+                            const text = `Angio-Care Crop Report\nPlant: ${activeReport.plant_name}\nDisease: ${localizedReport.disease_name} (${localizedReport.disease_code})\nSeverity: ${localizedReport.severity}\nConfidence: ${localizedReport.confidence}%\nTreatment: ${localizedReport.treatment_plan.immediate_actions.join(', ')}`;
+                            navigator.clipboard.writeText(text);
+                            triggerToast(language === 'kn' ? 'ವರದಿ ವಿವರಗಳನ್ನು ನಕಲಿಸಲಾಗಿದೆ!' : "Report summary copied to clipboard!", "success");
+                          }}
+                          className="btn-secondary" style={{ padding: '0.5rem' }}
+                        >
+                          <Share2 size={16} /> {language === 'kn' ? 'ವರದಿ ಹಂಚಿಕೊಳ್ಳಿ' : 'Share Report'}
                         </button>
-                        {comparisonResult && (
-                          <div style={{ padding: '0.75rem', backgroundColor: 'var(--surface-light)', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-                            <p style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 'bold', marginBottom: '0.25rem' }}>Improvement Rate: {comparisonResult.improvementPercentage}%</p>
-                            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{comparisonResult.notes}</p>
-                          </div>
-                        )}
+                        <button onClick={() => setShowAgronomistModal(true)} className="btn-primary" style={{ padding: '0.5rem 1rem' }}>
+                          <UserCheck size={16} /> {language === 'kn' ? 'ಕೃಷಿ ವಿಜ್ಞಾನಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ' : 'Connect Agronomist'}
+                        </button>
                       </div>
-
                     </div>
 
-                    {/* Right Column Full Pathology Report Details */}
-                    <div className="card-glass" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                        <div>
-                          <h2 style={{ fontSize: '1.8rem', color: 'var(--text-primary)' }}>{activeReport.report.disease_name}</h2>
-                          <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '0.5rem' }}>{activeReport.report.scientific_name}</p>
-                        </div>
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
-                          <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', padding: '0.25rem 0.5rem', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
-                            {activeReport.report.disease_code}
-                          </span>
-                          <span style={{
-                            fontSize: '0.75rem', padding: '0.25rem 0.5rem', borderRadius: '4px', fontWeight: 'bold',
-                            backgroundColor: activeReport.report.severity === 'Critical' ? 'rgba(224,82,82,0.1)' : activeReport.report.severity === 'Severe' ? 'rgba(245,166,35,0.1)' : 'rgba(82,232,150,0.1)',
-                            color: activeReport.report.severity === 'Critical' ? 'var(--danger-color)' : activeReport.report.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
-                          }}>{activeReport.report.severity} Severity</span>
-                        </div>
-                      </div>
-
-                      {/* Chips row */}
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', borderRadius: '20px', backgroundColor: 'var(--primary-color)', color: '#fff' }}>
-                          Category: {activeReport.report.category}
-                        </span>
-                        {activeReport.report.affected_parts.map(p => (
-                          <span key={p} style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-muted)' }}>
-                            Part: {p}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div>
-                        <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.25rem' }}>PATHOLOGY DESCRIPTION</h4>
-                        <p style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>{activeReport.report.disease_description}</p>
-                      </div>
-
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                        <div>
-                          <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.25rem' }}>PRIMARY CAUSE</h4>
-                          <p style={{ fontSize: '0.9rem' }}>{activeReport.report.cause}</p>
-                        </div>
-                        <div>
-                          <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.25rem' }}>SPREAD RISK</h4>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
-                            <div style={{ flex: 1, height: '8px', backgroundColor: 'var(--border-color)', borderRadius: '4px', overflow: 'hidden' }}>
-                              <div style={{
-                                height: '100%',
-                                width: activeReport.report.spread_risk === 'Very High' ? '100%' : activeReport.report.spread_risk === 'High' ? '75%' : activeReport.report.spread_risk === 'Medium' ? '50%' : '25%',
-                                backgroundColor: activeReport.report.spread_risk === 'Very High' || activeReport.report.spread_risk === 'High' ? 'var(--danger-color)' : 'var(--accent-color)'
-                              }}></div>
-                            </div>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 'bold' }}>{activeReport.report.spread_risk}</span>
+                    {/* Main Report Card layout */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+                      
+                      {/* Left Column Specimen & Stats */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                        <div className="card-glass" style={{ padding: '1.5rem' }}>
+                          <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{language === 'kn' ? 'ಮಾದರಿಯ ಚಿತ್ರ' : 'Specimen Visual'}</h3>
+                          <img src={activeReport.image} alt="specimen" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '1rem' }} />
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{language === 'kn' ? 'ವಿಶ್ಲೇಷಿಸಿದ ದಿನಾಂಕ:' : 'Date Analyzed:'}</span>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>{activeReport.date} {activeReport.time}</span>
                           </div>
                         </div>
+
+                        {/* Plant Health Score */}
+                        <div className="card-glass" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                          <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{language === 'kn' ? 'ಸಸ್ಯದ ಆರೋಗ್ಯ ಸ್ಕೋರ್' : 'Plant Health Score'}</h3>
+                          <div style={{ position: 'relative', width: '120px', height: '120px', margin: '0 auto 1rem' }}>
+                            {/* Radial Progress Gauge */}
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border-color)" strokeWidth="8" />
+                              <circle
+                                cx="60" cy="60" r="50" fill="none"
+                                stroke={activeReport.healthScore > 70 ? 'var(--accent-color)' : activeReport.healthScore > 40 ? 'var(--warning-color)' : 'var(--danger-color)'}
+                                strokeWidth="8"
+                                strokeDasharray={`${2 * Math.PI * 50}`}
+                                strokeDashoffset={`${2 * Math.PI * 50 * (1 - activeReport.healthScore / 100)}`}
+                                transform="rotate(-90 60 60)"
+                                strokeLinecap="round"
+                                style={{ transition: 'stroke-dashoffset 1s ease' }}
+                              />
+                            </svg>
+                            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                              <span style={{ fontSize: '1.6rem', fontWeight: 'bold', fontFamily: 'var(--font-mono)' }}>{Math.round(activeReport.healthScore)}</span>
+                            </div>
+                          </div>
+                          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                            {activeReport.healthScore > 70 ? (language === 'kn' ? "ಕಡಿಮೆ ಸೋಂಕಿನೊಂದಿಗೆ ಆರೋಗ್ಯಕರ ಸ್ಥಿತಿ." : "Healthy status with minor tissue infection.") : activeReport.healthScore > 40 ? (language === 'kn' ? "ಮಧ್ಯಮ ರೋಗದ ಒತ್ತಡ. ಚಿಕಿತ್ಸೆ ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ." : "Moderate disease stress. Treatment recommended.") : (language === 'kn' ? "ತೀವ್ರ ರೋಗದ ಅಪಾಯ. ತಕ್ಷಣವೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ." : "Severe pathological threat. Act immediately.")}
+                          </p>
+                        </div>
+
+                        {/* Field tagging & schedule reminders */}
+                        <div className="card-glass" style={{ padding: '1.5rem' }}>
+                          <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{language === 'kn' ? 'ಮಾದರಿಯನ್ನು ಟ್ಯಾಗ್ ಮಾಡಿ ಮತ್ತು ರಿಮೈಂಡರ್ ಹೊಂದಿಸಿ' : 'Tag Specimen & Schedule Followup'}</h3>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            <div>
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಜಮೀನಿಗೆ ಟ್ಯಾಗ್ ಮಾಡಿ' : 'TAG TO FIELD LOCATION'}</label>
+                              <select
+                                value={activeReport.field_id}
+                                onChange={(e) => assignScanToField(activeReport.id, e.target.value)}
+                                style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)' }}
+                              >
+                                <option value="">{language === 'kn' ? 'ಜಮೀನನ್ನು ಆಯ್ಕೆಮಾಡಿ' : 'Select Field'}</option>
+                                {fields.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
+                              </select>
+                            </div>
+                            <div>
+                              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಮುಂದಿನ ಪರಿಶೀಲನೆಗೆ ರಿಮೈಂಡರ್ ಹೊಂದಿಸಿ' : 'SCHEDULE FOLLOW-UP REMINDER'}</label>
+                              <input
+                                type="date"
+                                value={newReminderDate}
+                                onChange={(e) => setNewReminderDate(e.target.value)}
+                                style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', marginBottom: '0.5rem' }}
+                              />
+                              <input
+                                type="text"
+                                placeholder={language === 'kn' ? 'ಉದಾಹರಣೆಗೆ: ಬೇವಿನ ಎಣ್ಣೆ ಸಿಂಪಡಿಸಿ' : 'e.g. Apply copper sulfate spray'}
+                                value={newReminderNote}
+                                onChange={(e) => setNewReminderNote(e.target.value)}
+                                style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', marginBottom: '0.5rem' }}
+                              />
+                              <button onClick={handleAddReminder} className="btn-secondary" style={{ width: '100%', padding: '0.5rem' }}>
+                                <Calendar size={14} /> {language === 'kn' ? 'ರಿಮೈಂಡರ್ ನಿಗದಿಪಡಿಸಿ' : 'Schedule Reminder'}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Before / After Specimen comparison */}
+                        <div className="card-glass" style={{ padding: '1.5rem' }}>
+                          <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{language === 'kn' ? 'ಚಿಕಿತ್ಸೆಯ ಮೊದಲು ಮತ್ತು ನಂತರದ ಹೋಲಿಕೆ' : 'Before & After Treatment Comparison'}</h3>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginBottom: '1rem' }}>
+                            <div style={{ border: '1px dashed var(--border-color)', borderRadius: '6px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+                              {beforeImage ? (
+                                <img src={beforeImage} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="before" />
+                              ) : (
+                                <label style={{ cursor: 'pointer', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                                  {language === 'kn' ? 'ಮೊದಲಿನ ಚಿತ್ರ' : 'Before Photo'}
+                                  <input type="file" onChange={(e) => {
+                                    const reader = new FileReader();
+                                    reader.onload = () => setBeforeImage(reader.result);
+                                    reader.readAsDataURL(e.target.files[0]);
+                                  }} style={{ display: 'none' }} />
+                                </label>
+                              )}
+                            </div>
+                            <div style={{ border: '1px dashed var(--border-color)', borderRadius: '6px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+                              {afterImage ? (
+                                <img src={afterImage} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="after" />
+                              ) : (
+                                <label style={{ cursor: 'pointer', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                                  {language === 'kn' ? 'ನಂತರದ ಚಿತ್ರ' : 'After Photo'}
+                                  <input type="file" onChange={(e) => {
+                                    const reader = new FileReader();
+                                    reader.onload = () => setAfterImage(reader.result);
+                                    reader.readAsDataURL(e.target.files[0]);
+                                  }} style={{ display: 'none' }} />
+                                </label>
+                              )}
+                            </div>
+                          </div>
+                          <button onClick={handleBeforeAfterCompare} className="btn-secondary" style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }} disabled={isComparing}>
+                            {isComparing ? (language === 'kn' ? 'ಹೋಲಿಕೆ ವಿಶ್ಲೇಷಣೆ ಚಾಲನೆಯಲ್ಲಿದೆ...' : "Running comparative scans...") : (language === 'kn' ? 'ಮಾದರಿ ಫಲಿತಾಂಶ ಹೋಲಿಸಿ' : "Compare specimen results")}
+                          </button>
+                          {comparisonResult && (
+                            <div style={{ padding: '0.75rem', backgroundColor: 'var(--surface-light)', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                              <p style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 'bold', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಸುಧಾರಣೆಯ ದರ:' : 'Improvement Rate:'} {comparisonResult.improvementPercentage}%</p>
+                              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{comparisonResult.notes}</p>
+                            </div>
+                          )}
+                        </div>
+
                       </div>
 
-                      {/* If Untreated red warning block */}
-                      <div style={{ padding: '1rem', borderRadius: '8px', border: '1px solid rgba(224,82,82,0.3)', backgroundColor: 'rgba(224,82,82,0.03)', display: 'flex', gap: '0.75rem' }}>
-                        <AlertTriangle size={20} color="var(--danger-color)" style={{ flexShrink: 0 }} />
-                        <div>
-                          <h4 style={{ fontSize: '0.85rem', color: 'var(--danger-color)', fontWeight: 'bold', marginBottom: '0.25rem' }}>IF UNTREATED PATHOLOGICAL RISK</h4>
-                          <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)' }}>{activeReport.report.if_untreated}</p>
-                        </div>
-                      </div>
-
-                      {/* Treatment Plan Accordion options */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <h4 style={{ fontSize: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>Clinical Treatment Protocols</h4>
-
-                        {/* Immediate Actions */}
-                        <div>
-                          <h5 style={{ fontSize: '0.9rem', color: 'var(--accent-color)', marginBottom: '0.5rem' }}>Immediate Corrective Actions</h5>
-                          <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                            {activeReport.report.treatment_plan.immediate_actions.map((act, i) => <li key={i}>{act}</li>)}
-                          </ul>
-                        </div>
-
-                        {/* Chemical Treatments (Cards) */}
-                        {activeReport.report.treatment_plan.chemical_treatments.length > 0 && (
+                      {/* Right Column Full Pathology Report Details */}
+                      <div className="card-glass" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                           <div>
-                            <h5 style={{ fontSize: '0.9rem', color: 'var(--warning-color)', marginBottom: '0.5rem' }}>Chemical Treatments (High Urgency)</h5>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                              {activeReport.report.treatment_plan.chemical_treatments.map((chem, i) => (
-                                <div key={i} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
-                                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                                    <span style={{ fontSize: '0.85rem', fontWeight: 'bold', fontFamily: 'var(--font-mono)' }}>{chem.chemical_name}</span>
-                                    <span style={{ fontSize: '0.75rem', color: 'var(--warning-color)', fontFamily: 'var(--font-mono)' }}>{chem.approximate_cost}</span>
-                                  </div>
-                                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Active: {chem.active_ingredient} | Dosage: {chem.dosage}</p>
-                                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Method: {chem.application_method} | Frequency: {chem.frequency}</p>
-                                  <div style={{ borderTop: '1px dashed var(--border-color)', marginTop: '0.5rem', paddingTop: '0.25rem', display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
-                                    <Info size={12} color="var(--warning-color)" />
-                                    <span style={{ fontSize: '0.7rem', color: 'var(--warning-color)' }}>{chem.safety_precautions}</span>
-                                  </div>
-                                </div>
-                              ))}
+                            <h2 style={{ fontSize: '1.8rem', color: 'var(--text-primary)' }}>{localizedReport.disease_name}</h2>
+                            <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '0.5rem' }}>{localizedReport.scientific_name}</p>
+                          </div>
+                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', padding: '0.25rem 0.5rem', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
+                              {localizedReport.disease_code}
+                            </span>
+                            <span style={{
+                              fontSize: '0.75rem', padding: '0.25rem 0.5rem', borderRadius: '4px', fontWeight: 'bold',
+                              backgroundColor: activeReport.report.severity === 'Critical' ? 'rgba(224,82,82,0.1)' : activeReport.report.severity === 'Severe' ? 'rgba(245,166,35,0.1)' : 'rgba(82,232,150,0.1)',
+                              color: activeReport.report.severity === 'Critical' ? 'var(--danger-color)' : activeReport.report.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
+                            }}>{localizedReport.severity}</span>
+                          </div>
+                        </div>
+
+                        {/* Chips row */}
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', borderRadius: '20px', backgroundColor: 'var(--primary-color)', color: '#fff' }}>
+                            {language === 'kn' ? 'ವರ್ಗ:' : 'Category:'} {localizedReport.category}
+                          </span>
+                          {localizedReport.affected_parts.map(p => (
+                            <span key={p} style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-muted)' }}>
+                              {language === 'kn' ? 'ಭಾಗ:' : 'Part:'} {p === 'Leaves' && language === 'kn' ? 'ಎಲೆಗಳು' : p === 'Stems' && language === 'kn' ? 'ಕಾಂಡಗಳು' : p === 'Roots' && language === 'kn' ? 'ಬೇರುಗಳು' : p}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div>
+                          <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ರೋಗದ ವಿವರಣೆ' : 'PATHOLOGY DESCRIPTION'}</h4>
+                          <p style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>{localizedReport.disease_description}</p>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                          <div>
+                            <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಮುಖ್ಯ ಕಾರಣ' : 'PRIMARY CAUSE'}</h4>
+                            <p style={{ fontSize: '0.9rem' }}>{localizedReport.cause}</p>
+                          </div>
+                          <div>
+                            <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಹರಡುವ ಅಪಾಯ' : 'SPREAD RISK'}</h4>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
+                              <div style={{ flex: 1, height: '8px', backgroundColor: 'var(--border-color)', borderRadius: '4px', overflow: 'hidden' }}>
+                                <div style={{
+                                  height: '100%',
+                                  width: activeReport.report.spread_risk === 'Very High' ? '100%' : activeReport.report.spread_risk === 'High' ? '75%' : activeReport.report.spread_risk === 'Medium' ? '50%' : '25%',
+                                  backgroundColor: activeReport.report.spread_risk === 'Very High' || activeReport.report.spread_risk === 'High' ? 'var(--danger-color)' : 'var(--accent-color)'
+                                }}></div>
+                              </div>
+                              <span style={{ fontSize: '0.75rem', fontWeight: 'bold' }}>{localizedReport.spread_risk}</span>
                             </div>
                           </div>
-                        )}
+                        </div>
 
-                        {/* Organic Alternatives */}
-                        <div>
-                          <h5 style={{ fontSize: '0.9rem', color: 'var(--accent-color)', marginBottom: '0.5rem' }}>Organic Alternatives (Eco-Friendly)</h5>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                            {activeReport.report.treatment_plan.organic_alternatives.map((org, i) => (
-                              <div key={i} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(82,232,150,0.2)', backgroundColor: 'rgba(82,232,150,0.02)' }}>
-                                <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--accent-color)' }}>{org.remedy}</span>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Preparation: {org.preparation}</p>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Application: {org.application}</p>
+                        {/* If Untreated red warning block */}
+                        <div style={{ padding: '1rem', borderRadius: '8px', border: '1px solid rgba(224,82,82,0.3)', backgroundColor: 'rgba(224,82,82,0.03)', display: 'flex', gap: '0.75rem' }}>
+                          <AlertTriangle size={20} color="var(--danger-color)" style={{ flexShrink: 0 }} />
+                          <div>
+                            <h4 style={{ fontSize: '0.85rem', color: 'var(--danger-color)', fontWeight: 'bold', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಚಿಕಿತ್ಸೆ ನೀಡದಿದ್ದರೆ ಉಂಟಾಗುವ ಅಪಾಯ' : 'IF UNTREATED PATHOLOGICAL RISK'}</h4>
+                            <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)' }}>{localizedReport.if_untreated}</p>
+                          </div>
+                        </div>
+
+                        {/* Treatment Plan Accordion options */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                          <h4 style={{ fontSize: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>{language === 'kn' ? 'ಚಿಕಿತ್ಸಾ ನಿಯಮಗಳು (ಪ್ರೋಟೋಕಾಲ್ಗಳು)' : 'Clinical Treatment Protocols'}</h4>
+
+                          {/* Immediate Actions */}
+                          <div>
+                            <h5 style={{ fontSize: '0.9rem', color: 'var(--accent-color)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ತಕ್ಷಣದ ಸರಿಪಡಿಸುವ ಕ್ರಮಗಳು' : 'Immediate Corrective Actions'}</h5>
+                            <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                              {localizedReport.treatment_plan.immediate_actions.map((act, i) => <li key={i}>{act}</li>)}
+                            </ul>
+                          </div>
+
+                          {/* Chemical Treatments (Cards) */}
+                          {localizedReport.treatment_plan.chemical_treatments.length > 0 && (
+                            <div>
+                              <h5 style={{ fontSize: '0.9rem', color: 'var(--warning-color)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಶಿಫಾರಸು ಮಾಡಿದ ರಾಸಾಯನಿಕ ಚಿಕಿತ್ಸೆಗಳು' : 'Chemical Treatments (High Urgency)'}</h5>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                {localizedReport.treatment_plan.chemical_treatments.map((chem, i) => (
+                                  <div key={i} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+                                      <span style={{ fontSize: '0.85rem', fontWeight: 'bold', fontFamily: 'var(--font-mono)' }}>{chem.chemical_name}</span>
+                                      <span style={{ fontSize: '0.75rem', color: 'var(--warning-color)', fontFamily: 'var(--font-mono)' }}>{chem.approximate_cost}</span>
+                                    </div>
+                                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಸಕ್ರಿಯ ಪದಾರ್ಥ' : 'Active'}: {chem.active_ingredient} | {language === 'kn' ? 'ಪ್ರಮಾಣ (ಡೋಸೇಜ್)' : 'Dosage'}: {chem.dosage}</p>
+                                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಬಳಸುವ ವಿಧಾನ' : 'Method'}: {chem.application_method} | {language === 'kn' ? 'ಬಳಕೆಯ ಆವರ್ತನ' : 'Frequency'}: {chem.frequency}</p>
+                                    <div style={{ borderTop: '1px dashed var(--border-color)', marginTop: '0.5rem', paddingTop: '0.25rem', display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
+                                      <Info size={12} color="var(--warning-color)" />
+                                      <span style={{ fontSize: '0.7rem', color: 'var(--warning-color)' }}>{chem.safety_precautions}</span>
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
+                            </div>
+                          )}
+
+                          {/* Organic Alternatives */}
+                          {localizedReport.treatment_plan.organic_alternatives.length > 0 && (
+                            <div>
+                              <h5 style={{ fontSize: '0.9rem', color: 'var(--accent-color)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಸಾವಯವ ಮತ್ತು ಜೈವಿಕ ಪರ್ಯಾಯಗಳು' : 'Organic Alternatives (Eco-Friendly)'}</h5>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                {localizedReport.treatment_plan.organic_alternatives.map((org, i) => (
+                                  <div key={i} style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(82,232,150,0.2)', backgroundColor: 'rgba(82,232,150,0.02)' }}>
+                                    <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--accent-color)' }}>{org.remedy}</span>
+                                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{language === 'kn' ? 'ತಯಾರಿಕೆ' : 'Preparation'}: {org.preparation}</p>
+                                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{language === 'kn' ? 'ಬಳಕೆ' : 'Application'}: {org.application}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Preventive Measures */}
+                          <div>
+                            <h5 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ದೀರ್ಘಕಾಲದ ತಡೆಗಟ್ಟುವ ಕ್ರಮಗಳು' : 'Long-Term Prevention'}</h5>
+                            <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                              {localizedReport.treatment_plan.preventive_measures.map((prev, i) => <li key={i}>{prev}</li>)}
+                            </ul>
+                          </div>
+
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
+                          <div>
+                            <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಚೇತರಿಕೆಯ ಸಮಯ' : 'RECOVERY TIMELINE'}</h4>
+                            <p style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--accent-color)' }}>{localizedReport.recovery_timeline}</p>
+                          </div>
+                          <div>
+                            <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಹಂಗಾಮು ಅಪಾಯ' : 'SEASONAL INCIDENCE'}</h4>
+                            <p style={{ fontSize: '0.9rem' }}>{localizedReport.seasonal_risk}</p>
+                          </div>
+                        </div>
+
+                        {/* Expert Tip */}
+                        <div style={{ borderLeft: '3px solid var(--accent-color)', paddingLeft: '0.75rem', fontStyle: 'italic', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                          <strong>{language === 'kn' ? 'ತಜ್ಞರ ಸಲಹೆ:' : 'Pathologist Tip:'}</strong> "{localizedReport.expert_tip}"
+                        </div>
+
+                        {/* Similar diseases */}
+                        <div>
+                          <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಇದೇ ರೀತಿಯ ಕಾಯಿಲೆಗಳು' : 'SIMILAR COMPLICATIONS'}</h4>
+                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            {localizedReport.similar_diseases.map(d => (
+                              <button
+                                key={d}
+                                onClick={() => {
+                                  const matched = ENCYCLOPEDIA_DATABASE.find(item => item.name.toLowerCase().includes(d.toLowerCase()));
+                                  if (matched) {
+                                    setSelectedEncyclopediaDisease(getExtendedDiseaseReport(matched, activeReport.plant_name));
+                                  } else {
+                                    triggerToast(language === 'kn' ? 'ಕಾಯಿಲೆಯ ವಿವರಗಳು ಕೇವಲ ವಿಶ್ವಕೋಶದಲ್ಲಿ ಲಭ್ಯವಿದೆ.' : "Complication detail is only available in the full Encyclopedia.", "info");
+                                  }
+                                }}
+                                style={{ background: 'none', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.25rem 0.5rem', fontSize: '0.75rem', cursor: 'pointer', color: 'var(--accent-color)' }}
+                              >
+                                {d}
+                              </button>
                             ))}
                           </div>
                         </div>
 
-                        {/* Preventive Measures */}
-                        <div>
-                          <h5 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Long-Term Prevention</h5>
-                          <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                            {activeReport.report.treatment_plan.preventive_measures.map((prev, i) => <li key={i}>{prev}</li>)}
-                          </ul>
-                        </div>
-
-                      </div>
-
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
-                        <div>
-                          <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>RECOVERY TIMELINE</h4>
-                          <p style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--accent-color)' }}>{activeReport.report.recovery_timeline}</p>
-                        </div>
-                        <div>
-                          <h4 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>SEASONAL INCIDENCE</h4>
-                          <p style={{ fontSize: '0.9rem' }}>{activeReport.report.seasonal_risk}</p>
-                        </div>
-                      </div>
-
-                      {/* Expert Tip */}
-                      <div style={{ borderLeft: '3px solid var(--accent-color)', paddingLeft: '0.75rem', fontStyle: 'italic', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                        <strong>Pathologist Tip:</strong> "{activeReport.report.expert_tip}"
-                      </div>
-
-                      {/* Similar diseases */}
-                      <div>
-                        <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>SIMILAR COMPLICATIONS</h4>
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
-                          {activeReport.report.similar_diseases.map(d => (
-                            <button
-                              key={d}
-                              onClick={() => {
-                                const matched = ENCYCLOPEDIA_DATABASE.find(item => item.name.toLowerCase().includes(d.toLowerCase()));
-                                if (matched) {
-                                  setSelectedEncyclopediaDisease(getExtendedDiseaseReport(matched, activeReport.plant_name));
-                                } else {
-                                  triggerToast("Complication detail is only available in the full Encyclopedia.", "info");
-                                }
-                              }}
-                              style={{ background: 'none', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.25rem 0.5rem', fontSize: '0.75rem', cursor: 'pointer', color: 'var(--accent-color)' }}
-                            >
-                              {d}
-                            </button>
-                          ))}
-                        </div>
                       </div>
 
                     </div>
-
                   </div>
-                </div>
-              )}
+                )}
 
-            </div>
-          )}
+              </div>
+            );
+          })()}
 
           {/* 3. ENCYCLOPEDIA VIEW */}
           {activeTab === 'encyclopedia' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <p style={{ color: 'var(--text-muted)' }}>Search and review clinical details of 40+ common plant diseases across all classifications.</p>
+              <p style={{ color: 'var(--text-muted)' }}>{t('catalog_desc')}</p>
 
               {/* Search and Categories bar */}
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -3413,7 +4428,7 @@ The JSON must have this exact structure:
                     type="text"
                     value={encSearch}
                     onChange={(e) => setEncSearch(e.target.value)}
-                    placeholder="Search by disease name, scientific name or code..."
+                    placeholder={t('search_placeholder')}
                     style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', borderRadius: '8px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
                   />
                 </div>
@@ -3431,7 +4446,7 @@ The JSON must have this exact structure:
                         fontSize: '0.8rem'
                       }}
                     >
-                      {cat}
+                      {tcat(cat)}
                     </button>
                   ))}
                 </div>
@@ -3449,7 +4464,7 @@ The JSON must have this exact structure:
                   <div
                     key={d.id}
                     className="card-glass"
-                    onClick={() => setSelectedEncyclopediaDisease(getExtendedDiseaseReport(d, "Host Plant"))}
+                    onClick={() => setSelectedEncyclopediaDisease(translateReport(getExtendedDiseaseReport(d, "Host Plant"), language))}
                     style={{ padding: '1.5rem', cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '180px' }}
                   >
                     <div>
@@ -3459,13 +4474,13 @@ The JSON must have this exact structure:
                           fontSize: '0.7rem', padding: '0.15rem 0.4rem', borderRadius: '4px', fontWeight: 'bold',
                           backgroundColor: d.severity === 'Critical' ? 'rgba(224,82,82,0.1)' : d.severity === 'Severe' ? 'rgba(245,166,35,0.1)' : 'rgba(82,232,150,0.1)',
                           color: d.severity === 'Critical' ? 'var(--danger-color)' : d.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
-                        }}>{d.severity}</span>
+                        }}>{tsev(d.severity)}</span>
                       </div>
-                      <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{d.name}</h3>
+                      <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{td(d.name)}</h3>
                       <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '0.85rem' }}>{d.scientific_name}</p>
                     </div>
                     <span style={{ alignSelf: 'flex-start', fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: 'var(--surface-light)', color: 'var(--accent-color)', border: '1px solid var(--border-color)' }}>
-                      {d.category}
+                      {tcat(d.category)}
                     </span>
                   </div>
                 ))}
@@ -3477,7 +4492,7 @@ The JSON must have this exact structure:
           {/* 4. SCAN HISTORY VIEW */}
           {activeTab === 'history' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <p style={{ color: 'var(--text-muted)' }}>Timeline and records of all specimen analyses run under this user account.</p>
+              <p style={{ color: 'var(--text-muted)' }}>{t('lab_history_desc')}</p>
 
               {/* History Search and Filters */}
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -3487,7 +4502,7 @@ The JSON must have this exact structure:
                     type="text"
                     value={historySearch}
                     onChange={(e) => setHistorySearch(e.target.value)}
-                    placeholder="Search past scans by plant or disease name..."
+                    placeholder={t('search_history_placeholder')}
                     style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', borderRadius: '8px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
                   />
                 </div>
@@ -3498,9 +4513,9 @@ The JSON must have this exact structure:
                     onChange={(e) => setHistoryTimeFilter(e.target.value)}
                     style={{ padding: '0.6rem', borderRadius: '8px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
                   >
-                    <option value="all">All Dates</option>
-                    <option value="week">This Week</option>
-                    <option value="month">This Month</option>
+                    <option value="all">{language === 'kn' ? 'ಎಲ್ಲಾ ದಿನಾಂಕಗಳು' : 'All Dates'}</option>
+                    <option value="week">{language === 'kn' ? 'ಈ ವಾರ' : 'This Week'}</option>
+                    <option value="month">{language === 'kn' ? 'ಈ ತಿಂಗಳು' : 'This Month'}</option>
                   </select>
 
                   <select
@@ -3508,9 +4523,9 @@ The JSON must have this exact structure:
                     onChange={(e) => setHistoryPlantFilter(e.target.value)}
                     style={{ padding: '0.6rem', borderRadius: '8px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
                   >
-                    <option value="all">All Plants</option>
+                    <option value="all">{language === 'kn' ? 'ಎಲ್ಲಾ ಸಸ್ಯಗಳು' : 'All Plants'}</option>
                     {Array.from(new Set(scanHistory.filter(s => s && s.plant_name).map(s => s.plant_name))).map(p => (
-                      <option key={p} value={p}>{p}</option>
+                      <option key={p} value={p}>{tc(p)}</option>
                     ))}
                   </select>
                 </div>
@@ -3520,8 +4535,8 @@ The JSON must have this exact structure:
               {scanHistory.length === 0 ? (
                 <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                   <Info size={48} style={{ marginBottom: '1rem' }} />
-                  <h3>No crop diagnostics found.</h3>
-                  <button onClick={() => setActiveTab('scan')} className="btn-primary" style={{ marginTop: '1rem' }}>Run First Scan</button>
+                  <h3>{t('no_history')}</h3>
+                  <button onClick={() => setActiveTab('scan')} className="btn-primary" style={{ marginTop: '1rem' }}>{language === 'kn' ? 'ಮೊದಲ ಸ್ಕ್ಯಾನ್ ಪ್ರಾರಂಭಿಸಿ' : 'Run First Scan'}</button>
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -3538,32 +4553,32 @@ The JSON must have this exact structure:
                       <div style={{ flex: 1, minWidth: '240px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
                           <div>
-                            <h3 style={{ fontSize: '1.4rem' }}>{s.report.disease_name}</h3>
-                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>Specimen: {s.plant_name} ({s.report.disease_code})</span>
+                            <h3 style={{ fontSize: '1.4rem' }}>{td(s.report.disease_name)}</h3>
+                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಮಾದರಿ' : 'Specimen'}: {tc(s.plant_name)} ({s.report.disease_code})</span>
                           </div>
                           <span style={{
                             fontSize: '0.75rem', padding: '0.25rem 0.5rem', borderRadius: '4px', fontWeight: 'bold',
                             backgroundColor: s.report.severity === 'Critical' ? 'rgba(224,82,82,0.1)' : s.report.severity === 'Severe' ? 'rgba(245,166,35,0.1)' : 'rgba(82,232,150,0.1)',
                             color: s.report.severity === 'Critical' ? 'var(--danger-color)' : s.report.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
-                          }}>{s.report.severity}</span>
+                          }}>{tsev(s.report.severity)}</span>
                         </div>
                         <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                          Diagnostic Confidence: <strong>{s.report.confidence}%</strong> | Health Score: <strong>{Math.round(s.healthScore)}%</strong>
+                          {language === 'kn' ? 'ರೋಗನಿರ್ಣಯ ನಿಖರತೆ' : 'Diagnostic Confidence'}: <strong>{s.report.confidence}%</strong> | {language === 'kn' ? 'ಆರೋಗ್ಯ ಸ್ಕೋರ್' : 'Health Score'}: <strong>{Math.round(s.healthScore)}%</strong>
                         </p>
-                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Date: {s.date} {s.time}</span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{language === 'kn' ? 'ದಿನಾಂಕ' : 'Date'}: {s.date} {s.time}</span>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%', smWidth: 'auto' }}>
                         <button onClick={() => { setActiveReport(s); setActiveTab('scan'); }} className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
-                          View Report
+                          {language === 'kn' ? 'ವರದಿ ನೋಡಿ' : 'View Report'}
                         </button>
                         <button
                           onClick={() => {
                             setScanHistory(prev => prev.filter(item => item.id !== s.id));
-                            triggerToast("Scan removed from history.", "info");
+                            triggerToast(language === 'kn' ? "ಸ್ಕ್ಯಾನ್ ಇತಿಹಾಸದಿಂದ ತೆಗೆದುಹಾಕಲಾಗಿದೆ." : "Scan removed from history.", "info");
                           }}
                           className="btn-secondary" style={{ padding: '0.5rem', fontSize: '0.8rem', color: 'var(--danger-color)', borderColor: 'rgba(224,82,82,0.2)' }}
                         >
-                          Delete Scan
+                          {language === 'kn' ? 'ಸ್ಕ್ಯಾನ್ ಅಳಿಸಿ' : 'Delete Scan'}
                         </button>
                       </div>
                     </div>
@@ -3577,22 +4592,28 @@ The JSON must have this exact structure:
           {/* 5. ANALYTICS VIEW */}
           {activeTab === 'analytics' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <p style={{ color: 'var(--text-muted)' }}>Review agricultural analytics, infection rates, plant types, and diagnostic timelines.</p>
+              <p style={{ color: 'var(--text-muted)' }}>
+                {language === 'kn'
+                  ? 'ಕೃಷಿ ವಿಶ್ಲೇಷಣೆಗಳು, ಸೋಂಕಿನ ಪ್ರಮಾಣಗಳು, ಸಸ್ಯಗಳ ವಿಧಗಳು ಮತ್ತು ರೋಗನಿರ್ಣಯದ ಇತಿಹಾಸವನ್ನು ಪರಿಶೀಲಿಸಿ.'
+                  : 'Review agricultural analytics, infection rates, plant types, and diagnostic timelines.'}
+              </p>
 
               {/* Highlight Dashboard cards */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
                 <div className="card-glass" style={{ padding: '1.5rem' }}>
-                  <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>COMMON INFECTION</h4>
-                  <h3 style={{ fontSize: '1.6rem', color: 'var(--warning-color)' }}>{mostCommonDiseaseDetected}</h3>
-                </div>
-                <div className="card-glass" style={{ padding: '1.5rem' }}>
-                  <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>CRITICAL specimen RISKS</h4>
-                  <h3 style={{ fontSize: '1.6rem', color: 'var(--danger-color)' }}>
-                    {scanHistory.filter(s => s.report.severity === 'Critical').length} Samples
+                  <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಸಾಮಾನ್ಯ ಸೋಂಕು' : 'COMMON INFECTION'}</h4>
+                  <h3 style={{ fontSize: '1.6rem', color: 'var(--warning-color)' }}>
+                    {mostCommonDiseaseDetected === "None Detected" ? (language === 'kn' ? "ಯಾವುದೂ ಪತ್ತೆಯಾಗಿಲ್ಲ" : "None Detected") : td(mostCommonDiseaseDetected)}
                   </h3>
                 </div>
                 <div className="card-glass" style={{ padding: '1.5rem' }}>
-                  <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>MEDIAN CONFIDENCE RATE</h4>
+                  <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಅತಿ ಗಂಭೀರ ಮಾದರಿ ಅಪಾಯಗಳು' : 'CRITICAL SPECIMEN RISKS'}</h4>
+                  <h3 style={{ fontSize: '1.6rem', color: 'var(--danger-color)' }}>
+                    {scanHistory.filter(s => s.report.severity === 'Critical').length} {language === 'kn' ? 'ಮಾದರಿಗಳು' : 'Samples'}
+                  </h3>
+                </div>
+                <div className="card-glass" style={{ padding: '1.5rem' }}>
+                  <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಸರಾಸರಿ ನಿಖರತೆಯ ದರ' : 'MEDIAN CONFIDENCE RATE'}</h4>
                   <h3 style={{ fontSize: '1.6rem', color: 'var(--accent-color)' }}>
                     {scanHistory.length > 0 ? `${Math.round(scanHistory.reduce((acc, s) => acc + s.report.confidence, 0) / scanHistory.length)}%` : "N/A"}
                   </h3>
@@ -3603,15 +4624,15 @@ The JSON must have this exact structure:
               {scanHistory.length === 0 ? (
                 <div className="card-glass" style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                   <Info size={48} style={{ marginBottom: '1rem', margin: '0 auto' }} />
-                  <h3>No analytical data available.</h3>
-                  <p>Complete crop scans to populate graphical analytics.</p>
+                  <h3>{language === 'kn' ? 'ಯಾವುದೇ ವಿಶ್ಲೇಷಣಾತ್ಮಕ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ.' : 'No analytical data available.'}</h3>
+                  <p>{language === 'kn' ? 'ಗ್ರಾಫಿಕಲ್ ವಿಶ್ಲೇಷಣೆಯನ್ನು ಪಡೆಯಲು ಬೆಳೆ ಸ್ಕ್ಯಾನ್ ಪೂರ್ಣಗೊಳಿಸಿ.' : 'Complete crop scans to populate graphical analytics.'}</p>
                 </div>
               ) : (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
                   
                   {/* Category Breakdown (Pie) */}
                   <div className="card-glass" style={{ padding: '2rem', minHeight: '340px' }}>
-                    <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Infection Category Distribution</h3>
+                    <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{language === 'kn' ? 'ಸೋಂಕಿನ ವರ್ಗದ ವಿತರಣೆ' : 'Infection Category Distribution'}</h3>
                     <ResponsiveContainer width="100%" height={250}>
                       <PieChart>
                         <Pie
@@ -3633,7 +4654,7 @@ The JSON must have this exact structure:
 
                   {/* Scans Timeline (Line) */}
                   <div className="card-glass" style={{ padding: '2rem', minHeight: '340px' }}>
-                    <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Lab Activity Timeline</h3>
+                    <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{language === 'kn' ? 'ಲ್ಯಾಬ್ ಚಟುವಟಿಕೆಯ ಟೈಮ್‌ಲೈನ್' : 'Lab Activity Timeline'}</h3>
                     <ResponsiveContainer width="100%" height={250}>
                       <LineChart data={scanActivityData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
@@ -3647,7 +4668,7 @@ The JSON must have this exact structure:
 
                   {/* Plant counts (Bar) */}
                   <div className="card-glass" style={{ padding: '2rem', minHeight: '340px', gridColumn: '1 / -1' }}>
-                    <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Top Scanned Crop Species</h3>
+                    <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{language === 'kn' ? 'ಹೆಚ್ಚು ಸ್ಕ್ಯಾನ್ ಮಾಡಲಾದ ಬೆಳೆ ತಳಿಗಳು' : 'Top Scanned Crop Species'}</h3>
                     <ResponsiveContainer width="100%" height={250}>
                       <BarChart data={plantTypesData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
@@ -3672,33 +4693,33 @@ The JSON must have this exact structure:
           {/* 6. MY FIELDS VIEW */}
           {activeTab === 'fields' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <p style={{ color: 'var(--text-muted)' }}>Tag scans to fields and monitor spatial crop health over your agricultural zone.</p>
+              <p style={{ color: 'var(--text-muted)' }}>{t('fields_desc')}</p>
 
               {/* Add Field Form */}
               <form onSubmit={handleAddField} className="card-glass" style={{ padding: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'flex-end', flexWrap: 'wrap', maxWidth: '600px' }}>
                 <div style={{ flex: 2, minWidth: '180px' }}>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>FIELD NAME</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಜಮೀನಿನ ಹೆಸರು' : 'FIELD NAME'}</label>
                   <input
                     type="text"
                     required
                     value={newFieldName}
                     onChange={(e) => setNewFieldName(e.target.value)}
-                    placeholder="e.g. South Orchard"
+                    placeholder={language === 'kn' ? 'ಉದಾಹರಣೆಗೆ: ದಕ್ಷಿಣ ತೋಟ' : 'e.g. South Orchard'}
                     style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)' }}
                   />
                 </div>
                 <div style={{ flex: 1, minWidth: '120px' }}>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>PLANT TYPE</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ಸಸ್ಯದ ಪ್ರಕಾರ' : 'PLANT TYPE'}</label>
                   <select
                     value={newFieldPlant}
                     onChange={(e) => setNewFieldPlant(e.target.value)}
                     style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)' }}
                   >
-                    {PLANTS_LIST.slice(0, 15).map(p => <option key={p}>{p}</option>)}
+                    {PLANTS_LIST.slice(0, 15).map(p => <option key={p} value={p}>{tc(p)}</option>)}
                   </select>
                 </div>
                 <button type="submit" className="btn-primary" style={{ padding: '0.5rem 1rem' }}>
-                  <Plus size={16} /> Add Field
+                  <Plus size={16} /> {language === 'kn' ? 'ಜಮೀನು ಸೇರಿಸಿ' : 'Add Field'}
                 </button>
               </form>
 
@@ -3714,18 +4735,18 @@ The JSON must have this exact structure:
                           fontSize: '0.75rem', fontWeight: 'bold', padding: '0.2rem 0.5rem', borderRadius: '4px',
                           color: f.status === 'Healthy' ? 'var(--accent-color)' : f.status === 'At Risk' ? 'var(--warning-color)' : 'var(--danger-color)',
                           backgroundColor: f.status === 'Healthy' ? 'rgba(82,232,150,0.06)' : 'rgba(224,82,82,0.06)'
-                        }}>{f.status}</span>
+                        }}>{f.status === 'Healthy' ? (language === 'kn' ? 'ಆರೋಗ್ಯಕರ' : 'Healthy') : f.status === 'At Risk' ? (language === 'kn' ? 'ಅಪಾಯದಲ್ಲಿದೆ' : 'At Risk') : (language === 'kn' ? 'ರೋಗಗ್ರಸ್ತ' : 'Sick')}</span>
                       </div>
-                      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Plant cultivation: <strong>{f.plantType}</strong></p>
-                      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>Scanned Specimens: <strong>{fieldScans.length}</strong></p>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಬೆಳೆಸಿದ ಸಸ್ಯ:' : 'Plant cultivation:'} <strong>{tc(f.plantType)}</strong></p>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>{language === 'kn' ? 'ಸ್ಕ್ಯಾನ್ ಮಾಡಿದ ಮಾದರಿಗಳು:' : 'Scanned Specimens:'} <strong>{fieldScans.length}</strong></p>
                       <button
                         onClick={() => {
                           setFields(prev => prev.filter(item => item.id !== f.id));
-                          triggerToast("Field removed.", "info");
+                          triggerToast(language === 'kn' ? "ಜಮೀನನ್ನು ತೆಗೆದುಹಾಕಲಾಗಿದೆ." : "Field removed.", "info");
                         }}
                         className="btn-secondary" style={{ width: '100%', padding: '0.4rem', color: 'var(--danger-color)', borderColor: 'rgba(224,82,82,0.2)', fontSize: '0.8rem' }}
                       >
-                        Delete Field Record
+                        {language === 'kn' ? 'ಜಮೀನಿನ ದಾಖಲೆ ಅಳಿಸಿ' : 'Delete Field Record'}
                       </button>
                     </div>
                   );
@@ -3741,9 +4762,9 @@ The JSON must have this exact structure:
               
               {/* Theme Settings */}
               <div className="card-glass" style={{ padding: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Appearance Settings</h3>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{t('theme_preferences')}</h3>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span>Theme Light / Dark Mode</span>
+                  <span>{language === 'kn' ? 'ಥೀಮ್ ಬಿಳಿ / ಕಪ್ಪು ಮೋಡ್' : 'Theme Light / Dark Mode'}</span>
                   <button
                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                     className="btn-secondary" style={{ padding: '0.5rem' }}
@@ -3755,27 +4776,28 @@ The JSON must have this exact structure:
 
               {/* Treatment Type preference */}
               <div className="card-glass" style={{ padding: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Treatment Protocols</h3>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>PREFERRED TREATMENT SOURCE</label>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>{t('treatment_preferences')}</h3>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಆದ್ಯತೆಯ ಚಿಕಿತ್ಸಾ ವಿಧಾನ' : 'PREFERRED TREATMENT SOURCE'}</label>
                 <select
                   value={treatmentPreference}
                   onChange={(e) => {
                     setTreatmentPreference(e.target.value);
                     localStorage.setItem('ac_treatment_pref', e.target.value);
-                    triggerToast(`Preference set to ${e.target.value}`, "success");
+                    const prefText = e.target.value === 'Both' ? (language === 'kn' ? 'ಎರಡೂ' : 'Both') : e.target.value === 'Organic' ? (language === 'kn' ? 'ಸಾವಯವ' : 'Organic') : (language === 'kn' ? 'ರಾಸಾಯನಿಕ' : 'Chemical');
+                    triggerToast(language === 'kn' ? `ಆದ್ಯತೆಯನ್ನು ${prefText} ಗೆ ಹೊಂದಿಸಲಾಗಿದೆ` : `Preference set to ${e.target.value}`, "success");
                   }}
                   style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)' }}
                 >
-                  <option>Chemical</option>
-                  <option>Organic</option>
-                  <option>Both</option>
+                  <option value="Chemical">{language === 'kn' ? 'ರಾಸಾಯನಿಕ' : 'Chemical'}</option>
+                  <option value="Organic">{language === 'kn' ? 'ಸಾವಯವ' : 'Organic'}</option>
+                  <option value="Both">{language === 'kn' ? 'ಎರಡೂ' : 'Both'}</option>
                 </select>
               </div>
 
               {/* Anthropic Claude API Configuration */}
               <div className="card-glass" style={{ padding: '1.5rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                  <h3 style={{ fontSize: '1.2rem' }}>Claude API Integration</h3>
+                  <h3 style={{ fontSize: '1.2rem' }}>{t('diagnostic_engine_config')}</h3>
                   <div style={{ display: 'flex', gap: '0.25rem' }}>
                     <button
                       type="button"
@@ -3783,7 +4805,7 @@ The JSON must have this exact structure:
                         const newMode = apiMode === 'mock' ? 'live' : 'mock';
                         setApiMode(newMode);
                         localStorage.setItem('ac_api_mode', newMode);
-                        triggerToast(`API Engine set to ${newMode.toUpperCase()} Mode`, "info");
+                        triggerToast(language === 'kn' ? `ಎಪಿಐ ಇಂಜಿನ್ ಅನ್ನು ${newMode === 'live' ? 'ಲೈವ್' : 'ಮಾಕ್'} ಮೋಡ್‌ಗೆ ಹೊಂದಿಸಲಾಗಿದೆ` : `API Engine set to ${newMode.toUpperCase()} Mode`, "info");
                       }}
                       style={{
                         padding: '0.25rem 0.75rem', borderRadius: '20px', border: '1px solid var(--border-color)', fontSize: '0.75rem', cursor: 'pointer',
@@ -3791,18 +4813,18 @@ The JSON must have this exact structure:
                         color: apiMode === 'live' ? '#0A1A0F' : 'var(--text-muted)'
                       }}
                     >
-                      {apiMode === 'live' ? "LIVE API ACTIVE" : "MOCK ENGINE ACTIVE"}
+                      {apiMode === 'live' ? (language === 'kn' ? "ಲೈವ್ API ಸಕ್ರಿಯ" : "LIVE API ACTIVE") : (language === 'kn' ? "ಮಾಕ್ ಎಂಜಿನ್ ಸಕ್ರಿಯ" : "MOCK ENGINE ACTIVE")}
                     </button>
                   </div>
                 </div>
 
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem', lineHeight: '1.4' }}>
-                  By default, Angio-Care runs on a high-fidelity mock pathology model for evaluation. Enter an Anthropic API Key and Proxy URL below to request real-time diagnoses from Claude 3.5 Sonnet.
+                  {t('api_key_desc')}
                 </p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>ANTHROPIC API KEY</label>
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>{t('api_key_label')}</label>
                     <input
                       type="password"
                       value={apiKey}
@@ -3815,7 +4837,7 @@ The JSON must have this exact structure:
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>CUSTOM CORS PROXY URL (OPTIONAL)</label>
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>{t('proxy_url_label')}</label>
                     <input
                       type="text"
                       value={proxyUrl}
@@ -3832,19 +4854,19 @@ The JSON must have this exact structure:
 
               {/* Data Export & Backup */}
               <div className="card-glass" style={{ padding: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>Data Backup & Export</h3>
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Export your complete history, registered fields, and local database as a JSON record.</p>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಡೇಟಾ ಬ್ಯಾಕಪ್ ಮತ್ತು ರಫ್ತು' : 'Data Backup & Export'}</h3>
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>{language === 'kn' ? 'ನಿಮ್ಮ ಸಂಪೂರ್ಣ ಇತಿಹಾಸ, ನಮೂದಿಸಿದ ಜಮೀನುಗಳು ಮತ್ತು ಸ್ಥಳೀಯ ಡೇಟಾಬೇಸ್ ಅನ್ನು JSON ರೂಪದಲ್ಲಿ ರಫ್ತು ಮಾಡಿ.' : 'Export your complete history, registered fields, and local database as a JSON record.'}</p>
                 <button onClick={handleExportAllData} className="btn-secondary" style={{ width: '100%' }}>
-                  Download JSON Profile Backup
+                  {language === 'kn' ? 'JSON ಪ್ರೊಫೈಲ್ ಬ್ಯಾಕಪ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download JSON Profile Backup'}
                 </button>
               </div>
 
               {/* Danger Zone */}
               <div className="card-glass" style={{ padding: '1.5rem', border: '1px solid rgba(224,82,82,0.3)', backgroundColor: 'rgba(224,82,82,0.01)' }}>
-                <h3 style={{ fontSize: '1.2rem', color: 'var(--danger-color)', marginBottom: '0.5rem' }}>Danger Zone</h3>
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Permanently erase this account and all saved diagnostic records.</p>
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--danger-color)', marginBottom: '0.5rem' }}>{t('danger_zone')}</h3>
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>{language === 'kn' ? 'ಈ ಖಾತೆ ಮತ್ತು ಉಳಿಸಲಾದ ಎಲ್ಲಾ ರೋಗನಿರ್ಣಯ ದಾಖಲೆಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಿಹಾಕಿ.' : 'Permanently erase this account and all saved diagnostic records.'}</p>
                 <button onClick={() => setShowDeleteAccountConfirm(true)} className="btn-secondary" style={{ width: '100%', color: 'var(--danger-color)', borderColor: 'rgba(224,82,82,0.3)' }}>
-                  Erase Account & Database
+                  {t('delete_account_btn')}
                 </button>
               </div>
 
@@ -3858,8 +4880,8 @@ The JSON must have this exact structure:
               {/* Header Title card */}
               <div className="card-glass" style={{ padding: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
                 <div>
-                  <h2 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>🌾 Geo-Agricultural Crop & Soil Advisor</h2>
-                  <p style={{ color: 'var(--text-muted)' }}>Leverage live location tracking to identify local soil profiles, typical regional crops, and optimal planting suitability scores.</p>
+                  <h2 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>{t('geo_advisor_title')}</h2>
+                  <p style={{ color: 'var(--text-muted)' }}>{t('geo_advisor_desc')}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                   <button
@@ -3871,31 +4893,31 @@ The JSON must have this exact structure:
                     {isLocating ? (
                       <>
                         <Loader2 className="animate-spin" size={18} />
-                        Locating Farm...
+                        {t('locating_farm')}
                       </>
                     ) : (
                       <>
                         <MapPin size={18} />
-                        Auto-Detect Location
+                        {t('auto_detect_location')}
                       </>
                     )}
                   </button>
                   
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                    <label style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>SIMULATE REGION</label>
+                    <label style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಪ್ರದೇಶವನ್ನು ಸಿಮ್ಯುಲೇಟ್ ಮಾಡಿ' : 'SIMULATE REGION'}</label>
                     <select
-                      value={advisorState}
-                      onChange={(e) => {
-                        setAdvisorState(e.target.value);
-                        setAdvisorLocation(null);
-                        triggerToast(`Simulating location: ${e.target.value}`, "info");
-                      }}
-                      style={{ padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
-                    >
-                      {Object.keys(SOIL_REGION_DATABASE).map(state => (
-                        <option key={state} value={state}>{state}</option>
-                      ))}
-                    </select>
+                       value={advisorState}
+                       onChange={(e) => {
+                         setAdvisorState(e.target.value);
+                         setAdvisorLocation(null);
+                         triggerToast(`Simulating location: ${e.target.value}`, "info");
+                       }}
+                       style={{ padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                     >
+                       {Object.keys(SOIL_REGION_DATABASE).map(state => (
+                         <option key={state} value={state}>{STATE_TRANSLATIONS[state] || state}</option>
+                       ))}
+                     </select>
                   </div>
                 </div>
               </div>
@@ -3904,20 +4926,20 @@ The JSON must have this exact structure:
               {advisorLocation && (
                 <div className="card-glass" style={{ padding: '1rem 1.5rem', display: 'flex', gap: '2rem', flexWrap: 'wrap', borderLeft: '4px solid var(--accent-color)', backgroundColor: 'rgba(82,232,150,0.02)' }}>
                   <div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>GPS LATITUDE</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಜಿಪಿಎಸ್ ಅಕ್ಷಾಂಶ (LAT)' : 'GPS LATITUDE'}</span>
                     <p style={{ fontSize: '1.1rem', fontWeight: 'bold', fontFamily: 'var(--font-mono)', color: 'var(--accent-color)' }}>{advisorLocation.lat.toFixed(6)}</p>
                   </div>
                   <div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>GPS LONGITUDE</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಜಿಪಿಎಸ್ ರೇಖಾಂಶ (LNG)' : 'GPS LONGITUDE'}</span>
                     <p style={{ fontSize: '1.1rem', fontWeight: 'bold', fontFamily: 'var(--font-mono)', color: 'var(--accent-color)' }}>{advisorLocation.lng.toFixed(6)}</p>
                   </div>
                   <div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>ACCURACY STATUS</span>
-                    <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>Satellite Resolved ✅</p>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ನಿಖರತೆಯ ಸ್ಥಿತಿ' : 'ACCURACY STATUS'}</span>
+                    <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{language === 'kn' ? 'ಉಪಗ್ರಹ ನಿರ್ಧರಿಸಿದೆ ✅' : 'Satellite Resolved ✅'}</p>
                   </div>
                   <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
                     <span className="badge" style={{ backgroundColor: 'rgba(82,232,150,0.15)', color: 'var(--accent-color)', padding: '0.4rem 0.8rem', borderRadius: '20px' }}>
-                      📍 Live Local Farm Grid
+                      {language === 'kn' ? '📍 ಲೈವ್ ಸ್ಥಳೀಯ ಜಮೀನು ಗ್ರಿಡ್' : '📍 Live Local Farm Grid'}
                     </span>
                   </div>
                 </div>
@@ -3925,7 +4947,8 @@ The JSON must have this exact structure:
 
               {/* Dynamic Soil & Crops section */}
               {(() => {
-                const info = SOIL_REGION_DATABASE[advisorState] || SOIL_REGION_DATABASE["Maharashtra"];
+                const rawInfo = SOIL_REGION_DATABASE[advisorState] || SOIL_REGION_DATABASE["Maharashtra"];
+                const info = translateSoilInfo(rawInfo, language);
                 return (
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'start' }}>
                     
@@ -3935,11 +4958,11 @@ The JSON must have this exact structure:
                       {/* Soil Profile Card */}
                       <div className="card-glass" style={{ padding: '2rem' }}>
                         <h3 style={{ fontSize: '1.3rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-color)' }}>
-                          <span>🪨</span> Local Soil Profile: {advisorState}
+                          <span>🪨</span> {language === 'kn' ? 'ಸ್ಥಳೀಯ ಮಣ್ಣಿನ ವಿವರ:' : 'Local Soil Profile:'} {STATE_TRANSLATIONS[advisorState] || advisorState}
                         </h3>
                         
                         <div style={{ marginBottom: '1.5rem' }}>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>SOIL TYPE CLASSIFICATION</span>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಮಣ್ಣಿನ ಪ್ರಕಾರದ ವರ್ಗೀಕರಣ' : 'SOIL TYPE CLASSIFICATION'}</span>
                           <p style={{ fontSize: '1.4rem', fontWeight: 'bold', margin: '0.25rem 0 0.5rem 0' }}>{info.soilType}</p>
                           <div style={{ height: '3px', backgroundColor: 'var(--border-color)', borderRadius: '2px', position: 'relative', overflow: 'hidden' }}>
                             <div style={{ width: '70%', height: '100%', backgroundColor: 'var(--accent-color)' }}></div>
@@ -3947,7 +4970,7 @@ The JSON must have this exact structure:
                         </div>
 
                         <div>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>PHYSICAL & CHEMICAL PROPERTIES</span>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಭೌತಿಕ ಮತ್ತು ರಾಸಾಯನಿಕ ಗುಣಲಕ್ಷಣಗಳು' : 'PHYSICAL & CHEMICAL PROPERTIES'}</span>
                           <p style={{ fontSize: '0.95rem', color: 'var(--text-primary)', lineHeight: '1.6', marginTop: '0.25rem' }}>{info.properties}</p>
                         </div>
                       </div>
@@ -3955,9 +4978,9 @@ The JSON must have this exact structure:
                       {/* Typical Regional Crops Card */}
                       <div className="card-glass" style={{ padding: '2rem' }}>
                         <h3 style={{ fontSize: '1.3rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <span>🚜</span> Primary Crops Grown in {advisorState}
+                          <span>🚜</span> {language === 'kn' ? 'ಪ್ರಾಥಮಿಕ ಬೆಳೆಗಳನ್ನು ಬೆಳೆಯಲಾಗುತ್ತದೆ:' : 'Primary Crops Grown in'} {STATE_TRANSLATIONS[advisorState] || advisorState}
                         </h3>
-                        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>These agricultural crops represent the current dominant agricultural footprint in this geographic soil zone:</p>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>{t('crops_grown_desc')}</p>
                         
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
                           {info.typicalCrops.map(crop => (
@@ -4003,15 +5026,15 @@ The JSON must have this exact structure:
                     {/* Right Column: Seasonal Suitability Advisor */}
                     <div className="card-glass" style={{ padding: '2rem' }}>
                       <h3 style={{ fontSize: '1.3rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-color)' }}>
-                        <span>📊</span> Seasonal Planting Suitability
+                        <span>📊</span> {language === 'kn' ? 'ಹಂಗಾಮು ಆಧಾರಿತ ನೆಡುವಿಕೆ ಸೂಕ್ತತೆ' : 'Seasonal Planting Suitability'}
                       </h3>
-                      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Detailed suitability compatibility ratings calculated dynamically based on regional soil chemistry and seasonal heat index profiles.</p>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>{t('suitability_desc')}</p>
                       
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                         {Object.entries(info.suitability).map(([season, list]) => (
                           <div key={season} style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '1.5rem' }}>
                             <h4 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--text-primary)', fontFamily: 'var(--font-display)', borderLeft: '3px solid var(--accent-color)', paddingLeft: '0.5rem' }}>
-                              {season} Planting Cycle
+                              {season} {language === 'kn' ? 'ನೆಡುವಿಕೆ ಚಕ್ರ' : 'Planting Cycle'}
                             </h4>
                             
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -4183,47 +5206,47 @@ The JSON must have this exact structure:
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
                 <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-color)' }}>{selectedEncyclopediaDisease.disease_code}</span>
-                <h2 style={{ fontSize: '1.8rem' }}>{selectedEncyclopediaDisease.disease_name}</h2>
+                <h2 style={{ fontSize: '1.8rem' }}>{td(selectedEncyclopediaDisease.disease_name)}</h2>
                 <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '0.95rem' }}>{selectedEncyclopediaDisease.scientific_name}</p>
               </div>
               <button onClick={() => setSelectedEncyclopediaDisease(null)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}><X size={24} /></button>
             </div>
 
             <div>
-              <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.25rem' }}>PATHOLOGICAL OVERVIEW</h4>
+              <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.25rem' }}>{language === 'kn' ? 'ರೋಗಶಾಸ್ತ್ರೀಯ ಅವಲೋಕನ' : 'PATHOLOGICAL OVERVIEW'}</h4>
               <p style={{ fontSize: '0.9rem', lineHeight: '1.6' }}>{selectedEncyclopediaDisease.disease_description}</p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div>
-                <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>CAUSE</h4>
+                <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ರೋಗಕಾರಕ ಕಾರಣ' : 'CAUSE'}</h4>
                 <p style={{ fontSize: '0.85rem' }}>{selectedEncyclopediaDisease.cause}</p>
               </div>
               <div>
-                <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>SEVERITY LEVEL</h4>
+                <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಗಂಭೀರತೆಯ ಮಟ್ಟ' : 'SEVERITY LEVEL'}</h4>
                 <span style={{
                   fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', fontWeight: 'bold', display: 'inline-block', marginTop: '0.25rem',
                   backgroundColor: selectedEncyclopediaDisease.severity === 'Critical' ? 'rgba(224,82,82,0.1)' : selectedEncyclopediaDisease.severity === 'Severe' ? 'rgba(245,166,35,0.1)' : 'rgba(82,232,150,0.1)',
                   color: selectedEncyclopediaDisease.severity === 'Critical' ? 'var(--danger-color)' : selectedEncyclopediaDisease.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
-                }}>{selectedEncyclopediaDisease.severity}</span>
+                }}>{tsev(selectedEncyclopediaDisease.severity)}</span>
               </div>
             </div>
 
             <div>
-              <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>TREATMENT PROTOCOLS</h4>
+              <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಚಿಕಿತ್ಸಾ ನಿಯಮಗಳು (ಪ್ರೋಟೋಕಾಲ್ಗಳು)' : 'TREATMENT PROTOCOLS'}</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
-                  <strong style={{ fontSize: '0.8rem', color: 'var(--accent-color)' }}>Immediate actions:</strong>
+                  <strong style={{ fontSize: '0.8rem', color: 'var(--accent-color)' }}>{language === 'kn' ? 'ತಕ್ಷಣದ ಕ್ರಮಗಳು:' : 'Immediate actions:'}</strong>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-primary)', marginTop: '0.25rem' }}>{selectedEncyclopediaDisease.treatment_plan.immediate_actions.join(', ')}</p>
                 </div>
                 <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
-                  <strong style={{ fontSize: '0.8rem', color: 'var(--warning-color)' }}>Chemical treatments:</strong>
+                  <strong style={{ fontSize: '0.8rem', color: 'var(--warning-color)' }}>{language === 'kn' ? 'ರಾಸಾಯನಿಕ ಚಿಕಿತ್ಸೆಗಳು:' : 'Chemical treatments:'}</strong>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-primary)', marginTop: '0.25rem' }}>
-                    {selectedEncyclopediaDisease.treatment_plan.chemical_treatments.map(c => `${c.chemical_name} (${c.active_ingredient})`).join(', ') || "No immediate chemicals recommended."}
+                    {selectedEncyclopediaDisease.treatment_plan.chemical_treatments.map(c => `${c.chemical_name} (${c.active_ingredient})`).join(', ') || (language === 'kn' ? "ಯಾವುದೇ ರಾಸಾಯನಿಕ ಚಿಕಿತ್ಸೆ ಶಿಫಾರಸು ಮಾಡಲಾಗಿಲ್ಲ." : "No immediate chemicals recommended.")}
                   </p>
                 </div>
                 <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
-                  <strong style={{ fontSize: '0.8rem', color: 'var(--accent-color)' }}>Organic alternative:</strong>
+                  <strong style={{ fontSize: '0.8rem', color: 'var(--accent-color)' }}>{language === 'kn' ? 'ಸಾವಯವ ಪರ್ಯಾಯಗಳು:' : 'Organic alternative:'}</strong>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-primary)', marginTop: '0.25rem' }}>
                     {selectedEncyclopediaDisease.treatment_plan.organic_alternatives.map(o => o.remedy).join(', ')}
                   </p>
@@ -4232,7 +5255,7 @@ The JSON must have this exact structure:
             </div>
 
             <button onClick={() => setSelectedEncyclopediaDisease(null)} className="btn-secondary" style={{ width: '100%' }}>
-              Close Encyclopedia Detail
+              {language === 'kn' ? 'ವಿವರ ಮುಚ್ಚಿ' : 'Close Encyclopedia Detail'}
             </button>
           </div>
         </div>
