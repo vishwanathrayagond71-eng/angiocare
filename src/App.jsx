@@ -3348,7 +3348,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
       });
     });
     Promise.all(promises).then(base64s => {
-      setNewDiseaseImages(prev => [...prev, ...base64s].slice(0, 3)); // Limit to 3 images
+      setNewDiseaseImages(prev => [...prev, ...base64s].slice(0, 10)); // Limit to 10 images
       triggerToast(language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗಿದೆ!' : "Images uploaded successfully!", "success");
     }).catch(err => {
       console.error("Image upload failed", err);
@@ -5875,8 +5875,8 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                 </h4>
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                   {language === 'kn' 
-                    ? 'ಈ ರೋಗಕ್ಕೆ 3 ಮಾದರಿ ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಸಸ್ಯವಿಜ್ಞಾನಿ ಅಥವಾ ಸಂಶೋಧಕ ಹಕ್ಕುಗಳನ್ನು ಬಳಸಿ.' 
-                    : 'Use your scientist privileges to upload up to 3 specimen photos for this crop disease.'}
+                    ? 'ಈ ರೋಗಕ್ಕೆ 10 ಮಾದರಿ ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಸಸ್ಯವಿಜ್ಞಾನಿ ಅಥವಾ ಸಂಶೋಧಕ ಹಕ್ಕುಗಳನ್ನು ಬಳಸಿ.' 
+                    : 'Use your scientist privileges to upload up to 10 specimen photos for this crop disease.'}
                 </p>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                   <input
@@ -5896,7 +5896,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                         });
                       });
                       Promise.all(promises).then(base64s => {
-                        const newImagesList = base64s.slice(0, 3);
+                        const newImagesList = base64s.slice(0, 10);
                         const updatedMap = {
                           ...customDiseaseImages,
                           [selectedEncyclopediaDisease.disease_code]: newImagesList
@@ -6239,7 +6239,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
 
               {/* Row 8: Uploader */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontFamily: 'var(--font-mono)' }}>UPLOADER DISEASE IMAGES (MAX 3) *</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontFamily: 'var(--font-mono)' }}>UPLOADER DISEASE IMAGES (MAX 10) *</label>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
                   <input
                     type="file"
@@ -6254,7 +6254,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                     {language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಆರಿಸಿ' : 'Browse Visuals'}
                   </label>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                    {newDiseaseImages.length} / 3 {language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗಿದೆ' : 'images uploaded'}
+                    {newDiseaseImages.length} / 10 {language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗಿದೆ' : 'images uploaded'}
                   </span>
                 </div>
                 
