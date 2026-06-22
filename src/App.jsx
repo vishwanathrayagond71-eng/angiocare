@@ -236,6 +236,19 @@ const getDiseaseImages = (diseaseId) => {
 function getExtendedDiseaseReport(base, plantName) {
   const name = base.name;
   const code = base.id;
+  
+  let loadedCustomImages = [];
+  try {
+    const saved = localStorage.getItem('ac_disease_images_map');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed && parsed[code]) {
+        loadedCustomImages = parsed[code];
+      }
+    }
+  } catch (e) {
+    console.error(e);
+  }
   const category = base.category;
   const scientific = base.scientific_name;
   const severity = base.severity;
@@ -587,7 +600,7 @@ function getExtendedDiseaseReport(base, plantName) {
     disease_description: description,
     spread_risk,
     if_untreated,
-    images: base.images || getDiseaseImages(code),
+    images: loadedCustomImages.length > 0 ? loadedCustomImages : (base.images || getDiseaseImages(code)),
     is_custom: base.is_custom || false,
     treatment_plan: {
       immediate_actions,
@@ -1743,6 +1756,19 @@ export default function App() {
       console.error("Init custom diseases failed", e);
     }
     return [];
+  });
+
+  const [customDiseaseImages, setCustomDiseaseImages] = useState(() => {
+    try {
+      const saved = localStorage.getItem('ac_disease_images_map');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') return parsed;
+      }
+    } catch (e) {
+      console.error("Init custom disease images map failed", e);
+    }
+    return {};
   });
 
   const t = (key) => {
@@ -4663,8 +4689,8 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                   const matchCat = encCategory === 'All' || d.category === encCategory;
                   return matchSearch && matchCat;
                 }).map(d => {
-                  const diseaseImgs = d.images || getDiseaseImages(d.id);
-                  const previewImg = diseaseImgs && diseaseImgs.length > 0 ? diseaseImgs[0] : '';
+                  const customImages = customDiseaseImages[d.id] || d.images || getDiseaseImages(d.id);
+                  const previewImg = customImages && customImages.length > 0 ? customImages[0] : '';
                   return (
                     <div
                       key={d.id}
@@ -5565,6 +5591,84 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                       />
                     </div>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Botanist/Researcher Image Upload Section for existing disease */}
+            {currentUser && (currentUser.role === 'Botanist' || currentUser.role === 'Researcher') && (
+              <div style={{ padding: '1rem', borderRadius: '8px', border: '1px dashed var(--border-color)', backgroundColor: 'rgba(82,232,150,0.02)' }}>
+                <h4 style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Upload size={16} />
+                  {language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಸೇರಿಸಿ/ಅಪ್‌ಲೋಡ್ ಮಾಡಿ' : 'ADD/UPDATE VISUAL SPECIMENS'}
+                </h4>
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                  {language === 'kn' 
+                    ? 'ಈ ರೋಗಕ್ಕೆ 3 ಮಾದರಿ ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಸಸ್ಯವಿಜ್ಞಾನಿ ಅಥವಾ ಸಂಶೋಧಕ ಹಕ್ಕುಗಳನ್ನು ಬಳಸಿ.' 
+                    : 'Use your scientist privileges to upload up to 3 specimen photos for this crop disease.'}
+                </p>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    id={`modal-disease-upload-${selectedEncyclopediaDisease.disease_code}`}
+                    style={{ display: 'none' }}
+                    onChange={(e) => {
+                      const files = Array.from(e.target.files);
+                      const promises = files.map(file => {
+                        return new Promise((resolve, reject) => {
+                          const reader = new FileReader();
+                          reader.onload = () => resolve(reader.result);
+                          reader.onerror = reject;
+                          reader.readAsDataURL(file);
+                        });
+                      });
+                      Promise.all(promises).then(base64s => {
+                        const newImagesList = base64s.slice(0, 3);
+                        const updatedMap = {
+                          ...customDiseaseImages,
+                          [selectedEncyclopediaDisease.disease_code]: newImagesList
+                        };
+                        setCustomDiseaseImages(updatedMap);
+                        localStorage.setItem('ac_disease_images_map', JSON.stringify(updatedMap));
+                        
+                        setSelectedEncyclopediaDisease(prev => ({
+                          ...prev,
+                          images: newImagesList
+                        }));
+                        
+                        triggerToast(language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗಿದೆ!' : "Images uploaded successfully!", "success");
+                      }).catch(err => {
+                        console.error(err);
+                        triggerToast("Failed to process images.", "error");
+                      });
+                    }}
+                  />
+                  <label htmlFor={`modal-disease-upload-${selectedEncyclopediaDisease.disease_code}`} className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem' }}>
+                    <Plus size={14} />
+                    {language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ' : 'Select Images'}
+                  </label>
+                  {selectedEncyclopediaDisease.images && selectedEncyclopediaDisease.images.length > 0 && (
+                    <button
+                      onClick={() => {
+                        const updatedMap = { ...customDiseaseImages };
+                        delete updatedMap[selectedEncyclopediaDisease.disease_code];
+                        setCustomDiseaseImages(updatedMap);
+                        localStorage.setItem('ac_disease_images_map', JSON.stringify(updatedMap));
+                        
+                        setSelectedEncyclopediaDisease(prev => ({
+                          ...prev,
+                          images: []
+                        }));
+                        triggerToast(language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ತೆಗೆದುಹಾಕಲಾಗಿದೆ!' : "Images removed successfully!", "info");
+                      }}
+                      className="btn-secondary"
+                      style={{ color: 'var(--danger-color)', borderColor: 'rgba(224,82,82,0.3)', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.8rem', backgroundColor: 'transparent', cursor: 'pointer' }}
+                    >
+                      {language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಅಳಿಸಿ' : 'Clear Images'}
+                    </button>
+                  )}
                 </div>
               </div>
             )}
