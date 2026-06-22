@@ -232,6 +232,47 @@ const getDiseaseImages = (diseaseId) => {
   return [];
 };
 
+// --- DYNAMIC CROP NAME RESOLVER ---
+const getCropNameFromId = (diseaseId) => {
+  const prefix = String(diseaseId || "").substring(0, 3).toUpperCase();
+  switch (prefix) {
+    case "JOW": return "Jowar (Sorghum)";
+    case "MAZ": return "Maize";
+    case "BAJ": return "Bajra (Pearl Millet)";
+    case "WHT": return "Wheat";
+    case "COT": return "Cotton";
+    case "SUG": return "Sugarcane";
+    case "RED": return "Red Gram (Tur)";
+    case "BEN": return "Bengal Gram (Chickpea)";
+    case "GRN": return "Green Gram (Moong)";
+    case "BLK": return "Black Gram (Urad)";
+    case "GND": return "Groundnut";
+    case "SUN": return "Sunflower";
+    case "SES": return "Sesame";
+    case "CHL": return "Chilli";
+    case "ONN": return "Onion";
+    default: {
+      const idStr = String(diseaseId || "").toUpperCase();
+      if (idStr.includes("JOW")) return "Jowar (Sorghum)";
+      if (idStr.includes("MAZ")) return "Maize";
+      if (idStr.includes("BAJ")) return "Bajra (Pearl Millet)";
+      if (idStr.includes("WHT")) return "Wheat";
+      if (idStr.includes("COT")) return "Cotton";
+      if (idStr.includes("SUG")) return "Sugarcane";
+      if (idStr.includes("RED")) return "Red Gram (Tur)";
+      if (idStr.includes("BEN")) return "Bengal Gram (Chickpea)";
+      if (idStr.includes("GRN")) return "Green Gram (Moong)";
+      if (idStr.includes("BLK")) return "Black Gram (Urad)";
+      if (idStr.includes("GND")) return "Groundnut";
+      if (idStr.includes("SUN")) return "Sunflower";
+      if (idStr.includes("SES")) return "Sesame";
+      if (idStr.includes("CHL")) return "Chilli";
+      if (idStr.includes("ONN")) return "Onion";
+      return "General Crop";
+    }
+  }
+};
+
 // --- DYNAMIC PATHOLOGY DATA GENERATOR ---
 function getExtendedDiseaseReport(base, plantName) {
   const name = base.name;
@@ -4736,9 +4777,15 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           <h3 style={{ fontSize: '1.2rem', marginBottom: '0.25rem', lineHeight: '1.3' }}>{td(d.name)}</h3>
                           <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '0.8rem', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{d.scientific_name}</p>
                         </div>
-                        <span style={{ alignSelf: 'flex-start', fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: 'var(--surface-light)', color: 'var(--accent-color)', border: '1px solid var(--border-color)' }}>
-                          {tcat(d.category)}
-                        </span>
+                        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+                          <span style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: 'var(--surface-light)', color: 'var(--accent-color)', border: '1px solid var(--border-color)' }}>
+                            {tcat(d.category)}
+                          </span>
+                          <span style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: 'rgba(82,232,150,0.06)', color: 'var(--accent-color)', border: '1px solid rgba(82,232,150,0.15)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                            <Sprout size={12} />
+                            {tc(getCropNameFromId(d.id))}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   );
@@ -5673,10 +5720,17 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
               </div>
             )}
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+              <div>
+                <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಬಾಧಿತ ಬೆಳೆ' : 'AFFECTED CROP'}</h4>
+                <p style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', gap: '0.25rem', marginTop: '0.25rem' }}>
+                  <Sprout size={14} />
+                  {tc(getCropNameFromId(selectedEncyclopediaDisease.disease_code))}
+                </p>
+              </div>
               <div>
                 <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ರೋಗಕಾರಕ ಕಾರಣ' : 'CAUSE'}</h4>
-                <p style={{ fontSize: '0.85rem' }}>{selectedEncyclopediaDisease.cause}</p>
+                <p style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>{selectedEncyclopediaDisease.cause}</p>
               </div>
               <div>
                 <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ಗಂಭೀರತೆಯ ಮಟ್ಟ' : 'SEVERITY LEVEL'}</h4>
