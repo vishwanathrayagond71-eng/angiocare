@@ -226,6 +226,39 @@ const COMMON_SYMPTOMS = [
   { id: "sym-10", text: "Water-soaked red tissue in stems", diseaseCode: "SUG-001" }
 ];
 
+// --- DYNAMIC DISEASE IMAGES GENERATOR ---
+const getDiseaseImages = (diseaseId) => {
+  const pool = [
+    "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1533038590840-1cde6e6e4055?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1563201378-3665689a9f24?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1507598641400-ec3536ba81bc?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1587334206586-4f707f1bd062?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&fit=crop&w=600&q=80"
+  ];
+  
+  let hash = 0;
+  const idStr = String(diseaseId || "");
+  for (let i = 0; i < idStr.length; i++) {
+    hash += idStr.charCodeAt(i);
+  }
+  const idx1 = hash % pool.length;
+  const idx2 = (hash + 3) % pool.length;
+  const idx3 = (hash + 7) % pool.length;
+  
+  return [
+    pool[idx1],
+    pool[idx2 === idx1 ? (idx2 + 1) % pool.length : idx2],
+    pool[idx3 === idx1 || idx3 === idx2 ? (idx3 + 2) % pool.length : idx3]
+  ];
+};
+
 // --- DYNAMIC PATHOLOGY DATA GENERATOR ---
 function getExtendedDiseaseReport(base, plantName) {
   const name = base.name;
@@ -581,6 +614,8 @@ function getExtendedDiseaseReport(base, plantName) {
     disease_description: description,
     spread_risk,
     if_untreated,
+    images: base.images || getDiseaseImages(code),
+    is_custom: base.is_custom || false,
     treatment_plan: {
       immediate_actions,
       chemical_treatments,
@@ -1430,6 +1465,10 @@ function translateReport(report, lang) {
                            report.spread_risk === "High" ? "ಹೆಚ್ಚು" :
                            report.spread_risk === "Medium" ? "ಮಧ್ಯಮ" : "ಕಡಿಮೆ";
   
+  if (report.is_custom) {
+    return translated;
+  }
+  
   if (report.category === "Fungal") {
     translated.symptoms_observed = ["ಎಲೆಗಳ ಮೇಲೆ ಬಿಳಿ ಬೂದಿ ತರಹದ ಕಲೆಗಳು", "ಎಲೆಯ ಅಂಚುಗಳು ಹಳದಿಯಾಗುವುದು", "ಮೇಲ್ಭಾಗದಲ್ಲಿ ಒಣಗಿದ ಕಂದು ಕಲೆಗಳು", "ಅಕಾಲಿಕ ಎಲೆ ಉದುರುವಿಕೆ"];
     translated.cause = "ಗಾಳಿ, ಹೆಚ್ಚಿನ ತೇವಾಂಶ ಮತ್ತು ನೇರ ಎಲೆಗಳ ಸಂಪರ್ಕದ ಮೂಲಕ ಹರಡುವ ಶಿಲೀಂಧ್ರ ಬೀಜಕಗಳು.";
@@ -1720,6 +1759,19 @@ export default function App() {
     return 'en';
   });
 
+  const [customDiseases, setCustomDiseases] = useState(() => {
+    try {
+      const saved = localStorage.getItem('ac_custom_diseases');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error("Init custom diseases failed", e);
+    }
+    return [];
+  });
+
   const t = (key) => {
     return UI_TRANSLATIONS[language]?.[key] || UI_TRANSLATIONS['en']?.[key] || key;
   };
@@ -1731,6 +1783,8 @@ export default function App() {
 
   const td = (diseaseName) => {
     if (language !== 'kn') return diseaseName;
+    const custom = customDiseases.find(d => d.name === diseaseName);
+    if (custom && custom.name_kn) return custom.name_kn;
     return DISEASE_TRANSLATIONS[diseaseName] || diseaseName;
   };
 
@@ -1898,6 +1952,32 @@ export default function App() {
   const [encSearch, setEncSearch] = useState('');
   const [encCategory, setEncCategory] = useState('All');
   const [selectedEncyclopediaDisease, setSelectedEncyclopediaDisease] = useState(null);
+
+  const combinedDiseases = useMemo(() => {
+    return [...ENCYCLOPEDIA_DATABASE, ...customDiseases];
+  }, [customDiseases]);
+
+  // Botanist Add Crop Disease Form State
+  const [showAddDiseaseModal, setShowAddDiseaseModal] = useState(false);
+  const [newDiseaseName, setNewDiseaseName] = useState('');
+  const [newDiseaseNameKn, setNewDiseaseNameKn] = useState('');
+  const [newDiseaseScientific, setNewDiseaseScientific] = useState('');
+  const [newDiseaseCrop, setNewDiseaseCrop] = useState('Jowar (Sorghum)');
+  const [newDiseaseCategory, setNewDiseaseCategory] = useState('Fungal');
+  const [newDiseaseSeverity, setNewDiseaseSeverity] = useState('Moderate');
+  const [newDiseaseDesc, setNewDiseaseDesc] = useState('');
+  const [newDiseaseDescKn, setNewDiseaseDescKn] = useState('');
+  const [newDiseaseCause, setNewDiseaseCause] = useState('');
+  const [newDiseaseCauseKn, setNewDiseaseCauseKn] = useState('');
+  const [newDiseaseAction, setNewDiseaseAction] = useState('');
+  const [newDiseaseActionKn, setNewDiseaseActionKn] = useState('');
+  const [newDiseaseChemicalName, setNewDiseaseChemicalName] = useState('');
+  const [newDiseaseChemicalIngredient, setNewDiseaseChemicalIngredient] = useState('');
+  const [newDiseaseChemicalCost, setNewDiseaseChemicalCost] = useState('');
+  const [newDiseaseOrganicRemedy, setNewDiseaseOrganicRemedy] = useState('');
+  const [newDiseaseOrganicPrep, setNewDiseaseOrganicPrep] = useState('');
+  const [newDiseaseOrganicCost, setNewDiseaseOrganicCost] = useState('');
+  const [newDiseaseImages, setNewDiseaseImages] = useState([]);
 
   // Fields (My Fields) state
   const [fields, setFields] = useState(() => {
@@ -2617,9 +2697,9 @@ The JSON must have this exact structure:
         const activeSymptomObj = COMMON_SYMPTOMS.find(s => selectedSymptoms.includes(s.text));
         
         if (activeSymptomObj) {
-          const baseDisease = ENCYCLOPEDIA_DATABASE.find(d => d.id === activeSymptomObj.diseaseCode);
+          const baseDisease = combinedDiseases.find(d => d.id === activeSymptomObj.diseaseCode);
           if (baseDisease) {
-            const cropDiseases = ENCYCLOPEDIA_DATABASE.filter(d => d.id.startsWith(prefix));
+            const cropDiseases = combinedDiseases.filter(d => d.id.startsWith(prefix));
             const matchedInCrop = cropDiseases.find(d => d.name.toLowerCase().includes(baseDisease.name.toLowerCase().split(' ')[0]));
             if (matchedInCrop) {
               diseaseId = matchedInCrop.id;
@@ -2632,7 +2712,7 @@ The JSON must have this exact structure:
         } else {
           // 2. Search for disease name or scientific name keyword in plant name input text
           let matchedDisease = null;
-          for (const disease of ENCYCLOPEDIA_DATABASE) {
+          for (const disease of combinedDiseases) {
             if (lowerPlant.includes(disease.name.toLowerCase()) || 
                 (disease.scientific_name && lowerPlant.includes(disease.scientific_name.toLowerCase()))) {
               matchedDisease = disease;
@@ -2644,13 +2724,13 @@ The JSON must have this exact structure:
             diseaseId = matchedDisease.id;
           } else {
             // 3. Pick a random disease from the resolved crop prefix
-            const availableDiseases = ENCYCLOPEDIA_DATABASE.filter(d => d.id.startsWith(prefix));
+            const availableDiseases = combinedDiseases.filter(d => d.id.startsWith(prefix));
             const randomDisease = availableDiseases[Math.floor(Math.random() * availableDiseases.length)];
             diseaseId = randomDisease ? randomDisease.id : "JOW-001";
           }
         }
 
-        const selectedBase = ENCYCLOPEDIA_DATABASE.find(d => d.id === diseaseId);
+        const selectedBase = combinedDiseases.find(d => d.id === diseaseId);
         finalReport = getExtendedDiseaseReport(selectedBase, nameToUse);
       }
 
@@ -2979,6 +3059,121 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
     }));
 
     triggerToast("Tagged to Field successfully!", "success");
+  };
+  
+  // --- BOTANIST DISEASE REGISTRATION ACTIONS ---
+  const handleNewDiseaseImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    const promises = files.map(file => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    });
+    Promise.all(promises).then(base64s => {
+      setNewDiseaseImages(prev => [...prev, ...base64s].slice(0, 3)); // Limit to 3 images
+      triggerToast(language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗಿದೆ!' : "Images uploaded successfully!", "success");
+    }).catch(err => {
+      console.error("Image upload failed", err);
+      triggerToast(language === 'kn' ? 'ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ವಿಫಲವಾಗಿದೆ.' : "Image upload failed.", "error");
+    });
+  };
+
+  const handleAddNewDisease = (e) => {
+    e.preventDefault();
+    if (!newDiseaseName.trim()) {
+      triggerToast(language === 'kn' ? 'ರೋಗದ ಹೆಸರನ್ನು ನಮೂದಿಸಿ!' : "Please enter the disease name!", "error");
+      return;
+    }
+
+    // Auto-generate code prefix based on crop
+    let prefix = "JOW";
+    const cropLower = newDiseaseCrop.toLowerCase();
+    if (cropLower.includes("maize")) prefix = "MAZ";
+    else if (cropLower.includes("bajra")) prefix = "BAJ";
+    else if (cropLower.includes("wheat")) prefix = "WHT";
+    else if (cropLower.includes("cotton")) prefix = "COT";
+    else if (cropLower.includes("sugarcane")) prefix = "SUG";
+    else if (cropLower.includes("red gram") || cropLower.includes("tur")) prefix = "RED";
+    else if (cropLower.includes("bengal gram") || cropLower.includes("chickpea")) prefix = "BEN";
+    else if (cropLower.includes("green gram") || cropLower.includes("moong")) prefix = "GRN";
+    else if (cropLower.includes("black gram") || cropLower.includes("urad")) prefix = "BLK";
+    else if (cropLower.includes("groundnut") || cropLower.includes("peanut")) prefix = "GND";
+    else if (cropLower.includes("sunflower")) prefix = "SUN";
+    else if (cropLower.includes("sesame")) prefix = "SES";
+    else if (cropLower.includes("chilli") || cropLower.includes("chili")) prefix = "CHL";
+    else if (cropLower.includes("onion")) prefix = "ONN";
+
+    const customId = `CUSTOM-${prefix}-${Date.now()}`;
+
+    const newDisease = {
+      id: customId,
+      name: newDiseaseName,
+      name_kn: newDiseaseNameKn || newDiseaseName,
+      scientific_name: newDiseaseScientific || "Unspecified scientific name",
+      category: newDiseaseCategory,
+      severity: newDiseaseSeverity,
+      is_custom: true,
+      images: newDiseaseImages.length > 0 ? newDiseaseImages : getDiseaseImages(customId),
+      cause: newDiseaseCause || "Pathological strain development",
+      cause_kn: newDiseaseCauseKn || newDiseaseCause || "ರೋಗಕಾರಕ ಜೈವಿಕ ಪರಿಣಾಮ",
+      disease_description: newDiseaseDesc || "Crop disease specimen recorded by lab agronomist.",
+      disease_description_kn: newDiseaseDescKn || newDiseaseDesc || "ಕೃಷಿ ತಜ್ಞರಿಂದ ದಾಖಲಿಸಲ್ಪಟ್ಟ ಬೆಳೆ ರೋಗ ಮಾಹಿತಿ.",
+      treatment_plan: {
+        immediate_actions: [newDiseaseAction || "Isolate crop fields."],
+        immediate_actions_kn: [newDiseaseActionKn || newDiseaseAction || "ಸೋಂಕಿತ ಬೆಳೆಯನ್ನು ಪ್ರತ್ಯೇಕಿಸಿ."],
+        chemical_treatments: newDiseaseChemicalName ? [{
+          chemical_name: newDiseaseChemicalName,
+          active_ingredient: newDiseaseChemicalIngredient || "Unspecified",
+          approximate_cost: "₹" + (newDiseaseChemicalCost || "1,200"),
+          dosage: "Standard concentration",
+          application_method: "Foliar mist spray",
+          frequency: "Weekly intervals",
+          safety_precautions: "Use breathing mask during spray."
+        }] : [],
+        organic_alternatives: newDiseaseOrganicRemedy ? [{
+          remedy: newDiseaseOrganicRemedy,
+          preparation: newDiseaseOrganicPrep || "Mix with water",
+          approximate_cost: "₹" + (newDiseaseOrganicCost || "500"),
+          application: "Spray on leaves during sunset."
+        }] : [],
+        preventive_measures: ["Keep farm hygiene.", "Perform crop rotation."]
+      }
+    };
+
+    const updatedList = [...customDiseases, newDisease];
+    setCustomDiseases(updatedList);
+    try {
+      localStorage.setItem('ac_custom_diseases', JSON.stringify(updatedList));
+    } catch (err) {
+      console.error("Save custom disease to localstorage failed", err);
+    }
+
+    triggerToast(language === 'kn' ? 'ಹೊಸ ಬೆಳೆ ರೋಗ ಯಶಸ್ವಿಯಾಗಿ ನೋಂದಾಯಿಸಲಾಗಿದೆ!' : "New crop disease successfully registered!", "success");
+    
+    // Clear form state
+    setNewDiseaseName('');
+    setNewDiseaseNameKn('');
+    setNewDiseaseScientific('');
+    setNewDiseaseCrop('Jowar (Sorghum)');
+    setNewDiseaseCategory('Fungal');
+    setNewDiseaseSeverity('Moderate');
+    setNewDiseaseDesc('');
+    setNewDiseaseDescKn('');
+    setNewDiseaseCause('');
+    setNewDiseaseCauseKn('');
+    setNewDiseaseAction('');
+    setNewDiseaseActionKn('');
+    setNewDiseaseChemicalName('');
+    setNewDiseaseChemicalIngredient('');
+    setNewDiseaseChemicalCost('');
+    setNewDiseaseOrganicRemedy('');
+    setNewDiseaseOrganicPrep('');
+    setNewDiseaseOrganicCost('');
+    setNewDiseaseImages([]);
+    setShowAddDiseaseModal(false);
   };
 
   // --- SETTINGS EXPORT DATA ---
@@ -4390,9 +4585,9 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                               <button
                                 key={d}
                                 onClick={() => {
-                                  const matched = ENCYCLOPEDIA_DATABASE.find(item => item.name.toLowerCase().includes(d.toLowerCase()));
+                                  const matched = combinedDiseases.find(item => item.name.toLowerCase().includes(d.toLowerCase()));
                                   if (matched) {
-                                    setSelectedEncyclopediaDisease(getExtendedDiseaseReport(matched, activeReport.plant_name));
+                                    setSelectedEncyclopediaDisease(translateReport(getExtendedDiseaseReport(matched, activeReport.plant_name), language));
                                   } else {
                                     triggerToast(language === 'kn' ? 'ಕಾಯಿಲೆಯ ವಿವರಗಳು ಕೇವಲ ವಿಶ್ವಕೋಶದಲ್ಲಿ ಲಭ್ಯವಿದೆ.' : "Complication detail is only available in the full Encyclopedia.", "info");
                                   }
@@ -4418,7 +4613,19 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
           {/* 3. ENCYCLOPEDIA VIEW */}
           {activeTab === 'encyclopedia' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <p style={{ color: 'var(--text-muted)' }}>{t('catalog_desc')}</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                <p style={{ color: 'var(--text-muted)' }}>{t('catalog_desc')}</p>
+                {currentUser && (currentUser.role === 'Botanist' || currentUser.role === 'Researcher') && (
+                  <button
+                    onClick={() => setShowAddDiseaseModal(true)}
+                    className="btn-primary"
+                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.25rem', borderRadius: '8px' }}
+                  >
+                    <Plus size={16} />
+                    {language === 'kn' ? 'ಹೊಸ ರೋಗ ದಾಖಲಿಸಿ' : 'Register New Disease'}
+                  </button>
+                )}
+              </div>
 
               {/* Search and Categories bar */}
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -4454,7 +4661,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
 
               {/* Encyclopedia Grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
-                {ENCYCLOPEDIA_DATABASE.filter(d => {
+                {combinedDiseases.filter(d => {
                   const matchSearch = d.name.toLowerCase().includes(encSearch.toLowerCase()) ||
                                       d.scientific_name.toLowerCase().includes(encSearch.toLowerCase()) ||
                                       d.id.toLowerCase().includes(encSearch.toLowerCase());
@@ -5217,6 +5424,34 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
               <p style={{ fontSize: '0.9rem', lineHeight: '1.6' }}>{selectedEncyclopediaDisease.disease_description}</p>
             </div>
 
+            {/* Disease Visuals Gallery */}
+            {selectedEncyclopediaDisease.images && selectedEncyclopediaDisease.images.length > 0 && (
+              <div>
+                <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>
+                  {language === 'kn' ? 'ರೋಗದ ಮಾದರಿ ಚಿತ್ರಗಳು' : 'DISEASE VISUAL SPECIMENS'}
+                </h4>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+                  {selectedEncyclopediaDisease.images.map((imgUrl, idx) => (
+                    <div key={idx} style={{ position: 'relative', width: '100%', paddingBottom: '70%', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
+                      <img
+                        src={imgUrl}
+                        alt={`Specimen visual ${idx + 1}`}
+                        style={{
+                          position: 'absolute',
+                          top: 0, left: 0,
+                          width: '100%', height: '100%',
+                          objectFit: 'cover',
+                          cursor: 'pointer',
+                          transition: 'transform 0.3s ease'
+                        }}
+                        onClick={() => window.open(imgUrl, '_blank')}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div>
                 <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{language === 'kn' ? 'ರೋಗಕಾರಕ ಕಾರಣ' : 'CAUSE'}</h4>
@@ -5257,6 +5492,306 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
             <button onClick={() => setSelectedEncyclopediaDisease(null)} className="btn-secondary" style={{ width: '100%' }}>
               {language === 'kn' ? 'ವಿವರ ಮುಚ್ಚಿ' : 'Close Encyclopedia Detail'}
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Botanist Register New Crop Disease Modal */}
+      {showAddDiseaseModal && (
+        <div style={{
+          position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 2000,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem'
+        }}>
+          <div className="card-glass" style={{ maxWidth: '780px', width: '100%', padding: '2rem', maxHeight: '90vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h2 style={{ fontSize: '1.6rem', color: 'var(--accent-color)' }}>
+                  {language === 'kn' ? 'ಹೊಸ ರೋಗ ದಾಖಲಿಸಿ' : 'Register New Crop Disease'}
+                </h2>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                  {language === 'kn' ? 'ವೈಜ್ಞಾನಿಕ ವಿವರಗಳು, ರೋಗಲಕ್ಷಣಗಳು ಮತ್ತು ಚಿಕಿತ್ಸಾ ಕ್ರಮಗಳನ್ನು ನಮೂದಿಸಿ.' : 'Add scientific database entry with localized treatments and specimens.'}
+                </p>
+              </div>
+              <button onClick={() => setShowAddDiseaseModal(false)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}><X size={24} /></button>
+            </div>
+
+            <form onSubmit={handleAddNewDisease} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              
+              {/* Row 1: Basic Info */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>DISEASE NAME (ENGLISH) *</label>
+                  <input
+                    type="text"
+                    required
+                    value={newDiseaseName}
+                    onChange={(e) => setNewDiseaseName(e.target.value)}
+                    placeholder="e.g. Leaf Blight"
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>DISEASE NAME (KANNADA)</label>
+                  <input
+                    type="text"
+                    value={newDiseaseNameKn}
+                    onChange={(e) => setNewDiseaseNameKn(e.target.value)}
+                    placeholder="ಉದಾಹರಣೆಗೆ: ಎಲೆ ಕರಕು ರೋಗ"
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>SCIENTIFIC NAME</label>
+                  <input
+                    type="text"
+                    value={newDiseaseScientific}
+                    onChange={(e) => setNewDiseaseScientific(e.target.value)}
+                    placeholder="e.g. Bipolaris oryzae"
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+              </div>
+
+              {/* Row 2: Crop selection & Category */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>HOST PLANT SPECIES *</label>
+                  <select
+                    value={newDiseaseCrop}
+                    onChange={(e) => setNewDiseaseCrop(e.target.value)}
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                  >
+                    {PLANTS_LIST.map(p => (
+                      <option key={p} value={p}>{p}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>PATHOGEN CATEGORY</label>
+                  <select
+                    value={newDiseaseCategory}
+                    onChange={(e) => setNewDiseaseCategory(e.target.value)}
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                  >
+                    <option value="Fungal">Fungal</option>
+                    <option value="Bacterial">Bacterial</option>
+                    <option value="Viral">Viral</option>
+                    <option value="Nematodal">Nematodal</option>
+                    <option value="Pest">Pest</option>
+                    <option value="Nutritional Deficiency">Nutritional Deficiency</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>SEVERITY LEVEL</label>
+                  <select
+                    value={newDiseaseSeverity}
+                    onChange={(e) => setNewDiseaseSeverity(e.target.value)}
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                  >
+                    <option value="Mild">Mild</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Severe">Severe</option>
+                    <option value="Critical">Critical</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Row 3: Descriptions */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>PATHOLOGICAL OVERVIEW (ENGLISH)</label>
+                  <textarea
+                    rows={2}
+                    value={newDiseaseDesc}
+                    onChange={(e) => setNewDiseaseDesc(e.target.value)}
+                    placeholder="Enter description..."
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none', resize: 'vertical' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>PATHOLOGICAL OVERVIEW (KANNADA)</label>
+                  <textarea
+                    rows={2}
+                    value={newDiseaseDescKn}
+                    onChange={(e) => setNewDiseaseDescKn(e.target.value)}
+                    placeholder="ಕನ್ನಡದಲ್ಲಿ ವಿವರಣೆ..."
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none', resize: 'vertical' }}
+                  />
+                </div>
+              </div>
+
+              {/* Row 4: Pathogen Cause */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>PATHOGEN CAUSE / TRIGGER (ENGLISH)</label>
+                  <input
+                    type="text"
+                    value={newDiseaseCause}
+                    onChange={(e) => setNewDiseaseCause(e.target.value)}
+                    placeholder="e.g. Excess rainfall, warm temperature..."
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>PATHOGEN CAUSE / TRIGGER (KANNADA)</label>
+                  <input
+                    type="text"
+                    value={newDiseaseCauseKn}
+                    onChange={(e) => setNewDiseaseCauseKn(e.target.value)}
+                    placeholder="ಉದಾಹರಣೆಗೆ: ಹೆಚ್ಚಿನ ತೇವಾಂಶ ಮತ್ತು ಬಿಸಿ ವಾತಾವರಣ..."
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+              </div>
+
+              {/* Row 5: Immediate actions */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>IMMEDIATE ACTION PROTOCOL (ENGLISH)</label>
+                  <input
+                    type="text"
+                    value={newDiseaseAction}
+                    onChange={(e) => setNewDiseaseAction(e.target.value)}
+                    placeholder="e.g. Cut and burn infected foliage."
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>IMMEDIATE ACTION PROTOCOL (KANNADA)</label>
+                  <input
+                    type="text"
+                    value={newDiseaseActionKn}
+                    onChange={(e) => setNewDiseaseActionKn(e.target.value)}
+                    placeholder="ಉದಾಹರಣೆಗೆ: ಒಣಗಿದ ರೆಂಬೆಗಳನ್ನು ಕತ್ತರಿಸಿ ನಾಶಮಾಡಿ."
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+              </div>
+
+              {/* Row 6: Chemical treatments */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>CHEMICAL REMEDY NAME</label>
+                  <input
+                    type="text"
+                    value={newDiseaseChemicalName}
+                    onChange={(e) => setNewDiseaseChemicalName(e.target.value)}
+                    placeholder="e.g. Copper Hydroxide spray"
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>ACTIVE INGREDIENT</label>
+                  <input
+                    type="text"
+                    value={newDiseaseChemicalIngredient}
+                    onChange={(e) => setNewDiseaseChemicalIngredient(e.target.value)}
+                    placeholder="e.g. Copper Hydroxide (53.8%)"
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>CHEMICAL COST (₹)</label>
+                  <input
+                    type="number"
+                    value={newDiseaseChemicalCost}
+                    onChange={(e) => setNewDiseaseChemicalCost(e.target.value)}
+                    placeholder="e.g. 1500"
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+              </div>
+
+              {/* Row 7: Organic alternatives */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>ORGANIC REMEDY REMEDIAL TEXT</label>
+                  <input
+                    type="text"
+                    value={newDiseaseOrganicRemedy}
+                    onChange={(e) => setNewDiseaseOrganicRemedy(e.target.value)}
+                    placeholder="e.g. Neem Oil application"
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>PREPARATION PROTOCOL</label>
+                  <input
+                    type="text"
+                    value={newDiseaseOrganicPrep}
+                    onChange={(e) => setNewDiseaseOrganicPrep(e.target.value)}
+                    placeholder="e.g. Mix 5ml neem oil with soapy water"
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>ORGANIC COST (₹)</label>
+                  <input
+                    type="number"
+                    value={newDiseaseOrganicCost}
+                    onChange={(e) => setNewDiseaseOrganicCost(e.target.value)}
+                    placeholder="e.g. 600"
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
+                  />
+                </div>
+              </div>
+
+              {/* Row 8: Uploader */}
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontFamily: 'var(--font-mono)' }}>UPLOADER DISEASE IMAGES (MAX 3) *</label>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleNewDiseaseImageUpload}
+                    style={{ display: 'none' }}
+                    id="botanist-file-upload"
+                  />
+                  <label htmlFor="botanist-file-upload" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.25rem', borderRadius: '8px', cursor: 'pointer' }}>
+                    <Upload size={14} />
+                    {language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಆರಿಸಿ' : 'Browse Visuals'}
+                  </label>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                    {newDiseaseImages.length} / 3 {language === 'kn' ? 'ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗಿದೆ' : 'images uploaded'}
+                  </span>
+                </div>
+                
+                {/* Thumbnails */}
+                {newDiseaseImages.length > 0 && (
+                  <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+                    {newDiseaseImages.map((b64, idx) => (
+                      <div key={idx} style={{ position: 'relative', width: '80px', height: '60px', borderRadius: '4px', overflow: 'hidden', border: '1px solid var(--border-color)' }}>
+                        <img src={b64} alt={`Thumb ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <button
+                          type="button"
+                          onClick={() => setNewDiseaseImages(prev => prev.filter((_, i) => i !== idx))}
+                          style={{
+                            position: 'absolute', top: '2px', right: '2px',
+                            backgroundColor: 'rgba(0,0,0,0.7)', border: 'none', borderRadius: '50%',
+                            color: '#fff', width: '18px', height: '18px', cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem'
+                          }}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Form Buttons */}
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                <button type="button" onClick={() => setShowAddDiseaseModal(false)} className="btn-secondary" style={{ flex: 1 }}>
+                  {language === 'kn' ? 'ರದ್ದುಮಾಡಿ' : 'Cancel'}
+                </button>
+                <button type="submit" className="btn-primary" style={{ flex: 1 }}>
+                  {language === 'kn' ? 'ದಾಖಲೆಯನ್ನು ಉಳಿಸಿ' : 'Save Disease Entry'}
+                </button>
+              </div>
+
+            </form>
           </div>
         </div>
       )}
