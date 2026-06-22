@@ -3046,9 +3046,23 @@ export default function App() {
       }
     }
     
-    // Set matching threshold: 36 for crop-specific, 28 for global/unknown crop
-    const maxThreshold = cropPrefix ? 36 : 28;
-    if (minDistance > maxThreshold) {
+    // Set matching threshold
+    // If the matched candidate is a default SVG illustration, we use a very strict threshold (<= 12)
+    // because real photos compared to SVG drawings create random matching noise.
+    // If it's a custom photo uploaded by users/botanists, we allow a relaxed threshold (36 for crop-specific, 28 global).
+    let threshold = 28;
+    if (bestMatch) {
+      const bestCandidate = filteredCandidates.find(c => c.disease.id === bestMatch.id);
+      if (bestCandidate) {
+        if (bestCandidate.source === 'default_svg') {
+          threshold = 12;
+        } else {
+          threshold = cropPrefix ? 36 : 28;
+        }
+      }
+    }
+
+    if (minDistance > threshold) {
       return null;
     }
     
