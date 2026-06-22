@@ -467,6 +467,16 @@ const getDynamicDiseaseSVG = (diseaseId, diseaseName, category, severity) => {
   const crops = getCropsFromId(diseaseId);
   const primaryCrop = crops[0] || "General Crop";
   
+  // Seed a simple deterministic random generator based on diseaseId string
+  let seed = 0;
+  for (let i = 0; i < diseaseId.length; i++) {
+    seed += diseaseId.charCodeAt(i) * (i + 1);
+  }
+  const random = () => {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+  };
+
   let leafColor = "#2D6A4F"; 
   let spotColor = "#1B4332"; 
   let spotRadius = 3;
@@ -483,12 +493,19 @@ const getDynamicDiseaseSVG = (diseaseId, diseaseName, category, severity) => {
   }
 
   if (category === "Fungal") {
-    spotColor = "#5c4033"; 
-    spotRadius = 4;
+    // Vary fungal spots color and size deterministically
+    const r = 80 + Math.floor(random() * 40); // 80 - 120
+    const g = 50 + Math.floor(random() * 30); // 50 - 80
+    const b = 30 + Math.floor(random() * 20); // 30 - 50
+    spotColor = `rgb(${r},${g},${b})`; 
+    spotRadius = 3.5 + random() * 1.5;
     spotStyle = "circle";
   } else if (category === "Bacterial") {
-    spotColor = "#8b0000"; 
-    spotRadius = 5;
+    const r = 120 + Math.floor(random() * 40); // 120 - 160
+    const g = 20 + Math.floor(random() * 20);
+    const b = 20 + Math.floor(random() * 20);
+    spotColor = `rgb(${r},${g},${b})`;
+    spotRadius = 4.5 + random() * 2;
     spotStyle = "blotches";
   } else if (category === "Viral") {
     spotColor = "#e6c300"; 
@@ -498,39 +515,56 @@ const getDynamicDiseaseSVG = (diseaseId, diseaseName, category, severity) => {
     spotColor = "#111D14"; 
     spotStyle = "bites";
   } else if (category === "Nutritional Deficiency") {
-    spotColor = "#c2d130"; 
+    // Vary yellow margin color
+    const h = 55 + Math.floor(random() * 15); // Hue 55 - 70 (yellow to greenish yellow)
+    spotColor = `hsl(${h}, 70%, 45%)`;
     leafColor = "#668560";
     spotStyle = "margins";
   }
 
   let spotElements = "";
   if (spotStyle === "circle") {
+    // Generate deterministic unique coordinates
     for (let i = 0; i < spotCount; i++) {
-      const cx = 43 + Math.sin(i * 1.5) * 6;
-      const cy = 20 + i * 5;
-      spotElements += `<circle cx="${cx}" cy="${cy}" r="${spotRadius * (0.6 + (i%3)*0.2)}" fill="${spotColor}" opacity="0.8" />`;
+      const cx = 42 + Math.floor(random() * 16); // 42 - 58
+      const cy = 15 + Math.floor(random() * 70); // 15 - 85
+      const r = spotRadius * (0.6 + random() * 0.8);
+      spotElements += `<circle cx="${cx}" cy="${cy}" r="${r.toFixed(1)}" fill="${spotColor}" opacity="0.85" />`;
     }
   } else if (spotStyle === "blotches") {
-    for (let i = 0; i < 7; i++) {
-      const cx = 45 + Math.cos(i) * 4;
-      const cy = 25 + i * 8;
-      spotElements += `<ellipse cx="${cx}" cy="${cy}" rx="${spotRadius * 1.1}" ry="${spotRadius * 0.6}" transform="rotate(${i*15} ${cx} ${cy})" fill="${spotColor}" opacity="0.75" />`;
+    const count = 5 + Math.floor(random() * 4); // 5 - 8
+    for (let i = 0; i < count; i++) {
+      const cx = 43 + Math.floor(random() * 14); // 43 - 57
+      const cy = 20 + Math.floor(random() * 60); // 20 - 80
+      const rx = (spotRadius * (0.7 + random() * 0.8)).toFixed(1);
+      const ry = (spotRadius * (0.4 + random() * 0.6)).toFixed(1);
+      const rot = Math.floor(random() * 180);
+      spotElements += `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" transform="rotate(${rot} ${cx} ${cy})" fill="${spotColor}" opacity="0.8" />`;
     }
   } else if (spotStyle === "mosaic") {
-    for (let i = 0; i < 10; i++) {
-      const cx = 44 + (i % 2) * 8;
-      const cy = 20 + i * 6;
-      spotElements += `<rect x="${cx}" y="${cy}" width="6" height="6" rx="1.5" fill="${spotColor}" opacity="0.7" />`;
+    const count = 8 + Math.floor(random() * 6); // 8 - 13
+    for (let i = 0; i < count; i++) {
+      const cx = 40 + Math.floor(random() * 18);
+      const cy = 18 + Math.floor(random() * 65);
+      const w = 5 + Math.floor(random() * 4);
+      const h = 5 + Math.floor(random() * 4);
+      spotElements += `<rect x="${cx}" y="${cy}" width="${w}" height="${h}" rx="1.5" fill="${spotColor}" opacity="0.75" />`;
     }
   } else if (spotStyle === "bites") {
+    const biteX1 = (25 + random() * 6).toFixed(1);
+    const biteY1 = (35 + random() * 10).toFixed(1);
+    const biteR1 = (6 + random() * 4).toFixed(1);
+    const biteX2 = (68 + random() * 6).toFixed(1);
+    const biteY2 = (55 + random() * 12).toFixed(1);
+    const biteR2 = (7 + random() * 5).toFixed(1);
     spotElements += `
-      <circle cx="28" cy="40" r="8" fill="#0A1A0F" />
-      <circle cx="26" cy="42" r="6" fill="#0A1A0F" />
-      <circle cx="72" cy="60" r="10" fill="#0A1A0F" />
+      <circle cx="${biteX1}" cy="${biteY1}" r="${biteR1}" fill="#0A1A0F" />
+      <circle cx="${biteX2}" cy="${biteY2}" r="${biteR2}" fill="#0A1A0F" />
     `;
   } else if (spotStyle === "margins") {
+    const strokeWidth = (3 + random() * 3).toFixed(1);
     spotElements += `
-      <path d="${leafPath}" fill="none" stroke="${spotColor}" stroke-width="4" opacity="0.5" />
+      <path d="${leafPath}" fill="none" stroke="${spotColor}" stroke-width="${strokeWidth}" opacity="0.6" />
     `;
   }
 
@@ -2913,7 +2947,7 @@ export default function App() {
     return distance;
   };
 
-  const predictDiseaseFromEncyclopediaImages = async (scanImageBase64) => {
+  const predictDiseaseFromEncyclopediaImages = async (scanImageBase64, plantName) => {
     if (!scanImageBase64) return null;
     
     const scanHash = await getImageHash(scanImageBase64);
@@ -2931,7 +2965,7 @@ export default function App() {
           if (img) {
             const found = combinedDiseases.find(d => d.id === diseaseCode);
             if (found) {
-              candidates.push({ disease: found, image: img });
+              candidates.push({ disease: found, image: img, source: 'custom_upload' });
             }
           }
         });
@@ -2943,32 +2977,78 @@ export default function App() {
       if (Array.isArray(d.images)) {
         d.images.forEach(img => {
           if (img) {
-            candidates.push({ disease: d, image: img });
+            candidates.push({ disease: d, image: img, source: 'custom_disease' });
           }
         });
+      }
+    }
+
+    // 3. From default database diseases (including their dynamic SVGs if no custom images exist)
+    for (const d of combinedDiseases) {
+      const customImages = customDiseaseImages[d.id];
+      if (!customImages || customImages.length === 0) {
+        const defaultImages = getDiseaseImages(d.id);
+        if (Array.isArray(defaultImages)) {
+          defaultImages.forEach(img => {
+            if (img) {
+              candidates.push({ disease: d, image: img, source: 'default_svg' });
+            }
+          });
+        }
       }
     }
     
     if (candidates.length === 0) return null;
     
-    // Calculate hashes for all candidates
-    const hashPromises = candidates.map(c => getImageHash(c.image));
+    // Resolve Crop prefix based on plantName
+    let cropPrefix = "";
+    if (plantName) {
+      const lowerPlant = plantName.toLowerCase();
+      if (lowerPlant.includes("jowar") || lowerPlant.includes("sorghum")) cropPrefix = "JOW";
+      else if (lowerPlant.includes("maize") || lowerPlant.includes("corn")) cropPrefix = "MAZ";
+      else if (lowerPlant.includes("bajra") || lowerPlant.includes("millet")) cropPrefix = "BAJ";
+      else if (lowerPlant.includes("wheat")) cropPrefix = "WHT";
+      else if (lowerPlant.includes("cotton")) cropPrefix = "COT";
+      else if (lowerPlant.includes("sugarcane")) cropPrefix = "SUG";
+      else if (lowerPlant.includes("red gram") || lowerPlant.includes("tur")) cropPrefix = "RED";
+      else if (lowerPlant.includes("bengal gram") || lowerPlant.includes("chickpea")) cropPrefix = "BEN";
+      else if (lowerPlant.includes("green gram") || lowerPlant.includes("moong")) cropPrefix = "GRN";
+      else if (lowerPlant.includes("black gram") || lowerPlant.includes("urad")) cropPrefix = "BLK";
+      else if (lowerPlant.includes("groundnut") || lowerPlant.includes("peanut")) cropPrefix = "GND";
+      else if (lowerPlant.includes("sunflower")) cropPrefix = "SUN";
+      else if (lowerPlant.includes("sesame")) cropPrefix = "SES";
+      else if (lowerPlant.includes("chilli") || lowerPlant.includes("chili")) cropPrefix = "CHL";
+      else if (lowerPlant.includes("onion")) cropPrefix = "ONN";
+    }
+
+    // Filter candidates by crop if resolved
+    let filteredCandidates = candidates;
+    if (cropPrefix) {
+      filteredCandidates = candidates.filter(c => c.disease.id.startsWith(cropPrefix));
+      // If no candidates exist for this crop, fall back to global matching
+      if (filteredCandidates.length === 0) {
+        filteredCandidates = candidates;
+      }
+    }
+    
+    // Calculate hashes for all filtered candidates
+    const hashPromises = filteredCandidates.map(c => getImageHash(c.image));
     const hashes = await Promise.all(hashPromises);
     
-    for (let i = 0; i < candidates.length; i++) {
+    for (let i = 0; i < filteredCandidates.length; i++) {
       const cHash = hashes[i];
       if (cHash) {
         const dist = getHammingDistance(scanHash, cHash);
         if (dist < minDistance) {
           minDistance = dist;
-          bestMatch = candidates[i].disease;
+          bestMatch = filteredCandidates[i].disease;
         }
       }
     }
     
-    // If the Hamming distance is too high (e.g. > 28, indicating <56% structural similarity),
-    // then it's not a visual match, so don't identify it.
-    if (minDistance > 28) {
+    // Set matching threshold: 36 for crop-specific, 28 for global/unknown crop
+    const maxThreshold = cropPrefix ? 36 : 28;
+    if (minDistance > maxThreshold) {
       return null;
     }
     
@@ -3030,7 +3110,7 @@ export default function App() {
 
       const scannedImg = frontCameraImage || rearCameraImage || uploadedFiles[0];
       if (scannedImg) {
-        matchedResult = await predictDiseaseFromEncyclopediaImages(scannedImg);
+        matchedResult = await predictDiseaseFromEncyclopediaImages(scannedImg, nameToUse);
       }
 
       if (matchedResult) {
