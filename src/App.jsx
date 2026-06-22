@@ -2755,44 +2755,122 @@ export default function App() {
     triggerToast("Image removed.", "info");
   };
 
-  // --- ENCYCLOPEDIA IMAGE MATCHING PREDICTION ENGINE ---
-  const findMatchingDiseaseFromImage = (scanImageBase64) => {
+  // --- COMPUTER VISION AVERAGE HASH (aHash) SIMILARITY ENGINE ---
+  const getImageHash = (base64Str) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = base64Str;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 8;
+        canvas.height = 8;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(null);
+          return;
+        }
+        ctx.drawImage(img, 0, 0, 8, 8);
+        const imgData = ctx.getImageData(0, 0, 8, 8);
+        const data = imgData.data;
+        
+        let sum = 0;
+        const grays = new Uint8Array(64);
+        for (let i = 0; i < 64; i++) {
+          const r = data[i * 4];
+          const g = data[i * 4 + 1];
+          const b = data[i * 4 + 2];
+          const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+          grays[i] = gray;
+          sum += gray;
+        }
+        const avg = sum / 64;
+        
+        let hash = "";
+        for (let i = 0; i < 64; i++) {
+          hash += grays[i] >= avg ? "1" : "0";
+        }
+        resolve(hash);
+      };
+      img.onerror = () => resolve(null);
+    });
+  };
+
+  const getHammingDistance = (hash1, hash2) => {
+    if (!hash1 || !hash2 || hash1.length !== hash2.length) return 999;
+    let distance = 0;
+    for (let i = 0; i < hash1.length; i++) {
+      if (hash1[i] !== hash2[i]) {
+        distance++;
+      }
+    }
+    return distance;
+  };
+
+  const predictDiseaseFromEncyclopediaImages = async (scanImageBase64) => {
     if (!scanImageBase64) return null;
     
-    // Clean base64 payload to ignore header metadata differences
-    const cleanScan = scanImageBase64.split(',')[1] || scanImageBase64;
+    const scanHash = await getImageHash(scanImageBase64);
+    if (!scanHash) return null;
     
-    // 1. Search in customDiseaseImages (visual specimens added to existing diseases)
+    let bestMatch = null;
+    let minDistance = 999;
+    
+    const candidates = [];
+    
+    // 1. From customDiseaseImages (visual specimens uploaded by botanists/researchers)
     for (const [diseaseCode, images] of Object.entries(customDiseaseImages)) {
       if (Array.isArray(images)) {
-        for (const img of images) {
+        images.forEach(img => {
           if (img) {
-            const cleanImg = img.split(',')[1] || img;
-            // Match exactly or do a high-confidence prefix character match (first 5000 chars)
-            if (cleanImg === cleanScan || cleanImg.substring(0, 5000) === cleanScan.substring(0, 5000)) {
-              const found = combinedDiseases.find(d => d.id === diseaseCode);
-              if (found) return found;
+            const found = combinedDiseases.find(d => d.id === diseaseCode);
+            if (found) {
+              candidates.push({ disease: found, image: img });
             }
           }
-        }
+        });
       }
     }
-
-    // 2. Search in customDiseases (new custom diseases registered by agronomists)
+    
+    // 2. From customDiseases (new custom diseases added by agronomists)
     for (const d of customDiseases) {
       if (Array.isArray(d.images)) {
-        for (const img of d.images) {
+        d.images.forEach(img => {
           if (img) {
-            const cleanImg = img.split(',')[1] || img;
-            if (cleanImg === cleanScan || cleanImg.substring(0, 5000) === cleanScan.substring(0, 5000)) {
-              return d;
-            }
+            candidates.push({ disease: d, image: img });
           }
+        });
+      }
+    }
+    
+    if (candidates.length === 0) return null;
+    
+    // Calculate hashes for all candidates
+    const hashPromises = candidates.map(c => getImageHash(c.image));
+    const hashes = await Promise.all(hashPromises);
+    
+    for (let i = 0; i < candidates.length; i++) {
+      const cHash = hashes[i];
+      if (cHash) {
+        const dist = getHammingDistance(scanHash, cHash);
+        if (dist < minDistance) {
+          minDistance = dist;
+          bestMatch = candidates[i].disease;
         }
       }
     }
     
-    return null;
+    // If the Hamming distance is too high (e.g. > 28, indicating <56% structural similarity),
+    // then it's not a visual match, so don't identify it.
+    if (minDistance > 28) {
+      return null;
+    }
+    
+    const similarity = Math.round(((64 - minDistance) / 64) * 100);
+    return {
+      disease: bestMatch,
+      distance: minDistance,
+      similarity: similarity
+    };
   };
 
   // --- AI ANALYSIS CONTROLLER ---
@@ -2841,19 +2919,20 @@ export default function App() {
 
     try {
       let finalReport = null;
-      let matchedDiseaseFromEncyclopedia = null;
+      let matchedResult = null;
 
       const scannedImg = frontCameraImage || rearCameraImage || uploadedFiles[0];
       if (scannedImg) {
-        matchedDiseaseFromEncyclopedia = findMatchingDiseaseFromImage(scannedImg);
+        matchedResult = await predictDiseaseFromEncyclopediaImages(scannedImg);
       }
 
-      if (matchedDiseaseFromEncyclopedia) {
-        // High-accuracy visual specimen database match
+      if (matchedResult) {
+        // High-accuracy client-side computer vision similarity AI match
         await new Promise(resolve => setTimeout(resolve, 1500));
-        finalReport = getExtendedDiseaseReport(matchedDiseaseFromEncyclopedia, nameToUse);
-        finalReport.confidence = 100;
+        finalReport = getExtendedDiseaseReport(matchedResult.disease, nameToUse);
+        finalReport.confidence = matchedResult.similarity;
         finalReport.isEncyclopediaMatch = true;
+        finalReport.matchMethod = "Average Hash (aHash) Similarity AI Algorithm";
       } else if (apiMode === 'live' && apiKey) {
         // Prepare images base64 payload
         const allBase64Images = [];
@@ -4780,12 +4859,15 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           </div>
                           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
                             {activeReport.report.isEncyclopediaMatch && (
-                              <span style={{
-                                fontSize: '0.75rem', padding: '0.25rem 0.5rem', borderRadius: '4px', fontWeight: 'bold',
-                                backgroundColor: 'rgba(82,232,150,0.15)', color: 'var(--accent-color)', border: '1px solid rgba(82,232,150,0.3)',
-                                display: 'inline-flex', alignItems: 'center', gap: '0.25rem'
-                              }}>
-                                ✨ {language === 'kn' ? 'ಎನ್ಸೈಕ್ಲೋಪೀಡಿಯಾ ಹೊಂದಾಣಿಕೆ' : 'Encyclopedia Match'}
+                              <span 
+                                title={activeReport.report.matchMethod || "Average Hash (aHash) Similarity AI Algorithm"}
+                                style={{
+                                  fontSize: '0.75rem', padding: '0.25rem 0.5rem', borderRadius: '4px', fontWeight: 'bold',
+                                  backgroundColor: 'rgba(82,232,150,0.15)', color: 'var(--accent-color)', border: '1px solid rgba(82,232,150,0.3)',
+                                  display: 'inline-flex', alignItems: 'center', gap: '0.25rem'
+                                }}
+                              >
+                                ✨ {language === 'kn' ? `ಎನ್ಸೈಕ್ಲೋಪೀಡಿಯಾ ಹೊಂದಾಣಿಕೆ (${activeReport.report.confidence}% ಸಾಮ್ಯತೆ)` : `Encyclopedia Match (${activeReport.report.confidence}% Similarity)`}
                               </span>
                             )}
                             <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', padding: '0.25rem 0.5rem', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
