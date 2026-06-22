@@ -2755,6 +2755,46 @@ export default function App() {
     triggerToast("Image removed.", "info");
   };
 
+  // --- ENCYCLOPEDIA IMAGE MATCHING PREDICTION ENGINE ---
+  const findMatchingDiseaseFromImage = (scanImageBase64) => {
+    if (!scanImageBase64) return null;
+    
+    // Clean base64 payload to ignore header metadata differences
+    const cleanScan = scanImageBase64.split(',')[1] || scanImageBase64;
+    
+    // 1. Search in customDiseaseImages (visual specimens added to existing diseases)
+    for (const [diseaseCode, images] of Object.entries(customDiseaseImages)) {
+      if (Array.isArray(images)) {
+        for (const img of images) {
+          if (img) {
+            const cleanImg = img.split(',')[1] || img;
+            // Match exactly or do a high-confidence prefix character match (first 5000 chars)
+            if (cleanImg === cleanScan || cleanImg.substring(0, 5000) === cleanScan.substring(0, 5000)) {
+              const found = combinedDiseases.find(d => d.id === diseaseCode);
+              if (found) return found;
+            }
+          }
+        }
+      }
+    }
+
+    // 2. Search in customDiseases (new custom diseases registered by agronomists)
+    for (const d of customDiseases) {
+      if (Array.isArray(d.images)) {
+        for (const img of d.images) {
+          if (img) {
+            const cleanImg = img.split(',')[1] || img;
+            if (cleanImg === cleanScan || cleanImg.substring(0, 5000) === cleanScan.substring(0, 5000)) {
+              return d;
+            }
+          }
+        }
+      }
+    }
+    
+    return null;
+  };
+
   // --- AI ANALYSIS CONTROLLER ---
   const runPlantAnalysis = async () => {
     const nameToUse = isUnknown ? "Unknown Plant" : plantName;
@@ -2800,7 +2840,21 @@ export default function App() {
     }
 
     try {
-      let finalReport = null;      if (apiMode === 'live' && apiKey) {
+      let finalReport = null;
+      let matchedDiseaseFromEncyclopedia = null;
+
+      const scannedImg = frontCameraImage || rearCameraImage || uploadedFiles[0];
+      if (scannedImg) {
+        matchedDiseaseFromEncyclopedia = findMatchingDiseaseFromImage(scannedImg);
+      }
+
+      if (matchedDiseaseFromEncyclopedia) {
+        // High-accuracy visual specimen database match
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        finalReport = getExtendedDiseaseReport(matchedDiseaseFromEncyclopedia, nameToUse);
+        finalReport.confidence = 100;
+        finalReport.isEncyclopediaMatch = true;
+      } else if (apiMode === 'live' && apiKey) {
         // Prepare images base64 payload
         const allBase64Images = [];
         if (frontCameraImage) allBase64Images.push(frontCameraImage);
@@ -4263,7 +4317,14 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                                 color: s.report.severity === 'Critical' ? 'var(--danger-color)' : s.report.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
                               }}>{tsev(s.report.severity)}</span>
                             </div>
-                            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t('plant_label')} {tc(s.plant_name)} | {t('confidence_label')} {s.report.confidence}%</p>
+                            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.25rem' }}>
+                              {t('plant_label')} {tc(s.plant_name)} | {t('confidence_label')} {s.report.confidence}%
+                              {s.report.isEncyclopediaMatch && (
+                                <span style={{ padding: '0.05rem 0.2rem', borderRadius: '2px', backgroundColor: 'rgba(82,232,150,0.1)', color: 'var(--accent-color)', fontSize: '0.65rem', border: '1px solid rgba(82,232,150,0.2)', fontWeight: 'bold' }} title="Encyclopedia Specimen Match">
+                                  ✨ {language === 'kn' ? 'ಹೊಂದಾಣಿಕೆ' : 'Match'}
+                                </span>
+                              )}
+                            </p>
                           </div>
                           <button onClick={() => { setActiveReport(s); setActiveTab('scan'); }} className="btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}>
                             {t('report_btn')}
@@ -4717,7 +4778,16 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                             <h2 style={{ fontSize: '1.8rem', color: 'var(--text-primary)' }}>{localizedReport.disease_name}</h2>
                             <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '0.5rem' }}>{localizedReport.scientific_name}</p>
                           </div>
-                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                            {activeReport.report.isEncyclopediaMatch && (
+                              <span style={{
+                                fontSize: '0.75rem', padding: '0.25rem 0.5rem', borderRadius: '4px', fontWeight: 'bold',
+                                backgroundColor: 'rgba(82,232,150,0.15)', color: 'var(--accent-color)', border: '1px solid rgba(82,232,150,0.3)',
+                                display: 'inline-flex', alignItems: 'center', gap: '0.25rem'
+                              }}>
+                                ✨ {language === 'kn' ? 'ಎನ್ಸೈಕ್ಲೋಪೀಡಿಯಾ ಹೊಂದಾಣಿಕೆ' : 'Encyclopedia Match'}
+                              </span>
+                            )}
                             <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', padding: '0.25rem 0.5rem', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--surface-light)' }}>
                               {localizedReport.disease_code}
                             </span>
@@ -4731,6 +4801,9 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
 
                         {/* Chips row */}
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', borderRadius: '20px', backgroundColor: 'rgba(82,232,150,0.1)', color: 'var(--accent-color)', border: '1px solid rgba(82,232,150,0.3)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                            {language === 'kn' ? 'ನಿಖರತೆ:' : 'Confidence:'} <strong>{localizedReport.confidence}%</strong>
+                          </span>
                           <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', borderRadius: '20px', backgroundColor: 'var(--primary-color)', color: '#fff' }}>
                             {language === 'kn' ? 'ವರ್ಗ:' : 'Category:'} {localizedReport.category}
                           </span>
@@ -5092,8 +5165,15 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                             color: s.report.severity === 'Critical' ? 'var(--danger-color)' : s.report.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
                           }}>{tsev(s.report.severity)}</span>
                         </div>
-                        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                          {language === 'kn' ? 'ರೋಗನಿರ್ಣಯ ನಿಖರತೆ' : 'Diagnostic Confidence'}: <strong>{s.report.confidence}%</strong> | {language === 'kn' ? 'ಆರೋಗ್ಯ ಸ್ಕೋರ್' : 'Health Score'}: <strong>{Math.round(s.healthScore)}%</strong>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.35rem' }}>
+                          {language === 'kn' ? 'ರೋಗನಿರ್ಣಯ ನಿಖರತೆ' : 'Diagnostic Confidence'}: <strong>{s.report.confidence}%</strong>
+                          {s.report.isEncyclopediaMatch && (
+                            <span style={{ padding: '0.1rem 0.35rem', borderRadius: '3px', backgroundColor: 'rgba(82,232,150,0.1)', color: 'var(--accent-color)', fontSize: '0.7rem', border: '1px solid rgba(82,232,150,0.2)', fontWeight: 'bold' }}>
+                              ✨ {language === 'kn' ? 'ಎನ್ಸೈಕ್ಲೋಪೀಡಿಯಾ ಹೊಂದಾಣಿಕೆ' : 'Encyclopedia Match'}
+                            </span>
+                          )}
+                          {" | "}
+                          {language === 'kn' ? 'ಆರೋಗ್ಯ ಸ್ಕೋರ್' : 'Health Score'}: <strong>{Math.round(s.healthScore)}%</strong>
                         </p>
                         <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{language === 'kn' ? 'ದಿನಾಂಕ' : 'Date'}: {s.date} {s.time}</span>
                       </div>
