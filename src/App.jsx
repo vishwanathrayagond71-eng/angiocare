@@ -2140,7 +2140,7 @@ export default function App() {
         stats: { totalScans: 12, diseasesDetected: 4, plantsSaved: 10 }
       });
       try {
-        localStorage.setItem('ac_registered_users', JSON.stringify(list));
+        safeSetLocalStorage('ac_registered_users', JSON.stringify(list));
       } catch (e) {
         console.error(e);
       }
@@ -2593,7 +2593,7 @@ export default function App() {
 
           if (sanitizedHistory.length !== history.length || JSON.stringify(sanitizedHistory) !== saved) {
             setScanHistory(sanitizedHistory);
-            localStorage.setItem('ac_scan_history', JSON.stringify(sanitizedHistory));
+            safeSetLocalStorage('ac_scan_history', JSON.stringify(sanitizedHistory));
           }
         }
       }
@@ -2789,7 +2789,7 @@ export default function App() {
       }
 
       setCurrentUser(foundUser);
-      localStorage.setItem('ac_current_user', JSON.stringify(foundUser));
+      safeSetLocalStorage('ac_current_user', JSON.stringify(foundUser));
       triggerToast("Logged in successfully!", "success");
       if (scanHistory.length === 0) {
         setTimeout(() => startOnboardingTour(), 1000);
@@ -2808,10 +2808,10 @@ export default function App() {
       };
       const updatedList = [...registeredUsers, newUser];
       setRegisteredUsers(updatedList);
-      localStorage.setItem('ac_registered_users', JSON.stringify(updatedList));
+      safeSetLocalStorage('ac_registered_users', JSON.stringify(updatedList));
 
       setCurrentUser(newUser);
-      localStorage.setItem('ac_current_user', JSON.stringify(newUser));
+      safeSetLocalStorage('ac_current_user', JSON.stringify(newUser));
       triggerToast("Account registered successfully!", "success");
       setTimeout(() => startOnboardingTour(), 1000);
     }
@@ -3454,7 +3454,7 @@ The JSON must have this exact structure:
           }
         };
         setCurrentUser(updatedUser);
-        localStorage.setItem('ac_current_user', JSON.stringify(updatedUser));
+        safeSetLocalStorage('ac_current_user', JSON.stringify(updatedUser));
       }
 
       // Add Notification
@@ -3835,7 +3835,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
     const updatedList = [...customDiseases, newDisease];
     setCustomDiseases(updatedList);
     try {
-      localStorage.setItem('ac_custom_diseases', JSON.stringify(updatedList));
+      safeSetLocalStorage('ac_custom_diseases', JSON.stringify(updatedList));
     } catch (err) {
       console.error("Save custom disease to localstorage failed", err);
     }
@@ -5803,7 +5803,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                     location: profileLocation
                   };
                   setCurrentUser(updatedUser);
-                  localStorage.setItem('ac_current_user', JSON.stringify(updatedUser));
+                  safeSetLocalStorage('ac_current_user', JSON.stringify(updatedUser));
                   
                   const updatedUsersList = registeredUsers.map(u => 
                     u.email.toLowerCase() === currentUser.email.toLowerCase() 
@@ -5811,7 +5811,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                       : u
                   );
                   setRegisteredUsers(updatedUsersList);
-                  localStorage.setItem('ac_registered_users', JSON.stringify(updatedUsersList));
+                  safeSetLocalStorage('ac_registered_users', JSON.stringify(updatedUsersList));
                   
                   triggerToast(language === 'kn' ? 'ಪ್ರೊಫೈಲ್ ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ' : 'Profile updated successfully!', 'success');
                 }} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -5897,7 +5897,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                   value={treatmentPreference}
                   onChange={(e) => {
                     setTreatmentPreference(e.target.value);
-                    localStorage.setItem('ac_treatment_pref', e.target.value);
+                    safeSetLocalStorage('ac_treatment_pref', e.target.value);
                     const prefText = e.target.value === 'Both' ? (language === 'kn' ? 'ಎರಡೂ' : 'Both') : e.target.value === 'Organic' ? (language === 'kn' ? 'ಸಾವಯವ' : 'Organic') : (language === 'kn' ? 'ರಾಸಾಯನಿಕ' : 'Chemical');
                     triggerToast(language === 'kn' ? `ಆದ್ಯತೆಯನ್ನು ${prefText} ಗೆ ಹೊಂದಿಸಲಾಗಿದೆ` : `Preference set to ${e.target.value}`, "success");
                   }}
@@ -5919,7 +5919,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                       onClick={() => {
                         const newMode = apiMode === 'mock' ? 'live' : 'mock';
                         setApiMode(newMode);
-                        localStorage.setItem('ac_api_mode', newMode);
+                        safeSetLocalStorage('ac_api_mode', newMode);
                         triggerToast(language === 'kn' ? `ಎಪಿಐ ಇಂಜಿನ್ ಅನ್ನು ${newMode === 'live' ? 'ಲೈವ್' : 'ಮಾಕ್'} ಮೋಡ್‌ಗೆ ಹೊಂದಿಸಲಾಗಿದೆ` : `API Engine set to ${newMode.toUpperCase()} Mode`, "info");
                       }}
                       style={{
@@ -5945,7 +5945,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                       value={apiKey}
                       onChange={(e) => {
                         setApiKey(e.target.value);
-                        localStorage.setItem('ac_api_key', e.target.value);
+                        safeSetLocalStorage('ac_api_key', e.target.value);
                       }}
                       placeholder="sk-ant-..."
                       style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
@@ -5958,7 +5958,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                       value={proxyUrl}
                       onChange={(e) => {
                         setProxyUrl(e.target.value);
-                        localStorage.setItem('ac_proxy_url', e.target.value);
+                        safeSetLocalStorage('ac_proxy_url', e.target.value);
                       }}
                       placeholder="https://your-cors-proxy.workers.dev"
                       style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', backgroundColor: 'var(--surface-light)', border: '1px solid var(--border-color)', outline: 'none' }}
@@ -6393,7 +6393,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           [selectedEncyclopediaDisease.disease_code]: newImagesList
                         };
                         setCustomDiseaseImages(updatedMap);
-                        localStorage.setItem('ac_disease_images_map', JSON.stringify(updatedMap));
+                        safeSetLocalStorage('ac_disease_images_map', JSON.stringify(updatedMap));
                         
                         setSelectedEncyclopediaDisease(prev => ({
                           ...prev,
@@ -6417,7 +6417,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                         const updatedMap = { ...customDiseaseImages };
                         delete updatedMap[selectedEncyclopediaDisease.disease_code];
                         setCustomDiseaseImages(updatedMap);
-                        localStorage.setItem('ac_disease_images_map', JSON.stringify(updatedMap));
+                        safeSetLocalStorage('ac_disease_images_map', JSON.stringify(updatedMap));
                         
                         setSelectedEncyclopediaDisease(prev => ({
                           ...prev,
