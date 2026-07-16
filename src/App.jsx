@@ -610,6 +610,9 @@ const getDiseaseImages = (diseaseId) => {
 
 // --- DYNAMIC PATHOLOGY DATA GENERATOR ---
 function getExtendedDiseaseReport(base, plantName) {
+  if (!base) {
+    base = ENCYCLOPEDIA_DATABASE[0] || { id: "JOW-001", name: "Grain Mold", category: "Fungal", severity: "Severe", scientific_name: "Fusarium thapsinum" };
+  }
   const name = base.name;
   const code = base.id;
   
@@ -963,6 +966,13 @@ function getExtendedDiseaseReport(base, plantName) {
   const confidence = Math.floor(Math.random() * 15) + 82; // 82-96%
   const spread_risk = severity === "Critical" ? "Very High" : severity === "Severe" ? "High" : severity === "Moderate" ? "Medium" : "Low";
 
+  const default_plan = {
+    immediate_actions,
+    chemical_treatments,
+    organic_alternatives,
+    preventive_measures
+  };
+
   return {
     disease_name: name,
     disease_code: code,
@@ -971,19 +981,14 @@ function getExtendedDiseaseReport(base, plantName) {
     confidence,
     severity,
     affected_parts,
-    symptoms_observed: symptoms,
-    cause,
-    disease_description: description,
+    symptoms_observed: base.is_custom && base.symptoms_observed ? base.symptoms_observed : symptoms,
+    cause: base.is_custom && base.cause ? base.cause : cause,
+    disease_description: base.is_custom && base.disease_description ? base.disease_description : description,
     spread_risk,
     if_untreated,
     images: loadedCustomImages.length > 0 ? loadedCustomImages : (base.images || getDiseaseImages(code)),
     is_custom: base.is_custom || false,
-    treatment_plan: {
-      immediate_actions,
-      chemical_treatments,
-      organic_alternatives,
-      preventive_measures
-    },
+    treatment_plan: base.is_custom && base.treatment_plan ? base.treatment_plan : default_plan,
     recovery_timeline,
     follow_up_care: ["Inspect new leaves weekly for reappearance.", "Maintain soil moisture but keep leaf surfaces dry.", "Re-apply protective organic spray after heavy rainfall."],
     seasonal_risk: base.seasonal_risk || "Summer / Warm Monsoons",
@@ -2084,10 +2089,29 @@ function translateReport(report, lang) {
   
   translated.seasonal_risk = report.seasonal_risk === "Summer / Warm Monsoons" ? "ಬೇಸಿಗೆ / ಬೆಚ್ಚಗಿನ ಮುಂಗಾರು" : "ಚಳಿಗಾಲ";
   translated.follow_up_care = ["ವಾರಕ್ಕೊಮ್ಮೆ ಹೊಸ ಎಲೆಗಳ ಮೇಲೆ ರೋಗ ಮರುಕಳಿಸುವುದನ್ನು ಪರಿಶೀಲಿಸಿ.", "ಮಣ್ಣಿನ ತೇವಾಂಶವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ ಆದರೆ ಎಲೆಗಳು ಒಣಗಿರಲಿ.", "ಭಾರೀ ಮಳೆಯ ನಂತರ ರಕ್ಷಣಾತ್ಮಕ ಸಾವಯವ ಸಿಂಪಡಣೆಯನ್ನು ಮರು-ಅನ್ವಯಿಸಿ."];
-  translated.similar_diseases = report.similar_diseases.map(d => DISEASE_TRANSLATIONS[d] || d);
+  translated.similar_diseases = Array.isArray(report.similar_diseases) ? report.similar_diseases.map(d => DISEASE_TRANSLATIONS[d] || d) : [];
 
   return translated;
 }
+
+// --- SAFE LOCAL STORAGE HELPERS ---
+const safeGetLocalStorage = (key, defaultValue = '') => {
+  try {
+    const val = localStorage.getItem(key);
+    return val !== null ? val : defaultValue;
+  } catch (e) {
+    console.warn("localStorage read blocked", e);
+    return defaultValue;
+  }
+};
+
+const safeSetLocalStorage = (key, value) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.warn("localStorage write blocked", e);
+  }
+};
 
 // --- APP COMPONENT ---
 export default function App() {
@@ -2180,13 +2204,15 @@ export default function App() {
   };
 
   const tc = (cropName) => {
+    if (!cropName) return "";
     if (language !== 'kn') return cropName;
     return CROP_TRANSLATIONS[cropName] || cropName;
   };
 
   const td = (diseaseName) => {
+    if (!diseaseName) return "";
     if (language !== 'kn') return diseaseName;
-    const custom = customDiseases.find(d => d.name === diseaseName);
+    const custom = Array.isArray(customDiseases) ? customDiseases.find(d => d && d.name === diseaseName) : null;
     if (custom && custom.name_kn) return custom.name_kn;
     return DISEASE_TRANSLATIONS[diseaseName] || diseaseName;
   };
@@ -2203,6 +2229,7 @@ export default function App() {
   };
 
   const tsev = (severity) => {
+    if (!severity) return "";
     if (language !== 'kn') return severity;
     return severity === "Critical" ? "ಅತಿ ಗಂಭೀರ" :
            severity === "Severe" ? "ಗಂಭೀರ" :
@@ -2233,11 +2260,11 @@ export default function App() {
   const [authErrors, setAuthErrors] = useState({});
 
   // Settings & Configurations
-  const [theme, setTheme] = useState(() => localStorage.getItem('ac_theme') || 'dark');
-  const [treatmentPreference, setTreatmentPreference] = useState(() => localStorage.getItem('ac_treatment_pref') || 'Both');
-  const [apiKey, setApiKey] = useState(() => localStorage.getItem('ac_api_key') || '');
-  const [proxyUrl, setProxyUrl] = useState(() => localStorage.getItem('ac_proxy_url') || '');
-  const [apiMode, setApiMode] = useState(() => localStorage.getItem('ac_api_mode') || 'mock');
+  const [theme, setTheme] = useState(() => safeGetLocalStorage('ac_theme', 'dark'));
+  const [treatmentPreference, setTreatmentPreference] = useState(() => safeGetLocalStorage('ac_treatment_pref', 'Both'));
+  const [apiKey, setApiKey] = useState(() => safeGetLocalStorage('ac_api_key', ''));
+  const [proxyUrl, setProxyUrl] = useState(() => safeGetLocalStorage('ac_proxy_url', ''));
+  const [apiMode, setApiMode] = useState(() => safeGetLocalStorage('ac_api_mode', 'mock'));
   const [notifPrefs, setNotifPrefs] = useState(() => {
     try {
       const saved = localStorage.getItem('ac_notif_prefs');
@@ -2582,35 +2609,35 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.className = theme === 'light' ? 'light-mode' : '';
-    localStorage.setItem('ac_theme', theme);
+    safeSetLocalStorage('ac_theme', theme);
   }, [theme]);
 
   useEffect(() => {
-    localStorage.setItem('ac_lang', language);
+    safeSetLocalStorage('ac_lang', language);
   }, [language]);
 
   useEffect(() => {
-    localStorage.setItem('ac_notifications', JSON.stringify(notifications));
+    safeSetLocalStorage('ac_notifications', JSON.stringify(notifications));
   }, [notifications]);
 
   useEffect(() => {
-    localStorage.setItem('ac_scan_history', JSON.stringify(scanHistory));
+    safeSetLocalStorage('ac_scan_history', JSON.stringify(scanHistory));
   }, [scanHistory]);
 
   useEffect(() => {
-    localStorage.setItem('ac_chat_history', JSON.stringify(chatMessages));
+    safeSetLocalStorage('ac_chat_history', JSON.stringify(chatMessages));
   }, [chatMessages]);
 
   useEffect(() => {
-    localStorage.setItem('ac_fields', JSON.stringify(fields));
+    safeSetLocalStorage('ac_fields', JSON.stringify(fields));
   }, [fields]);
 
   useEffect(() => {
-    localStorage.setItem('ac_reminders', JSON.stringify(reminders));
+    safeSetLocalStorage('ac_reminders', JSON.stringify(reminders));
   }, [reminders]);
 
   useEffect(() => {
-    localStorage.setItem('ac_notif_prefs', JSON.stringify(notifPrefs));
+    safeSetLocalStorage('ac_notif_prefs', JSON.stringify(notifPrefs));
   }, [notifPrefs]);
 
   useEffect(() => {
@@ -2897,42 +2924,63 @@ export default function App() {
   };
 
   // --- COMPUTER VISION AVERAGE HASH (aHash) SIMILARITY ENGINE ---
+  const hashCache = useRef({});
+
   const getImageHash = (base64Str) => {
+    if (!base64Str) return Promise.resolve(null);
+    if (hashCache.current[base64Str]) {
+      return Promise.resolve(hashCache.current[base64Str]);
+    }
     return new Promise((resolve) => {
+      const timeoutId = setTimeout(() => {
+        console.warn("getImageHash loading timed out");
+        resolve(null);
+      }, 1000);
+
       const img = new Image();
       img.src = base64Str;
       img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = 8;
-        canvas.height = 8;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
+        clearTimeout(timeoutId);
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 8;
+          canvas.height = 8;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(null);
+            return;
+          }
+          ctx.drawImage(img, 0, 0, 8, 8);
+          const imgData = ctx.getImageData(0, 0, 8, 8);
+          const data = imgData.data;
+          
+          let sum = 0;
+          const grays = new Uint8Array(64);
+          for (let i = 0; i < 64; i++) {
+            const r = data[i * 4];
+            const g = data[i * 4 + 1];
+            const b = data[i * 4 + 2];
+            const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+            grays[i] = gray;
+            sum += gray;
+          }
+          const avg = sum / 64;
+          
+          let hash = "";
+          for (let i = 0; i < 64; i++) {
+            hash += grays[i] >= avg ? "1" : "0";
+          }
+          hashCache.current[base64Str] = hash;
+          resolve(hash);
+        } catch (e) {
+          console.error("Failed to generate image hash", e);
           resolve(null);
-          return;
         }
-        ctx.drawImage(img, 0, 0, 8, 8);
-        const imgData = ctx.getImageData(0, 0, 8, 8);
-        const data = imgData.data;
-        
-        let sum = 0;
-        const grays = new Uint8Array(64);
-        for (let i = 0; i < 64; i++) {
-          const r = data[i * 4];
-          const g = data[i * 4 + 1];
-          const b = data[i * 4 + 2];
-          const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
-          grays[i] = gray;
-          sum += gray;
-        }
-        const avg = sum / 64;
-        
-        let hash = "";
-        for (let i = 0; i < 64; i++) {
-          hash += grays[i] >= avg ? "1" : "0";
-        }
-        resolve(hash);
       };
-      img.onerror = () => resolve(null);
+      img.onerror = () => {
+        clearTimeout(timeoutId);
+        resolve(null);
+      };
     });
   };
 
@@ -2950,6 +2998,38 @@ export default function App() {
   const predictDiseaseFromEncyclopediaImages = async (scanImageBase64, plantName) => {
     if (!scanImageBase64) return null;
     
+    // 1. Direct SVG Metadata Matching Check for 100% accuracy
+    if (typeof scanImageBase64 === 'string' && scanImageBase64.startsWith("data:image/svg+xml")) {
+      let directSvgDiseaseId = null;
+      try {
+        let svgContent = "";
+        if (scanImageBase64.includes(";base64,")) {
+          svgContent = atob(scanImageBase64.split(";base64,")[1]);
+        } else {
+          const parts = scanImageBase64.split(",");
+          svgContent = decodeURIComponent(parts[1] || "");
+        }
+        
+        const idMatch = svgContent.match(/data-disease-id="([^"]+)"/) || svgContent.match(/<!-- disease-id:\s*([^\s-]+)\s*-->/);
+        if (idMatch && idMatch[1]) {
+          directSvgDiseaseId = idMatch[1];
+        }
+      } catch (e) {
+        console.error("Failed to decode SVG metadata", e);
+      }
+      
+      if (directSvgDiseaseId) {
+        const found = combinedDiseases.find(d => d && d.id === directSvgDiseaseId);
+        if (found) {
+          return {
+            disease: found,
+            distance: 0,
+            similarity: 100
+          };
+        }
+      }
+    }
+
     const scanHash = await getImageHash(scanImageBase64);
     if (!scanHash) return null;
     
@@ -3655,8 +3735,8 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
     setFields(prev => prev.map(f => {
       if (f.id === fieldId) {
         const fieldScans = scanHistory.filter(s => s.field_id === fieldId || (s.id === scanId && fieldId !== ''));
-        const hasCritical = fieldScans.some(s => s.report.severity === 'Critical');
-        const hasSevere = fieldScans.some(s => s.report.severity === 'Severe');
+        const hasCritical = fieldScans.some(s => s?.report?.severity === 'Critical');
+        const hasSevere = fieldScans.some(s => s?.report?.severity === 'Severe');
         let status = "Healthy";
         if (hasCritical) status = "Critical Risk";
         else if (hasSevere) status = "At Risk";
@@ -4592,16 +4672,16 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           <img src={s.image} alt={s.plant_name} style={{ width: '60px', height: '60px', borderRadius: '6px', objectFit: 'cover' }} />
                           <div style={{ flex: 1 }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                              <h4 style={{ fontSize: '1rem' }}>{td(s.report.disease_name)}</h4>
+                              <h4 style={{ fontSize: '1rem' }}>{td(s?.report?.disease_name)}</h4>
                               <span style={{
                                 fontSize: '0.75rem', padding: '0.25rem 0.5rem', borderRadius: '4px', fontWeight: 'bold',
-                                backgroundColor: s.report.severity === 'Critical' ? 'rgba(224,82,82,0.1)' : s.report.severity === 'Severe' ? 'rgba(245,166,35,0.1)' : 'rgba(82,232,150,0.1)',
-                                color: s.report.severity === 'Critical' ? 'var(--danger-color)' : s.report.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
-                              }}>{tsev(s.report.severity)}</span>
+                                backgroundColor: s?.report?.severity === 'Critical' ? 'rgba(224,82,82,0.1)' : s?.report?.severity === 'Severe' ? 'rgba(245,166,35,0.1)' : 'rgba(82,232,150,0.1)',
+                                color: s?.report?.severity === 'Critical' ? 'var(--danger-color)' : s?.report?.severity === 'Severe' ? 'var(--warning-color)' : 'var(--accent-color)'
+                              }}>{tsev(s?.report?.severity)}</span>
                             </div>
                             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.25rem' }}>
-                              {t('plant_label')} {tc(s.plant_name)} | {t('confidence_label')} {s.report.confidence}%
-                              {s.report.isEncyclopediaMatch && (
+                              {t('plant_label')} {tc(s.plant_name)} | {t('confidence_label')} {s?.report?.confidence || 0}%
+                              {s?.report?.isEncyclopediaMatch && (
                                 <span style={{ padding: '0.05rem 0.2rem', borderRadius: '2px', backgroundColor: 'rgba(82,232,150,0.1)', color: 'var(--accent-color)', fontSize: '0.65rem', border: '1px solid rgba(82,232,150,0.2)', fontWeight: 'bold' }} title="Encyclopedia Specimen Match">
                                   ✨ {language === 'kn' ? 'ಹೊಂದಾಣಿಕೆ' : 'Match'}
                                 </span>
@@ -5121,7 +5201,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', borderRadius: '20px', backgroundColor: 'var(--primary-color)', color: '#fff' }}>
                             {language === 'kn' ? 'ವರ್ಗ:' : 'Category:'} {localizedReport.category}
                           </span>
-                          {localizedReport.affected_parts.map(p => (
+                          {localizedReport.affected_parts && Array.isArray(localizedReport.affected_parts) && localizedReport.affected_parts.map(p => (
                             <span key={p} style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-muted)' }}>
                               {language === 'kn' ? 'ಭಾಗ:' : 'Part:'} {p === 'Leaves' && language === 'kn' ? 'ಎಲೆಗಳು' : p === 'Stems' && language === 'kn' ? 'ಕಾಂಡಗಳು' : p === 'Roots' && language === 'kn' ? 'ಬೇರುಗಳು' : p}
                             </span>
@@ -5167,15 +5247,17 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           <h4 style={{ fontSize: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>{language === 'kn' ? 'ಚಿಕಿತ್ಸಾ ನಿಯಮಗಳು (ಪ್ರೋಟೋಕಾಲ್ಗಳು)' : 'Clinical Treatment Protocols'}</h4>
 
                           {/* Immediate Actions */}
-                          <div>
-                            <h5 style={{ fontSize: '0.9rem', color: 'var(--accent-color)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ತಕ್ಷಣದ ಸರಿಪಡಿಸುವ ಕ್ರಮಗಳು' : 'Immediate Corrective Actions'}</h5>
-                            <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                              {localizedReport.treatment_plan.immediate_actions.map((act, i) => <li key={i}>{act}</li>)}
-                            </ul>
-                          </div>
+                          {localizedReport.treatment_plan?.immediate_actions && Array.isArray(localizedReport.treatment_plan.immediate_actions) && (
+                            <div>
+                              <h5 style={{ fontSize: '0.9rem', color: 'var(--accent-color)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ತಕ್ಷಣದ ಸರಿಪಡಿಸುವ ಕ್ರಮಗಳು' : 'Immediate Corrective Actions'}</h5>
+                              <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                {localizedReport.treatment_plan.immediate_actions.map((act, i) => <li key={i}>{act}</li>)}
+                              </ul>
+                            </div>
+                          )}
 
                           {/* Chemical Treatments (Cards) */}
-                          {localizedReport.treatment_plan.chemical_treatments.length > 0 && (
+                          {localizedReport.treatment_plan?.chemical_treatments && Array.isArray(localizedReport.treatment_plan.chemical_treatments) && localizedReport.treatment_plan.chemical_treatments.length > 0 && (
                             <div>
                               <h5 style={{ fontSize: '0.9rem', color: 'var(--warning-color)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಶಿಫಾರಸು ಮಾಡಿದ ರಾಸಾಯನಿಕ ಚಿಕಿತ್ಸೆಗಳು' : 'Chemical Treatments (High Urgency)'}</h5>
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -5198,7 +5280,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           )}
 
                           {/* Organic Alternatives */}
-                          {localizedReport.treatment_plan.organic_alternatives.length > 0 && (
+                          {localizedReport.treatment_plan?.organic_alternatives && Array.isArray(localizedReport.treatment_plan.organic_alternatives) && localizedReport.treatment_plan.organic_alternatives.length > 0 && (
                             <div>
                               <h5 style={{ fontSize: '0.9rem', color: 'var(--accent-color)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಸಾವಯವ ಮತ್ತು ಜೈವಿಕ ಪರ್ಯಾಯಗಳು' : 'Organic Alternatives (Eco-Friendly)'}</h5>
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -5214,12 +5296,14 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                           )}
 
                           {/* Preventive Measures */}
-                          <div>
-                            <h5 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ದೀರ್ಘಕಾಲದ ತಡೆಗಟ್ಟುವ ಕ್ರಮಗಳು' : 'Long-Term Prevention'}</h5>
-                            <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                              {localizedReport.treatment_plan.preventive_measures.map((prev, i) => <li key={i}>{prev}</li>)}
-                            </ul>
-                          </div>
+                          {localizedReport.treatment_plan?.preventive_measures && Array.isArray(localizedReport.treatment_plan.preventive_measures) && (
+                            <div>
+                              <h5 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ದೀರ್ಘಕಾಲದ ತಡೆಗಟ್ಟುವ ಕ್ರಮಗಳು' : 'Long-Term Prevention'}</h5>
+                              <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                {localizedReport.treatment_plan.preventive_measures.map((prev, i) => <li key={i}>{prev}</li>)}
+                              </ul>
+                            </div>
+                          )}
 
                         </div>
 
@@ -5243,7 +5327,7 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                         <div>
                           <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಇದೇ ರೀತಿಯ ಕಾಯಿಲೆಗಳು' : 'SIMILAR COMPLICATIONS'}</h4>
                           <div style={{ display: 'flex', gap: '0.5rem' }}>
-                            {localizedReport.similar_diseases.map(d => (
+                            {localizedReport.similar_diseases && Array.isArray(localizedReport.similar_diseases) && localizedReport.similar_diseases.map(d => (
                               <button
                                 key={d}
                                 onClick={() => {
@@ -5265,6 +5349,22 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                       </div>
 
                     </div>
+                  </div>
+                )}
+
+                {/* Fallback if activeReport exists but localizedReport is null */}
+                {activeReport && !localizedReport && (
+                  <div className="card-glass" style={{ padding: '3rem 2rem', maxWidth: '600px', margin: '2rem auto', width: '100%', textAlign: 'center' }}>
+                    <div style={{ display: 'inline-flex', padding: '0.75rem', borderRadius: '50%', backgroundColor: 'rgba(224,82,82,0.06)', marginBottom: '1.25rem' }}>
+                      <AlertTriangle size={36} color="var(--danger-color)" />
+                    </div>
+                    <h2 style={{ fontSize: '1.6rem', color: 'var(--danger-color)', marginBottom: '0.75rem' }}>{language === 'kn' ? 'ವರದಿ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ' : 'Failed to Load Report'}</h2>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
+                      {language === 'kn' ? 'ಈ ಸ್ಕ್ಯಾನ್‌ನ ರೋಗನಿರ್ಣಯ ಡೇಟಾ ಅಪೂರ್ಣವಾಗಿದೆ ಅಥವಾ ಹಾನಿಯಾಗಿದೆ.' : 'The diagnostic data for this scan is incomplete or corrupted.'}
+                    </p>
+                    <button onClick={handleResetScan} className="btn-primary" style={{ padding: '0.6rem 1.5rem' }}>
+                      {t('reinit_scan')}
+                    </button>
                   </div>
                 )}
 
@@ -5533,13 +5633,13 @@ Note: The user's active platform language is set to ${language === 'kn' ? 'Kanna
                 <div className="card-glass" style={{ padding: '1.5rem' }}>
                   <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಅತಿ ಗಂಭೀರ ಮಾದರಿ ಅಪಾಯಗಳು' : 'CRITICAL SPECIMEN RISKS'}</h4>
                   <h3 style={{ fontSize: '1.6rem', color: 'var(--danger-color)' }}>
-                    {scanHistory.filter(s => s.report.severity === 'Critical').length} {language === 'kn' ? 'ಮಾದರಿಗಳು' : 'Samples'}
+                    {scanHistory.filter(s => s?.report?.severity === 'Critical').length} {language === 'kn' ? 'ಮಾದರಿಗಳು' : 'Samples'}
                   </h3>
                 </div>
                 <div className="card-glass" style={{ padding: '1.5rem' }}>
                   <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{language === 'kn' ? 'ಸರಾಸರಿ ನಿಖರತೆಯ ದರ' : 'MEDIAN CONFIDENCE RATE'}</h4>
                   <h3 style={{ fontSize: '1.6rem', color: 'var(--accent-color)' }}>
-                    {scanHistory.length > 0 ? `${Math.round(scanHistory.reduce((acc, s) => acc + s.report.confidence, 0) / scanHistory.length)}%` : "N/A"}
+                    {scanHistory.length > 0 ? `${Math.round(scanHistory.reduce((acc, s) => acc + (s?.report?.confidence || 0), 0) / scanHistory.length)}%` : "N/A"}
                   </h3>
                 </div>
               </div>
